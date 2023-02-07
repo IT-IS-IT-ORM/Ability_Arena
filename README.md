@@ -5,6 +5,11 @@
 
 ---
 
+## TODO & BUG
+
+- Settings Page
+  - Language Select Option 的字体样式 (应该和 Input 字体保持一致)
+
 ## Games
 
 | Name         | Status |   Language |                  Description |
