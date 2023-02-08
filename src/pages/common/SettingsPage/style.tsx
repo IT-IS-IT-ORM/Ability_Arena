@@ -4,6 +4,7 @@ export const SettingsPageStyled = styled.div<{
 	showAvatarGrid: boolean;
 }>`
 	padding: 32px 24px;
+	position: relative;
 
 	.head {
 		display: flex;
@@ -38,7 +39,9 @@ export const SettingsPageStyled = styled.div<{
 		flex-flow: row wrap;
 		gap: 20px;
 
-		width: calc(100vw * 0.85 - 200px - 24px * 2);
+		width: calc(100% - 24px * 2);
+		max-height: calc(100% - 32px * 2 - 140px - 32px);
+		overflow: hidden auto;
 		margin-top: 32px;
 		padding: 20px;
 		border-radius: 12px;
@@ -122,7 +125,7 @@ export const SettingsPageStyled = styled.div<{
 			}
 
 			.field {
-				flex: 0 1 200px;
+				flex: 0 1 220px;
 
 				&,
 				.ant-select-selection-item {
