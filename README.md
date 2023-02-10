@@ -17,17 +17,20 @@
 
 ## Games
 
-| Name         | Status |   Language |                  Description |
-| :----------- | :----: | ---------: | ---------------------------: |
-| 真心话大冒险 | 开发中 | kkKZ, zhCN |                     懂得都懂 |
-| 谁是卧底     | 开发中 |       kkKZ |             找出与众不同的人 |
-| 连连看       | 待开发 |       kkKZ | 连接所有位置相近且相同的卡片 |
-| 大乱斗       | 策划中 |       zhCN |                     很好玩哦 |
+| Name         | Status |   Language | Has Bot |
+| :----------- | :----: | ---------: | ------: |
+| 真心话大冒险 | 开发中 | kkKZ, zhCN |      NO |
+| 谁是卧底     | 开发中 |       kkKZ |      NO |
+| 连连看       | 待开发 |       kkKZ |      NO |
+| 大乱斗       | 策划中 |       zhCN |      NO |
+| 斗地主       | 策划中 |       zhCN |      NO |
+| 6 张牌       | 策划中 |       zhCN |      NO |
+| 骗子牌       | 策划中 |       zhCN |      NO |
 
 ---
 
 ## 技术栈
 
-编程语言: `TypeScript`, `Python`
+编程语言: `TypeScript`,`JavaScript`
 
-框架: `React`, `Django-Rest-Framework`
+框架: `React`, `Socket.IO`, `TensorFlow`
