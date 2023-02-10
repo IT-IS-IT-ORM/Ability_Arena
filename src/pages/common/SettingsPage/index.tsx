@@ -4,6 +4,7 @@ import { A_User, A_Page } from '@/store';
 
 // i18n
 import i18next from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 // Hooks
 import { useBoolean, useMemoizedFn } from 'ahooks';
@@ -64,6 +65,8 @@ export default function SettingsPage() {
 	const [user, setUser] = useRecoilState(A_User);
 	// 页面信息
 	const [page, setPage] = useRecoilState(A_Page);
+	// 翻译函数
+	const { t } = useTranslation();
 
 	// 头像列表
 	const [
@@ -99,7 +102,9 @@ export default function SettingsPage() {
 				<div className="avatar-wrap">
 					<img src={avatarList[user.avatarIdx]} alt="avatar" />
 				</div>
-				<Button onClick={toggleAvatarGrid}>更改头像</Button>
+				<Button onClick={toggleAvatarGrid}>
+					{t('SettingsPage__changeAvatar') as string}
+				</Button>
 			</div>
 
 			<div className="avatar-grid">
@@ -117,7 +122,7 @@ export default function SettingsPage() {
 				<div className="group">
 					<div className="label">
 						<BiUser />
-						<span>用户名: </span>
+						<span>{t('SettingsPage__username')}: </span>
 					</div>
 					<Input
 						className="field"
@@ -129,7 +134,7 @@ export default function SettingsPage() {
 				<div className="group">
 					<div className="label">
 						<IoLanguage />
-						<span>界面语言: </span>
+						<span>{t('SettingsPage__language')}: </span>
 					</div>
 					<Select
 						className="field"
