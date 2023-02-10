@@ -7,16 +7,13 @@
 
 ## TODO & BUG
 
-- Settings Page
+- (BUG) Settings Page
+
   - Language Select Option 的字体样式 (应该和 Input 字体保持一致)
 
-> For Self
-
-- 首页添加 开灯/关灯 按钮 (切换 .grid 的 opacity)
-- 开关灯时 改变 .title, code 的样式
-
-- flashlight 移动端 样式
-- flashlight 移动端 使用 手势滑动
+- (TODO) Home Page
+  - 添加 开灯/关灯 按钮 (切换 .grid 的 opacity)
+  - 开关灯时 改变 .title, code 的样式
 
 ## Games
 
