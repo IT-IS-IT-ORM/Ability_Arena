@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const HomePageStyled = styled.div`
 	position: relative;
 	overflow: hidden;
+	cursor: none;
 
 	.flashlight {
 		position: absolute;

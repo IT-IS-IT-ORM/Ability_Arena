@@ -1,8 +1,8 @@
 // React
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 // Hooks
-import { useMouse } from 'ahooks';
+import { useMouse, useEventListener } from 'ahooks';
 
 // 样式组件
 import { HomePageStyled } from './style';
@@ -11,6 +11,7 @@ export default function HomePage() {
 	const pageRef = useRef<HTMLDivElement>(null);
 	const { elementX, elementY, elementW, elementH } = useMouse(pageRef.current);
 
+	// 桌面端 移动光源
 	useEffect(() => {
 		let [transformX, transformY] = [elementX, elementY];
 		// 初始阶段
@@ -38,6 +39,26 @@ export default function HomePage() {
 		pageRef.current!.style.setProperty('--transformX', `${transformX}px`);
 		pageRef.current!.style.setProperty('--transformY', `${transformY}px`);
 	}, [elementX, elementY]);
+
+	// 移动端 移动光源
+	useEventListener(
+		'touchmove',
+		e => {
+			let touchData = e.targetTouches[0];
+
+			pageRef.current!.style.setProperty(
+				'--transformX',
+				`${touchData.clientX}px`,
+			);
+			pageRef.current!.style.setProperty(
+				'--transformY',
+				`${touchData.clientY}px`,
+			);
+		},
+		{
+			target: pageRef,
+		},
+	);
 
 	return (
 		<HomePageStyled ref={pageRef}>
