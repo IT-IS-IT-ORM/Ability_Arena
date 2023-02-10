@@ -7,5 +7,5 @@ import { PageNotFoundPageStyled } from './style';
 export default function PageNotFoundPage() {
 	const { t } = useTranslation();
 
-	return <PageNotFoundPageStyled status={404} title={t('resourceNotFound')} />;
+	return <PageNotFoundPageStyled status={404} title={t('PageNotFound__resourceNotFound')} />;
 }
