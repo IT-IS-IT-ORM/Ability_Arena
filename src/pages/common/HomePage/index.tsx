@@ -1,5 +1,8 @@
 // React
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
+
+// i18n
+import { useTranslation } from 'react-i18next';
 
 // Hooks
 import { useMouse, useEventListener } from 'ahooks';
@@ -8,6 +11,7 @@ import { useMouse, useEventListener } from 'ahooks';
 import { HomePageStyled } from './style';
 
 export default function HomePage() {
+	const { t } = useTranslation();
 	const pageRef = useRef<HTMLDivElement>(null);
 	const { elementX, elementY, elementW, elementH } = useMouse(pageRef.current);
 
@@ -70,7 +74,7 @@ export default function HomePage() {
 				))}
 
 				<h1 className="title">
-					开源项目: <code>playground</code>
+					{t('HomePage__title')}: <code>playground</code>
 				</h1>
 			</div>
 		</HomePageStyled>
