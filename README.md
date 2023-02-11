@@ -7,15 +7,12 @@
 
 ## Games
 
-| Name         | Status |   Language | Has Bot |
-| :----------- | :----: | ---------: | ------: |
-| 骗子牌       | 开发中 | kkKZ, zhCN |      NO |
-| 6 张牌       | 策划中 |       zhCN |      NO |
-| 斗地主       | 策划中 |       zhCN |      NO |
-| 大乱斗       | 策划中 |       zhCN |      NO |
-| 谁是卧底     | 待开发 |       kkKZ |      NO |
-| 连连看       | 待开发 |       kkKZ |      NO |
-| 真心话大冒险 | 待开发 | kkKZ, zhCN |      NO |
+| Name   | Status |   Language | Has Bot |
+| :----- | :----: | ---------: | ------: |
+| 骗子牌 | 开发中 | kkKZ, zhCN |      NO |
+| 6 张牌 | 策划中 | kkKZ, zhCN |      NO |
+| 斗地主 | 策划中 | kkKZ, zhCN |      NO |
+| 大乱斗 | 策划中 | kkKZ, zhCN |      NO |
 
 ---
 
