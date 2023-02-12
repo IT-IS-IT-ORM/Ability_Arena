@@ -33,7 +33,7 @@ import {
 	Avatar_7,
 	Avatar_8,
 	Avatar_9,
-} from '@/assets/image';
+} from '@/assets/image/user';
 
 const avatarList = [
 	Avatar_1,
