@@ -47,12 +47,7 @@ export default function GameCard({ game, onClick }: GameCardProps) {
 
 			{game.status === 'Beta' && <div className="beta-banner">Beta</div>}
 
-			<img
-				// 暂时所有游戏的`cover`都一样
-				src="/src/assets/image/game/liar-card/cover.png"
-				alt={game.name}
-				className="cover"
-			/>
+			<img src={game.cover} alt={game.name} className="cover" />
 
 			<div className="info">
 				<span className="name">{t(`GamesPage__${game.name}`)}</span>
