@@ -9,3 +9,7 @@ export {
 // Page Atoms, Selectors
 export type { pageStateProperties } from '@/store/page-atom';
 export { A_Page, defaultPageState } from '@/store/page-atom';
+
+// Game Atoms, Selectors
+export type { gameStateProperties } from '@/store/game-atom';
+export { A_Game, defaultGameState } from '@/store/game-atom';
