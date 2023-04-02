@@ -1,0 +1,14 @@
+:root {
+	/* 色彩模式 */
+	color-scheme: DARK;
+
+	/* 调色盘 */
+	--c-primary: #001fff;
+
+	/* 排版 */
+	--c-text: #1e1e1e;
+	--c-text-secondary: rgba(255, 255, 255, 0.8);
+
+	/* 过渡贝塞尔曲线 */
+	--transition: 300ms ease;
+}
