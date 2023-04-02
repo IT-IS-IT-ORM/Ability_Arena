@@ -9,7 +9,7 @@
 	margin: 0;
 	padding: 0;
 	/* 重置排版 */
-	font-family: 'Ubuntu', sans-serif;
+	font: inherit;
 	/* 盒模型 */
 	box-sizing: border-box;
 }
