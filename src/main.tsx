@@ -12,11 +12,15 @@ import intervalPlural from 'i18next-intervalplural-postprocessor';
 import { kkKZ, zhCN } from '@/i18n';
 
 // 工具函数
-import { localStorage, getHtmlLang } from '@/utils';
+import { localStorage, setFontByLocale } from '@/utils';
 import { defaultPageState } from '@/store';
 
 // React App
-import App from './App';
+import App from '@/components/App';
+
+// Global CSS Files
+import '@/assets/style/variable.css';
+import '@/assets/style/reset.css';
 
 // Initialize language, get it from LocalStorage
 const page = localStorage.get('page', defaultPageState);
@@ -27,26 +31,26 @@ i18next
 	.use(intervalPlural)
 	.init({
 		resources: {
-			zhCN: {
-				translation: zhCN,
-			},
 			kkKZ: {
 				translation: kkKZ,
 			},
+			zhCN: {
+				translation: zhCN,
+			},
 		},
 		lng: page.locale,
-		fallbackLng: 'zhCN',
+		fallbackLng: 'kkKZ',
 		compatibilityJSON: 'v3',
 	});
 
+// Render v-dom to read-dom
 ReactDOM.render(
 	<React.StrictMode>
 		<RecoilRoot>
 			<App />
 		</RecoilRoot>
 	</React.StrictMode>,
+	// container
 	document.getElementById('root'),
-	() => {
-		document.documentElement.lang = getHtmlLang(page.locale);
-	},
+	() => setFontByLocale(page.locale),
 );
