@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 
 import path from 'path';
 import autoprefixer from 'autoprefixer';
+import sass from 'sass';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -21,6 +22,14 @@ export default defineConfig({
 					overrideBrowserslist: 'last 2 versions',
 				}),
 			],
+		},
+
+		preprocessorOptions: {
+			sass: {
+				// Global scss files
+				additionalData: `@import "./src/assets/style/mixins.scss"`,
+				implementation: sass,
+			},
 		},
 	},
 });
