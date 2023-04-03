@@ -81,7 +81,7 @@ export const localStorage: localStorageProperties = {
 	},
 
 	_DATA_PREFIX: 'Playground',
-	_DATA_VERSION: '1.0.0',
+	_DATA_VERSION: '1.1.0',
 
 	get _VERSION_MARK_STRING() {
 		return `${this._DATA_PREFIX}=${this._DATA_VERSION};`;
