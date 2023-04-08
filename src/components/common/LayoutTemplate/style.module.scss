@@ -1,22 +1,22 @@
-import styled from 'styled-components';
+@import '@/assets/style/mixins.scss';
 
-export const LayoutTemplateStyled = styled.div`
+.layout {
+	@include flexCenter();
+
 	width: 100vw;
 	height: 100vh;
 	background: #000;
 
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-	.box {
+	:global .box {
 		display: flex;
+
 		width: 85%;
 		max-width: 1120px;
 		height: 85%;
-		border-radius: calc(${({ theme }) => theme.shape.borderRadius} * 2);
+		border-radius: 12px;
 		box-shadow: rgba(52, 61, 233, 0.4) -2px 0 96px 24px;
-		transition: width 300ms ease, height 300ms ease;
+
+		transition: width var(--transition), height var(--transition);
 
 		@media screen and (max-width: 860px) {
 			flex-direction: column;
@@ -28,4 +28,4 @@ export const LayoutTemplateStyled = styled.div`
 			border-radius: 0;
 		}
 	}
-`;
+}

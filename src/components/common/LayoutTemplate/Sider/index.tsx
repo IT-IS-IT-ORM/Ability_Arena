@@ -20,8 +20,9 @@ import { AiOutlineSetting } from 'react-icons/ai';
 import { Button } from '@/components/common';
 // 内置组件
 import NavbarList from './NavbarList';
-// 样式组件
-import { SiderStyled } from './style';
+
+// Scoped style
+import classes from './style.module.scss';
 
 export default function Sider() {
 	const { t } = useTranslation();
@@ -65,10 +66,10 @@ export default function Sider() {
 	];
 
 	return (
-		<SiderStyled>
+		<aside className={classes.sider}>
 			<div className="brand">
 				<span>Play</span>
-				<strong>ground</strong>
+				<span>ground</span>
 			</div>
 
 			<Dropdown
@@ -86,6 +87,6 @@ export default function Sider() {
 				<span>Powered by</span>
 				<strong>IT IS IT</strong>
 			</div>
-		</SiderStyled>
+		</aside>
 	);
 }
