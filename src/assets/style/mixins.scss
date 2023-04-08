@@ -21,3 +21,15 @@
 	align-items: center;
 	gap: $gap;
 }
+
+@mixin svgStyle($size: 24px, $color: #000, $fill: $color, $stroke: $color) {
+	@include flexCenter();
+
+	fill: $fill;
+	color: $color;
+	font-size: $size;
+
+	path {
+		stroke: $stroke;
+	}
+}
