@@ -26,8 +26,6 @@ export default defineConfig({
 
 		preprocessorOptions: {
 			sass: {
-				// Global scss files
-				additionalData: `@import "./src/assets/style/mixins.scss"`,
 				implementation: sass,
 			},
 		},
