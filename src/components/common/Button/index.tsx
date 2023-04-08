@@ -1,8 +1,8 @@
 // 类型
 import type { MouseEventHandler } from 'react';
 
-// 样式组件
-import { ButtonStyled } from './style';
+// Scoped style
+import classes from './style.module.scss';
 
 interface I_ButtonProps {
 	children: JSX.Element | string;
@@ -10,5 +10,9 @@ interface I_ButtonProps {
 }
 
 export default function Button({ children, ...props }: I_ButtonProps) {
-	return <ButtonStyled {...props}>{children}</ButtonStyled>;
+	return (
+		<button className={classes.button} {...props}>
+			{children}
+		</button>
+	);
 }

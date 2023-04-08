@@ -1,0 +1,27 @@
+@import '@/assets/style/mixins.scss';
+
+.button {
+	color: #000;
+	font-weight: 700;
+	letter-spacing: 2px;
+	text-decoration: none;
+	text-transform: uppercase;
+
+	@include flex($justifyContent: center, $alignItems: center, $gap: 12px);
+
+	padding: 12px 16px;
+	border: none;
+	outline: none;
+	background: #fff;
+	box-shadow: 1px 1px 0 0, 2px 2px 0 0, 3px 3px 0 0, 4px 4px 0 0, 5px 5px 0 0;
+
+	cursor: pointer;
+	user-select: none;
+	touch-action: manipulation;
+	transition: transform var(--transition), box-shadow var(--transition);
+
+	&:active {
+		box-shadow: 0 0 0 0;
+		transform: translate(5px, 5px);
+	}
+}
