@@ -16,8 +16,9 @@ import { message as AntdMessage } from 'antd';
 // 自定义组件
 import { SearchBar } from '@/components/page-component/search-page';
 import { GameCard } from '@/components/page-component/games-page';
-// 样式组件
-import { GamesPageStyled } from './style';
+
+// Scoped style
+import classes from './style.module.scss';
 
 export default function GamesPage() {
 	const game = useRecoilValue(A_Game);
@@ -34,7 +35,7 @@ export default function GamesPage() {
 	};
 
 	return (
-		<GamesPageStyled>
+		<main className={classes.gamesPage}>
 			<SearchBar />
 
 			<div className="game-list">
@@ -42,6 +43,6 @@ export default function GamesPage() {
 					<GameCard key={game.name} game={game} onClick={handleCardClick} />
 				))}
 			</div>
-		</GamesPageStyled>
+		</main>
 	);
 }

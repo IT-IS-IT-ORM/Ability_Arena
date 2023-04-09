@@ -2,11 +2,14 @@
 import { useTranslation } from 'react-i18next';
 
 // Antd 组件库
-import { message as AntdMessage } from 'antd';
+import { message as AntdMessage, Input } from 'antd';
 // 图标库
 import { IoOptionsOutline } from 'react-icons/io5';
-// 样式组件
-import { SearchBarStyled } from './style';
+
+// Scoped style
+import classes from './style.module.scss';
+
+const { Search } = Input;
 
 export default function SerachBar() {
 	const { t } = useTranslation();
@@ -30,7 +33,8 @@ export default function SerachBar() {
 	};
 
 	return (
-		<SearchBarStyled
+		<Search
+			className={classes.searchBar}
 			allowClear
 			size="large"
 			maxLength={120}

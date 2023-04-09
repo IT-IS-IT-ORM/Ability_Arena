@@ -12,8 +12,8 @@ import {
 } from 'react-icons/ai';
 import { IoConstructOutline } from 'react-icons/io5';
 
-// 样式组件
-import { GameCardStyled } from './style';
+// Scoped style
+import classes from './style.module.scss';
 
 // 获取游戏 Status 对应的 Icon
 function getStatusIcon(status: I_Game['status']) {
@@ -39,7 +39,7 @@ export default function GameCard({ game, onClick }: GameCardProps) {
 	const { t } = useTranslation();
 
 	return (
-		<GameCardStyled onClick={() => onClick?.(game)}>
+		<div className={classes.gameCard} onClick={() => onClick?.(game)}>
 			<div className="lt"></div>
 			<div className="rt"></div>
 			<div className="rb"></div>
@@ -55,6 +55,6 @@ export default function GameCard({ game, onClick }: GameCardProps) {
 					{getStatusIcon(game.status)} {game.status}
 				</span>
 			</div>
-		</GameCardStyled>
+		</div>
 	);
 }

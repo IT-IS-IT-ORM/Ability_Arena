@@ -1,13 +1,7 @@
-import styled from 'styled-components';
-// Antd 组件库
-import { Input } from 'antd';
-
-const { Search } = Input;
-
-export const SearchBarStyled = styled(Search)`
+.searchBar {
 	--border-radius: 32px;
 
-	.ant-input-group {
+	:global .ant-input-group {
 		.ant-input-affix-wrapper:not(:last-child) {
 			padding-left: 16px;
 			padding-right: 16px;
@@ -17,27 +11,28 @@ export const SearchBarStyled = styled(Search)`
 			.ant-input-suffix {
 				svg {
 					cursor: pointer;
-					${({ theme }) =>
-						theme.shape.iconAppearance.apply(theme.typography.color)};
+					// var(--c-text) ???
+					// ${({ theme }) =>
+					// 	theme.shape.iconAppearance.apply(theme.typography.color)};
 				}
 			}
 		}
 
-		.ant-input-group-addon:last-child .ant-input-search-button {
+		:global .ant-input-group-addon:last-child .ant-input-search-button {
 			width: 50px;
 			border-start-end-radius: var(--border-radius);
 			border-end-end-radius: var(--border-radius);
-			background: ${({ theme }) => theme.palette.primary};
+			background: var(--c-primar);
 
 			.anticon-search {
 				transform: none;
 
 				svg {
-					${({ theme }) => theme.shape.iconAppearance.apply('#fff')};
-					font-size: 20px;
+					// ${({ theme }) => theme.shape.iconAppearance.apply('#fff')};
+					// font-size: 20px;
 					transform: translateY(1px) scale(0.9);
 				}
 			}
 		}
 	}
-`;
+}

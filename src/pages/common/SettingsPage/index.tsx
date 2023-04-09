@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { useBoolean, useMemoizedFn } from 'ahooks';
 
 // 工具库
-import { getHtmlLang } from '@/utils';
+// import { getHtmlLang } from '@/utils';
 
 // 图标库
 import { BiUser } from 'react-icons/bi';
@@ -19,8 +19,9 @@ import { IoLanguage } from 'react-icons/io5';
 import { Input, Select } from 'antd';
 // 自定义组件
 import { Button } from '@/components/common';
-// 样式组件
-import { SettingsPageStyled } from './style';
+
+// Scoped style
+import classes from './style.module.scss';
 
 // 静态资源
 import {
@@ -88,7 +89,7 @@ export default function SettingsPage() {
 	});
 
 	const handleLanguageChange = useMemoizedFn(value => {
-		document.documentElement.lang = getHtmlLang(value);
+		// document.documentElement.lang = getHtmlLang(value);
 		i18next.changeLanguage(value);
 		setPage(prevPage => ({
 			...prevPage,
@@ -97,7 +98,10 @@ export default function SettingsPage() {
 	});
 
 	return (
-		<SettingsPageStyled showAvatarGrid={showAvatarGrid}>
+		<main
+			className={`${classes.settingsPage} ${
+				showAvatarGrid ? `${classes.settingsPage}--show` : ''
+			}`}>
 			<div className="head">
 				<div className="avatar-wrap">
 					<img src={avatarList[user.avatarIdx]} alt="avatar" />
@@ -107,7 +111,7 @@ export default function SettingsPage() {
 				</Button>
 			</div>
 
-			<div className="avatar-grid">
+			<div className={`avatar-grid ${showAvatarGrid && 'avatar-grid--show'}`}>
 				{avatarList.map((avatar, idx) => (
 					<img
 						key={idx}
@@ -118,7 +122,7 @@ export default function SettingsPage() {
 				))}
 			</div>
 
-			<div className="bottom">
+			<div className={`bottom ${showAvatarGrid && 'bottom--hide'}`}>
 				<div className="group">
 					<div className="label">
 						<BiUser />
@@ -148,6 +152,6 @@ export default function SettingsPage() {
 					</Select>
 				</div>
 			</div>
-		</SettingsPageStyled>
+		</main>
 	);
 }

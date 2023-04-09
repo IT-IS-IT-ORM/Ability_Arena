@@ -1,0 +1,109 @@
+@import '@/assets/style/mixins.scss';
+
+.gameCard {
+	position: relative;
+	overflow: hidden;
+	cursor: pointer;
+
+	display: flex;
+	flex-direction: column;
+
+	border: 1px solid var(--c-primary);
+	box-shadow: var(--c-primary) 0 2px 8px 0;
+
+	:global .lt,
+	:global .rt,
+	:global .rb,
+	:global .lb {
+		position: absolute;
+		width: 20px;
+		height: 20px;
+	}
+
+	:global .lt {
+		border-top: 4px solid var(--c-primary);
+		border-left: 4px solid var(--c-primary);
+
+		top: 0px;
+		left: 0;
+	}
+
+	:global .rt {
+		border-top: 4px solid var(--c-primary);
+		border-right: 4px solid var(--c-primary);
+
+		top: 0;
+		right: 0;
+	}
+
+	:global .rb {
+		border-bottom: 4px solid var(--c-primary);
+		border-right: 4px solid var(--c-primary);
+
+		bottom: 0;
+		right: 0;
+	}
+
+	:global .lb {
+		border-bottom: 4px solid var(--c-primary);
+		border-left: 4px solid var(--c-primary);
+
+		bottom: 0;
+		left: 0;
+	}
+
+	:global .beta-banner {
+		position: absolute;
+		padding: 0 36px;
+		transform: rotate(-45deg) translate(-30px, -12px);
+
+		color: #fff;
+		font-size: 16px;
+		font-weight: 700;
+		text-align: center;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		background: #368f6d;
+	}
+
+	:global .cover {
+		width: 260px;
+		height: 240px;
+		padding: 20px;
+		object-fit: cover;
+	}
+
+	:global .info {
+		padding: 10px 20px;
+		background: #fff;
+
+		flex-grow: 1;
+		@include flex(
+			$direction: column,
+			$justifyContent: space-between,
+			$gap: 10px
+		);
+
+		.name {
+			font-weight: 700;
+		}
+
+		.status {
+			@include flex($alignItems: center, $gap: 10px);
+
+			width: max-content;
+			padding: 4px 10px;
+			border-radius: 6px;
+			background: #536976;
+			background: linear-gradient(-45deg, #292e49, #536976);
+
+			color: rgba(255, 255, 255, 0.88);
+			font-weight: 700;
+			font-size: 16px;
+
+			svg {
+				@include svgStyle($color: rgba(255, 255, 255, 0.88));
+			}
+		}
+	}
+}

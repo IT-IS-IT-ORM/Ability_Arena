@@ -7,8 +7,8 @@ import { useTranslation } from 'react-i18next';
 // Hooks
 import { useMouse, useEventListener } from 'ahooks';
 
-// 样式组件
-import { HomePageStyled } from './style';
+// Scoped style
+import classes from './style.module.scss';
 
 export default function HomePage() {
 	const { t } = useTranslation();
@@ -65,7 +65,7 @@ export default function HomePage() {
 	);
 
 	return (
-		<HomePageStyled ref={pageRef}>
+		<main className={classes.homePage} ref={pageRef}>
 			<div className="flashlight"></div>
 
 			<div className="grid">
@@ -77,6 +77,6 @@ export default function HomePage() {
 					{t('HomePage__title')}: <code>playground</code>
 				</h1>
 			</div>
-		</HomePageStyled>
+		</main>
 	);
 }

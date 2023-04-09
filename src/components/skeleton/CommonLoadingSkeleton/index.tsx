@@ -1,9 +1,10 @@
-import { CommonLoadingSkeletonStyled } from './style';
+// Scoped style
+import classes from './style.module.scss';
 
 export default function CommonLoadingSkeleton() {
 	return (
-		<CommonLoadingSkeletonStyled>
+		<div className={classes.commonLoadingSkeleton}>
 			<div className="circle"></div>
-		</CommonLoadingSkeletonStyled>
+		</div>
 	);
 }
