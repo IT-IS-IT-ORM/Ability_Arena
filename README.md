@@ -29,7 +29,7 @@
 - (BUG) Settings Page
 
   - Language Select Option 的字体样式 (应该和 Input 字体保持一致)
+  - /games 页面, SearchBar 样式修复
 
 - (TODO) Home Page
-  - 添加 开灯/关灯 按钮 (切换 .grid 的 opacity)
-  - 开关灯时 改变 .title, code 的样式
+  - 补充文案, 项目介绍
