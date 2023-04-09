@@ -46,21 +46,14 @@
 		align-items: center;
 
 		cursor: pointer;
-		transition: background-color 300ms ease;
+		transition: background-color var(--transition);
 
 		&:hover {
 			background: rgba(232, 234, 237, 0.88);
 		}
 
 		svg {
-			stroke: #fff;
-			fill: #fff;
-			color: #fff;
-			font-size: 22px;
-
-			path {
-				stroke: #fff;
-			}
+			@include svgStyle();
 		}
 
 		@media screen and (max-width: 860px) {
@@ -95,16 +88,11 @@
 		}
 
 		strong {
-			font-size: 20px;
 			font-weight: 700;
 		}
 
 		@media screen and (max-width: 860px) {
 			margin: 0 24px 0 0;
-
-			strong {
-				font-size: 16px;
-			}
 		}
 	}
 }

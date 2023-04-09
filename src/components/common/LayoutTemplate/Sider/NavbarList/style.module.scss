@@ -22,7 +22,6 @@
 	button {
 		width: 100%;
 		max-width: calc(220px - 24px * 2);
-		font-size: 20px;
 
 		svg {
 			@include svgStyle();
