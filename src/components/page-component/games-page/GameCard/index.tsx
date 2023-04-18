@@ -45,7 +45,7 @@ export default function GameCard({ game, onClick }: GameCardProps) {
 			<div className="rb"></div>
 			<div className="lb"></div>
 
-			{game.status === 'Beta' && <div className="beta-banner">Beta</div>}
+			{game.status === 'Beta' && <div className="beta-banner">BETA</div>}
 
 			<img src={game.cover} alt={game.name} className="cover" />
 
