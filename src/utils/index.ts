@@ -7,4 +7,3 @@ export type { allowedRole } from '@/utils/role';
 export { role } from '@/utils/role';
 
 export { default as getAntdLocale } from './getAntdLocale';
-export { default as setFontByLocale } from './setFontByLocale';
