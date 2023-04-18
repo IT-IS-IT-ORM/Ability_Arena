@@ -1,3 +1,5 @@
+@import '@/assets/style/mixins.scss';
+
 .searchBar {
 	--border-radius: 32px;
 
@@ -11,26 +13,33 @@
 			.ant-input-suffix {
 				svg {
 					cursor: pointer;
-					// var(--c-text) ???
-					// ${({ theme }) =>
-					// 	theme.shape.iconAppearance.apply(theme.typography.color)};
+					@include svgStyle();
 				}
 			}
 		}
 
+		:global .ant-input {
+			font-family: 'Ubuntu Mono', 'ZCOOL KuaiLe', monospace, sans-serif;
+			font-size: 20px;
+			font-weight: 400;
+			font-display: swap;
+			color: var(--c-text);
+		}
+
 		:global .ant-input-group-addon:last-child .ant-input-search-button {
 			width: 50px;
+			height: 42.5px;
+			margin-left: 1px;
 			border-start-end-radius: var(--border-radius);
 			border-end-end-radius: var(--border-radius);
-			background: var(--c-primar);
+			background: var(--c-primary);
 
 			.anticon-search {
 				transform: none;
 
 				svg {
-					// ${({ theme }) => theme.shape.iconAppearance.apply('#fff')};
-					// font-size: 20px;
-					transform: translateY(1px) scale(0.9);
+					@include svgStyle($color: #fff);
+					transform: translate(-1px, 1px) scale(0.9);
 				}
 			}
 		}
