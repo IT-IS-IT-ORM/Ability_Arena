@@ -12,7 +12,7 @@ import intervalPlural from 'i18next-intervalplural-postprocessor';
 import { kkKZ, zhCN } from '@/i18n';
 
 // 工具函数
-import { localStorage, setFontByLocale } from '@/utils';
+import { localStorage } from '@/utils';
 import { defaultPageState } from '@/store';
 
 // React App
@@ -21,6 +21,7 @@ import App from '@/components/App';
 // Global CSS Files
 import '@/assets/style/variable.css';
 import '@/assets/style/reset.css';
+import '@/assets/style/antd.css';
 
 // Initialize language, get it from LocalStorage
 const page = localStorage.get('page', defaultPageState);
@@ -52,5 +53,4 @@ ReactDOM.render(
 	</React.StrictMode>,
 	// container
 	document.getElementById('root'),
-	() => setFontByLocale(page.locale),
 );
