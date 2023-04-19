@@ -13,19 +13,19 @@ export const defaultGameState: gameStateProperties = {
 	gameList: [
 		{
 			name: 'liarCard',
-			status: 'Completed',
-			cover,
-			hasBot: false,
-		},
-		{
-			name: 'foolCard',
 			status: 'Beta',
 			cover,
 			hasBot: false,
 		},
 		{
+			name: 'foolCard',
+			status: 'Planning',
+			cover,
+			hasBot: false,
+		},
+		{
 			name: 'landlordsCard',
-			status: 'InProgress',
+			status: 'Planning',
 			cover,
 			hasBot: false,
 		},
