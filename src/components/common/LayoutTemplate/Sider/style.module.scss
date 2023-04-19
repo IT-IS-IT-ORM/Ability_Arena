@@ -2,8 +2,7 @@
 
 .sider {
 	flex: 0 0 220px;
-	display: flex;
-	flex-direction: column;
+	@include flex($direction: column);
 
 	border-top-left-radius: inherit;
 	border-bottom-left-radius: inherit;
@@ -74,8 +73,7 @@
 	}
 
 	:global .logo {
-		display: flex;
-		flex-direction: column;
+		@include flex($direction: column);
 
 		margin: auto 24px 24px 24px;
 

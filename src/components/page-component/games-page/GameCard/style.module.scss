@@ -5,8 +5,7 @@
 	overflow: hidden;
 	cursor: pointer;
 
-	display: flex;
-	flex-direction: column;
+	@include flex($direction: column);
 
 	border: 1px solid var(--c-primary);
 	box-shadow: var(--c-primary) 0 2px 8px 0;
@@ -72,10 +71,10 @@
 	}
 
 	:global .info {
+		width: 100%;
 		padding: 10px 20px;
 		background: #fff;
 
-		flex-grow: 1;
 		@include flex(
 			$direction: column,
 			$justifyContent: space-between,
