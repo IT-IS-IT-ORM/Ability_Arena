@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { useBoolean, useMemoizedFn } from 'ahooks';
 
 // 工具库
-// import { getHtmlLang } from '@/utils';
+import { localStorage } from '@/utils';
 
 // 图标库
 import { BiUser } from 'react-icons/bi';
@@ -89,12 +89,18 @@ export default function SettingsPage() {
 	});
 
 	const handleLanguageChange = useMemoizedFn(value => {
-		// document.documentElement.lang = getHtmlLang(value);
 		i18next.changeLanguage(value);
-		setPage(prevPage => ({
-			...prevPage,
-			locale: value,
-		}));
+
+		let newPageState;
+		setPage(prevPage => {
+			newPageState = {
+				...prevPage,
+				locale: value,
+			};
+
+			return newPageState;
+		});
+		localStorage.set('page', newPageState);
 	});
 
 	return (
