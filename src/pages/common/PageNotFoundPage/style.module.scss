@@ -1,5 +1,7 @@
+@import '@/assets/style/mixins.scss';
+
 .pageNotFound {
 	:global .ant-result-title {
-		color: #f0f0f0;
+		@include useFont($color: #f0f0f0);
 	}
 }
