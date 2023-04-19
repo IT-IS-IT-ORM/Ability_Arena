@@ -34,16 +34,6 @@ const commonRoutes: I_Route[] = [
 		title: 'Settings · Play',
 		exact: true,
 	},
-
-	{
-		path: '*',
-		component: lazy(() => import('@/pages/common/PageNotFoundPage')),
-		fallback: <CommonLoadingSkeleton />,
-		auth: false,
-		role: role.all(),
-		title: '404 · Play',
-		exact: false,
-	},
 ];
 
 export default commonRoutes;
