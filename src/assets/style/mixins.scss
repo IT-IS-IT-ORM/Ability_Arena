@@ -4,7 +4,7 @@
 	$alignItems: flex-start,
 	$alignContent: stretch,
 	$gap: 0,
-	$flexWrap: nowrap
+	$wrap: nowrap
 ) {
 	display: flex;
 	flex-direction: $direction;
@@ -12,7 +12,7 @@
 	align-items: $alignItems;
 	align-content: $alignContent;
 	gap: $gap;
-	flex-wrap: $flexWrap;
+	flex-wrap: $wrap;
 }
 
 @mixin flexCenter($direction: row, $gap: 0) {
