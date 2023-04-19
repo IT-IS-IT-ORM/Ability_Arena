@@ -26,10 +26,8 @@
 
 ## TODO & BUG
 
-- (BUG) Settings Page
-
-  - Language Select Option 的字体样式 (应该和 Input 字体保持一致)
-  - /games 页面, SearchBar 样式修复
+<!-- - (BUG) Xxx Page -->
+  <!-- - Xxx problem -->
 
 - (TODO) Home Page
   - 补充文案, 项目介绍
