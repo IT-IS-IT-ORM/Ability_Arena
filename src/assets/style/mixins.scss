@@ -33,3 +33,47 @@
 		stroke: $stroke;
 	}
 }
+
+@mixin useFont($size: 20px, $color: #1e1e1e, $weight: 400) {
+	font-family: 'Ubuntu Mono', 'ZCOOL KuaiLe', monospace, sans-serif;
+	font-size: $size;
+	font-weight: $weight;
+	font-display: swap;
+	color: $color;
+}
+
+// $type options: `thin` | `none`
+// $onlyOnHover options: `1` | `0`
+@mixin useScroll($type: thin, $onlyOnHover: 0) {
+	&::-webkit-scrollbar {
+		width: 4px;
+		height: 4px;
+		background: transparent;
+
+		@if ($type == none) {
+			display: none;
+		}
+	}
+
+	&::-webkit-scrollbar-thumb {
+		border-radius: 0;
+		@if ($onlyOnHover == 1) {
+			background: transparent;
+		}
+		@if ($onlyOnHover == 0) {
+			background: #001fff;
+		}
+	}
+
+	&:hover::-webkit-scrollbar-thumb {
+		background: #001fff;
+	}
+
+	&::-webkit-scrollbar-track {
+		border-radius: 0;
+	}
+
+	&:hover::-webkit-scrollbar-track {
+		background: #000;
+	}
+}
