@@ -1,6 +1,9 @@
 // React & Router
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
+
+// Hooks
+import { useMouse, useUpdateEffect } from 'ahooks';
 
 // 内置组件
 import Sider from './Sider';
@@ -20,9 +23,23 @@ export default function LayoutTemplate() {
 		[location],
 	);
 
+	const boxRef = useRef<HTMLDivElement>(null);
+	const { pageX, pageY } = useMouse(boxRef);
+
+	useUpdateEffect(() => {
+		const $box = boxRef.current as HTMLDivElement;
+
+		// const xTranslate = pageX;
+		// const yTranslate = pageY;
+
+		// $box.style.cssText = `
+		// transform: translate3d(${xTranslate}px, ${yTranslate}px, 0);
+		// `;
+	}, [pageX, pageY]);
+
 	return (
 		<div className={classes.layout}>
-			<div className="box">
+			<div ref={boxRef} className="box">
 				{!inGame && <Sider />}
 				<PageContent />
 			</div>

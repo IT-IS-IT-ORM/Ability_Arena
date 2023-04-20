@@ -18,7 +18,10 @@
 		background: linear-gradient(45deg, #24243e, #302b63, #0f0c29);
 		box-shadow: rgba(52, 61, 233, 0.4) -2px 0 96px 24px;
 
-		transition: width var(--transition), height var(--transition);
+		perspective: 600px;
+		transform-origin: center center;
+		will-change: transform;
+		transition: width var(--transition), height var(--transition), transform var(--transition);
 
 		@media screen and (max-width: 860px) {
 			flex-direction: column;
