@@ -6,7 +6,7 @@ import { role } from '@/utils';
 
 const gameRoutes: I_Route[] = [
 	{
-		path: '/games/liarCard',
+		path: '/games/liar-card',
 		component: lazy(() => import('@/pages/game/LiarCard')),
 		fallback: <CommonLoadingSkeleton />,
 		auth: false,

@@ -12,25 +12,25 @@ export interface gameStateProperties {
 export const defaultGameState: gameStateProperties = {
 	gameList: [
 		{
-			name: 'liarCard',
+			name: 'liar-card',
 			status: 'Beta',
 			cover,
 			hasBot: false,
 		},
 		{
-			name: 'foolCard',
+			name: 'fool-card',
 			status: 'Planning',
 			cover,
 			hasBot: false,
 		},
 		{
-			name: 'landlordsCard',
+			name: 'landlords-card',
 			status: 'Planning',
 			cover,
 			hasBot: false,
 		},
 		{
-			name: 'crazyFight',
+			name: 'crazy-fight',
 			status: 'Planning',
 			cover,
 			hasBot: false,

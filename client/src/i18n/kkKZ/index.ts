@@ -20,11 +20,11 @@ export default {
 	GamesPage__SearchBar__empty: 'Бос мәтін ізделмейді',
 	GamesPage__notReady: 'Әлі дайын емес',
 
-	GamesPage__liarCard: 'Өтірік карта',
+	'GamesPage__liar-card': 'Өтірік карта',
 
-	GamesPage__foolCard: 'Алты қарта',
+	'GamesPage__fool-card': 'Алты қарта',
 
-	GamesPage__landlordsCard: 'Ду ди жу',
+	'GamesPage__landlords-card': 'Ду ди жу',
 
-	GamesPage__crazyFight: 'Хаус шайқас',
+	'GamesPage__crazy-fight': 'Хаус шайқас',
 };
