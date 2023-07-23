@@ -1,16 +1,37 @@
 // React
-import { memo } from 'react';
+import { memo, useEffect, useState } from "react";
 
 // Hooks
-import { useWebSocket } from 'ahooks';
+import { useWebSocket } from "ahooks";
 
 // Scoped style
-import classes from './style.module.scss';
+import classes from "./style.module.scss";
 
 export default memo(function LiarCard() {
-	const { sendMessage, latestMessage } = useWebSocket('ws://127.0.0.1:3000');
+  const { sendMessage, latestMessage } = useWebSocket(
+    "ws://localhost:8000/ws/game/liar-card/",
+    {
+      reconnectLimit: 0,
+    }
+  );
 
-	console.log('latestMessage: ', latestMessage);
+  const [state, setState] = useState("");
 
-	return <div className={classes.liarCard}></div>;
+  console.log("latestMessage: ", latestMessage);
+
+  return (
+    <div className={classes.liarCard}>
+      <p style={{ color: "#fff" }}>
+        latest message: {JSON.parse(latestMessage?.data ?? "{}")?.message}
+      </p>
+
+      <input
+        value={state}
+        onChange={({ target: { value } }) => {
+          setState(value);
+          sendMessage?.(JSON.stringify({ message: value }));
+        }}
+      />
+    </div>
+  );
 });

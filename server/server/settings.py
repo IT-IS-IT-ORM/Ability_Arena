@@ -44,8 +44,10 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
 
+    'channels',
+
     # 'user', # 用户模块
-    # 'game', # 游戏模块
+    'game', # 游戏模块
 ]
 
 MIDDLEWARE = [
@@ -78,20 +80,21 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'server.wsgi.application'
+ASGI_APPLICATION = 'server.asgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'prod': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'playground',
-        'USER': 'root',
-        'PASSWORD': 'password-0',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    },
+    # 'prod': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'playground',
+    #     'USER': 'root',
+    #     'PASSWORD': 'password-0',
+    #     'HOST': 'localhost',
+    #     'PORT': '3306',
+    # },
 
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -152,3 +155,12 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('localhost', 6379)]
+        }
+    }
+}

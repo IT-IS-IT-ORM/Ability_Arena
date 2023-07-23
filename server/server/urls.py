@@ -9,7 +9,7 @@ urlpatterns = [
     # 用户 API
     # path('api/', include('user.urls')),
     # 游戏 API
-    # path('api/', include('game.urls')),
+    path('api/', include('game.urls')),
 
     re_path(r'^media/(?P<path>.*)$', serve,
             {"document_root": settings.MEDIA_ROOT}),
