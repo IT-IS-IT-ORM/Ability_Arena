@@ -1,6 +1,6 @@
 @import '@/assets/style/mixins.scss';
 
-.gameCard {
+.roomCard {
 	position: relative;
 	overflow: hidden;
 	cursor: pointer;
@@ -8,7 +8,7 @@
 	@include flex($direction: column);
 
 	border: 1px solid var(--c-primary);
-	box-shadow: var(--c-primary) 0 2px 8px 0;
+	box-shadow: var(--c-primary) 0 2px 5px 0;
 
 	:global .lt,
 	:global .rt,

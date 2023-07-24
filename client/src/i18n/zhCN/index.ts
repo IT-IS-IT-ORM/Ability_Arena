@@ -16,7 +16,7 @@ export default {
 	PageNotFound__resourceNotFound: '资源不存在',
 
 	// Games Page
-	GamesPage__SearchBar__placeholder: '输入搜索文本',
+	GamesPage__SearchBar__placeholder: '搜索...',
 	GamesPage__SearchBar__empty: '无法搜索空文本',
 	GamesPage__notReady: '暂未开放',
 
