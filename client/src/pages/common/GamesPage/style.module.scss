@@ -1,15 +1,33 @@
-@import '@/assets/style/mixins.scss';
+@import "@/assets/style/mixins.scss";
 
 .gamesPage {
-	padding: 32px 24px;
-	@include flex($direction: column);
+  padding: 32px 24px;
+  @include flex($direction: column);
 
-	:global .game-list {
-		margin-top: 24px;
-		padding: 8px;
-		overflow: hidden auto;
+  :global .head {
+    width: 100%;
+    @include flex($alignItems: center, $gap: 16px);
 
-		@include flex($wrap: wrap, $gap: 26px);
-		@include useScroll();
-	}
+    button {
+      --c-box-shadow: var(--c-primary);
+      white-space: nowrap;
+    }
+
+    @media screen and (max-width: 500px) {
+      flex-direction: column;
+
+      button {
+        width: 85%;
+      }
+    }
+  }
+
+  :global .game-list {
+    margin-top: 24px;
+    padding: 8px;
+    overflow: hidden auto;
+
+    @include flex($wrap: wrap, $gap: 26px);
+    @include useScroll();
+  }
 }

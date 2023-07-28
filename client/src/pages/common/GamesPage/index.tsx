@@ -16,6 +16,7 @@ import { message as AntdMessage } from "antd";
 // 自定义组件
 import { SearchBar } from "@/components/page-component/search-page";
 import { RoomCard } from "@/components/page-component/games-page";
+import { Button } from "@/components/common";
 
 // Scoped style
 import classes from "./style.module.scss";
@@ -31,7 +32,10 @@ export default function GamesPage() {
 
   return (
     <main className={classes.gamesPage}>
-      <SearchBar />
+      <div className="head">
+        <SearchBar />
+        <Button>创建房间</Button>
+      </div>
 
       <div className="game-list">
         {game.roomList.map((room) => (
