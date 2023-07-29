@@ -9,6 +9,7 @@ django-cors-headers = "*"
 djangorestframework = "==3.12.4"
 channels = "==3.0.4"
 channels-redis = "*"
+pyjwt = "*"
 
 [dev-packages]
 
