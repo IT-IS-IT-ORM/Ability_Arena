@@ -22,8 +22,8 @@ ADMINS = [('Yernar', 'toktaryernar@gmail.com')]
 ALLOWED_HOSTS = ['*']
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173',
-    'http://127.0.0.1:5173',
+    'http://localhost:5678',
+    'http://127.0.0.1:5678',
 ]
 
 CORS_ALLOW_HEADERS = list(default_headers) + [
@@ -46,8 +46,8 @@ INSTALLED_APPS = [
 
     'channels',
 
-    # 'user', # 用户模块
-    'game', # 游戏模块
+    'user',  # 用户模块
+    'game',  # 游戏模块
 ]
 
 MIDDLEWARE = [
@@ -59,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'utils.response_format.ResponseFormatMiddleware'
 ]
 
 ROOT_URLCONF = 'server.urls'
