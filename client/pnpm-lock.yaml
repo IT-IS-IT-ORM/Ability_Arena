@@ -16,6 +16,9 @@ dependencies:
   i18next-intervalplural-postprocessor:
     specifier: ^3.0.0
     version: 3.0.0
+  lodash:
+    specifier: ^4.17.21
+    version: 4.17.21
   react:
     specifier: 17.0.2
     version: 17.0.2
@@ -39,6 +42,9 @@ dependencies:
     version: 0.7.6(react-dom@17.0.2)(react@17.0.2)
 
 devDependencies:
+  '@types/lodash':
+    specifier: ^4.14.196
+    version: 4.14.196
   '@types/react':
     specifier: ^18.0.26
     version: 18.0.27
@@ -684,6 +690,10 @@ packages:
   /@types/js-cookie@2.2.7:
     resolution: {integrity: sha512-aLkWa0C0vO5b4Sr798E26QgOkss68Un0bLjs7u9qxzPT5CG+8DuNTffWES58YzJs3hrVAOs1wonycqEBqNJubA==}
     dev: false
+
+  /@types/lodash@4.14.196:
+    resolution: {integrity: sha512-22y3o88f4a94mKljsZcanlNWPzO0uBsBdzLAngf2tp533LzZcQzb6+eZPJ+vCTt+bqF2XnvT9gejTLsAcJAJyQ==}
+    dev: true
 
   /@types/prop-types@15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
