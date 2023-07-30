@@ -1,18 +1,23 @@
 // 类型
-import type { MouseEventHandler } from 'react';
+import type { MouseEventHandler } from "react";
 
 // Scoped style
-import classes from './style.module.scss';
+import classes from "./style.module.scss";
 
 interface I_ButtonProps {
-	children: JSX.Element | string;
-	onClick?: MouseEventHandler<HTMLButtonElement>;
+  children: JSX.Element | string;
+  className?: string;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
-export default function Button({ children, ...props }: I_ButtonProps) {
-	return (
-		<button className={classes.button} {...props}>
-			{children}
-		</button>
-	);
+export default function Button({
+  children,
+  className,
+  ...props
+}: I_ButtonProps) {
+  return (
+    <button className={`${classes.button} ${className}`} {...props}>
+      {children}
+    </button>
+  );
 }
