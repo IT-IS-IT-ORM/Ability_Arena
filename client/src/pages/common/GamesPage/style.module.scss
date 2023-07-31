@@ -1,6 +1,7 @@
 @import "@/assets/style/mixins.scss";
 
 .gamesPage {
+  position: relative;
   padding: 32px 24px;
   @include flex($direction: column);
 
@@ -29,5 +30,23 @@
 
     @include flex($wrap: wrap, $gap: 26px);
     @include useScroll();
+  }
+
+  :global .rooom-is-empty {
+    margin-top: 24px;
+    @include centerPositioned($top: 36%);
+
+    :global .ant-empty-description {
+      font-family: "Ubuntu Mono", "ZCOOL KuaiLe", monospace, sans-serif;
+      font-size: 20px;
+      font-weight: 400;
+      font-display: swap;
+      color: var(--c-text-secondary);
+    }
+
+    @media screen and (max-width: 500px) {
+      margin-top: 0;
+      top: 50%;
+    }
   }
 }
