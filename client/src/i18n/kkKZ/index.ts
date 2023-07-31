@@ -20,11 +20,9 @@ export default {
   GamesPage__SearchBar__empty: "Бос мәтін ізделмейді",
   GamesPage__notReady: "Әлі дайын емес",
 
-  GamesPage__room: "Өтірік карта",
-
-  "GamesPage__fool-card": "Алты қарта",
-
-  "GamesPage__landlords-card": "Ду ди жу",
+  GamesPage__room: "бөлме",
+  GamesPage__createRoom: "Бөлме ашу",
+  GamesPage__noRoom: "Бөлме жоқ",
 
   "GamesPage__crazy-fight": "Хаус шайқас",
 };
