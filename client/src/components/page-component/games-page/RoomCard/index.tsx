@@ -32,7 +32,7 @@ export default function RoomCard({ room, onClick }: RoomCardProps) {
       <img src={IMG_RoomCover} alt="room" className="cover" />
 
       <div className="info">
-        <span className="name">{t(`GamesPage__${room.name}`)}</span>
+        <span className="name">{room.name}</span>
       </div>
     </div>
   );
