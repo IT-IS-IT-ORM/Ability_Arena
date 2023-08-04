@@ -16,6 +16,7 @@ import { useTranslation } from "react-i18next";
 import {
   useWebSocket,
   useRequest,
+  useMount,
   useSafeState,
   useSetState,
   useMemoizedFn,
@@ -47,17 +48,14 @@ export default memo(function GamesPage() {
   const [stateOfCreateRoom, setStateOfCreateRoom] = useSetState({
     modalIsOpen: false,
   });
-  // const { sendMessage, latestMessage } = useWebSocket(
-  //   "ws://localhost:8000/ws/game/room/",
-  //   {
-  //     reconnectLimit: 0,
-  //   }
-  // );
 
-  const { loading: fetchRoomListLoading } = useRequest(API_GetRooms, {
+  useRequest(API_GetRooms, {
     onSuccess({ data }) {
-      setRoomList(data);
+      setRoomList(data.sort((a, b) => a.member.length - b.member.length));
     },
+    pollingInterval: 2000,
+    pollingWhenHidden: false,
+    pollingErrorRetryCount: 2,
   });
 
   const handleCreateRoom = useMemoizedFn((values: I_Room) => {
@@ -70,12 +68,6 @@ export default memo(function GamesPage() {
   const handleCardClick = (room: I_Room) => {
     history.push(`/room/${room.id}`);
   };
-
-  // console.log(
-  //   "latestMessage: ",
-  //   latestMessage,
-  //   JSON.parse(latestMessage?.data ?? "{}")?.message
-  // );
 
   return (
     <main className={classes.gamesPage}>
