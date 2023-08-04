@@ -46,7 +46,8 @@ class ResponseFormatMiddleware:
                 response_template['message'] = 'Ресурс жоқ'
             # 500 +
             elif int(response.status_code) >= 500:
-                response_template['message'] = 'Серверлік ерекше жағдай'
+                # response_template['message'] = 'Серверлік ерекше жағдай'
+                return response
             # 静态文件访问
             else:
                 return response
