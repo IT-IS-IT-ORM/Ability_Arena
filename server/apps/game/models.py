@@ -1,4 +1,6 @@
 from django.db import models
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 
 class Room(models.Model):
@@ -19,6 +21,11 @@ class Room(models.Model):
         return f'{self.name}'
 
 
+@receiver(post_save, sender=Room)
+def room_post_save(sender, instance, **kwargs):
+    '''房主自动加入该房间'''
+    RoomMember.objects.create(room=instance, member=instance.homeowner)
+
 class RoomMember(models.Model):
     '''Room member model'''
 
@@ -33,4 +40,4 @@ class RoomMember(models.Model):
         verbose_name_plural = '房间成员'
 
     def __str__(self):
-        return f'{self.name}'
+        return f'{self.room}'
