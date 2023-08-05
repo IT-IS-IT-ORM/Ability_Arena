@@ -7,7 +7,7 @@ export interface userStateProperties extends I_User {}
 
 export const defaultUserState: userStateProperties = {
   username: "Gamer_1234",
-  avatarIdx: 7,
+  avatarIdx: 5,
   role: role.GUEST,
   token: "",
 };
