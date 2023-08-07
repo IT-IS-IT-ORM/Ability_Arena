@@ -157,6 +157,18 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# DRF Config
+REST_FRAMEWORK = {
+    # Custom catch API exception
+    'EXCEPTION_HANDLER': 'utils.custom_exception.custom_exception_handler',
+
+    # Global authentication
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'utils.authentication.JWTAuthentication',
+    ],
+}
+
+# Channel Config
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
