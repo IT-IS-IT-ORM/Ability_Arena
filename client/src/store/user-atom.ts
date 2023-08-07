@@ -6,10 +6,12 @@ import { localStorage, role } from "@/utils";
 export interface userStateProperties extends I_User {}
 
 export const defaultUserState: userStateProperties = {
+  id: -1,
   username: "Gamer_1234",
-  avatarIdx: 5,
+  avatarIndex: 5,
   role: role.GUEST,
   token: "",
+  createTime: "",
 };
 
 const state = localStorage.get("user", defaultUserState);
