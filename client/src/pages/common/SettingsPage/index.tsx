@@ -1,13 +1,15 @@
 // 全局状态
-import { useRecoilState } from "recoil";
-import { A_User, A_Page } from "@/store";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { A_User, A_Page, S_UserIsAuthenticated } from "@/store";
 
 // i18n
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 
 // Hooks
-import { useBoolean, useMemoizedFn } from "ahooks";
+import { useBoolean, useMemoizedFn, useRequest } from "ahooks";
+// API
+import { API_Register, API_UpdateProfile } from "@/service/user.api";
 
 // 工具库
 import { localStorage } from "@/utils";
@@ -16,7 +18,7 @@ import { localStorage } from "@/utils";
 import { BiUser } from "react-icons/bi";
 import { IoLanguage } from "react-icons/io5";
 // Antd 组件库
-import { Input, Select } from "antd";
+import { Input, Select, message as AntdMessage } from "antd";
 // 自定义组件
 import { Button } from "@/components/common";
 
@@ -82,6 +84,7 @@ const { Option } = Select;
 export default function SettingsPage() {
   // 用户信息
   const [user, setUser] = useRecoilState(A_User);
+  const isAuthenticated = useRecoilValue(S_UserIsAuthenticated);
   // 页面信息
   const [page, setPage] = useRecoilState(A_Page);
   // 翻译函数
@@ -95,8 +98,8 @@ export default function SettingsPage() {
 
   // 处理切换头像
   const handleAvatarChange = (index: number) => {
-    if (index !== user.avatarIdx) {
-      setUser((prevState) => ({ ...prevState, avatarIdx: index }));
+    if (index !== user.avatarIndex) {
+      setUser((prevState) => ({ ...prevState, avatarIndex: index }));
     }
 
     closeAvatarGrid();
@@ -118,8 +121,35 @@ export default function SettingsPage() {
 
       return newPageState;
     });
+
     localStorage.set("page", newPageState);
   });
+
+  // 注册 API
+  const { runAsync: register } = useRequest(API_Register, { manual: true });
+  // 保存 API
+  const { runAsync: save } = useRequest(API_UpdateProfile, { manual: true });
+
+  // 未登录时候 = 注册
+  // 登录后 = 保存
+  const handleSubmit = async () => {
+    const data = { username: user.username, avatarIndex: user.avatarIndex };
+
+    if (isAuthenticated) {
+      await save(user.id, data).catch((err) => {
+        AntdMessage.error(err.message);
+      });
+      localStorage.set("user", user);
+      AntdMessage.success("保存成功");
+    } else {
+      const response = await register(data).catch((err) => {
+        AntdMessage.error(err.message);
+      });
+      localStorage.set("user", user);
+      setUser(response!.data);
+      AntdMessage.success("注册成功");
+    }
+  };
 
   return (
     <main
@@ -129,7 +159,7 @@ export default function SettingsPage() {
     >
       <div className="head">
         <div className="avatar-wrap">
-          <img src={avatarList[user.avatarIdx]} alt="avatar" />
+          <img src={avatarList[user.avatarIndex]} alt="avatar" />
         </div>
         <Button onClick={toggleAvatarGrid}>
           {t("SettingsPage__changeAvatar") as string}
@@ -176,6 +206,14 @@ export default function SettingsPage() {
               </Option>
             ))}
           </Select>
+        </div>
+
+        <div className="group">
+          <Button onClick={handleSubmit}>
+            {isAuthenticated
+              ? t("SettingsPage__save")!
+              : t("SettingsPage__register")!}
+          </Button>
         </div>
       </div>
     </main>
