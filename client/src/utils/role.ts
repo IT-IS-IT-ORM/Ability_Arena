@@ -1,25 +1,25 @@
 // 角色
-export type allowedRole = 'GUEST' | 'USER' | 'ADMIN';
+export type allowedRole = 'GUEST' | 'GAMER' | 'ADMIN';
 
 // 角色对象
 export const role: {
 	GUEST: 'GUEST';
-	USER: 'USER';
+	GAMER: 'GAMER';
 	ADMIN: 'ADMIN';
 
 	// 所有角色
-	all: () => ['GUEST', 'USER', 'ADMIN'];
+	all: () => ['GUEST', 'GAMER', 'ADMIN'];
 
 	// 除 `roles` 以外的 所有角色
 	exclude: (roles: allowedRole | allowedRole[]) => allowedRole[];
 } = {
 	GUEST: 'GUEST',
-	USER: 'USER',
+	GAMER: 'GAMER',
 	ADMIN: 'ADMIN',
 
 	// 所有角色
 	all() {
-		return ['GUEST', 'USER', 'ADMIN'];
+		return ['GUEST', 'GAMER', 'ADMIN'];
 	},
 
 	// 除 `roles` 以外的 所有角色
