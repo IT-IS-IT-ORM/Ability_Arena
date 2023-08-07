@@ -9,6 +9,8 @@ export default {
 
   // Settings Page
   SettingsPage__changeAvatar: "Өзгерту",
+  SettingsPage__save: "Сақтау",
+  SettingsPage__register: "Тіркелу",
   SettingsPage__username: "Атау",
   SettingsPage__language: "Тіл",
 

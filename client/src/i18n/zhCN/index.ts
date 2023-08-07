@@ -9,6 +9,8 @@ export default {
 
   // Settings Page
   SettingsPage__changeAvatar: "更改头像",
+  SettingsPage__save: "保存",
+  SettingsPage__register: "立即注册",
   SettingsPage__username: "用户名",
   SettingsPage__language: "界面语言",
 
