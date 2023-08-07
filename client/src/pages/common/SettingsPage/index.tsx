@@ -139,15 +139,18 @@ export default function SettingsPage() {
       await save(user.id, data).catch((err) => {
         AntdMessage.error(err.message);
       });
-      localStorage.set("user", user);
       AntdMessage.success("保存成功");
+      localStorage.set("user", user);
     } else {
       const response = await register(data).catch((err) => {
         AntdMessage.error(err.message);
       });
-      localStorage.set("user", user);
-      setUser(response!.data);
+
       AntdMessage.success("注册成功");
+
+      const newUser = response!.data;
+      localStorage.set("user", newUser);
+      setUser(newUser);
     }
   };
 
