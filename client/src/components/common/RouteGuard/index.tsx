@@ -2,13 +2,20 @@ import { I_Route } from "@/def_types/route";
 
 // React & React 路由
 import { Suspense } from "react";
-import { Switch, Route, useLocation, Redirect } from "react-router-dom";
-// 全局状态
-import { useRecoilValue } from "recoil";
-import { A_User } from "@/store";
+import {
+  Switch,
+  Route,
+  useLocation,
+  Redirect,
+  matchPath,
+} from "react-router-dom";
+
+// 工具函数 & 用户状态
+import { localStorage } from "@/utils";
+import { defaultUserState } from "@/store";
 
 // 登录页 路径
-const loginURL = "/login";
+const loginURL = "/settings";
 
 interface RouteGuradProps {
   routes: I_Route[];
@@ -16,13 +23,16 @@ interface RouteGuradProps {
 // 路由守卫 V5
 export default function RouteGuard({ routes }: RouteGuradProps) {
   // 当前用户
-  const user = useRecoilValue(A_User);
+  const user = localStorage.get("user", defaultUserState);
   // 当前路径
   const { pathname } = useLocation();
+
   // 匹配路由
-  let matchRoute =
-    routes.find(({ path }) => path === pathname) ||
-    (routes.find(({ path }) => path === "*") as I_Route);
+  let matchRoute = routes.find(({ path }) => {
+    const match = matchPath(pathname, { path, exact: true });
+
+    return match?.isExact;
+  }) as I_Route;
 
   // 路由需要登陆 && 但用户未登录
   if (matchRoute.auth && !Boolean(user.token)) {
