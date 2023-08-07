@@ -6,11 +6,11 @@ import { role } from "@/utils";
 
 const gameRoutes: I_Route[] = [
   {
-    path: "/room/*",
+    path: "/room/:roomId",
     component: lazy(() => import("@/pages/game/RoomPage")),
     fallback: <CommonLoadingSkeleton />,
-    auth: false,
-    role: role.all(),
+    auth: true,
+    role: [role.GAMER],
     exact: true,
   },
 ];
