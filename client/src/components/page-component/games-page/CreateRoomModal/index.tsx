@@ -41,7 +41,7 @@ export default function CreateRoomModal({
       <Form
         layout="vertical"
         onFinish={onCreate}
-        initialValues={{ maxMemberCount: 8 }}
+        initialValues={{ maxMemberCount: 2 }}
       >
         <div className="row">
           <Form.Item
@@ -57,7 +57,7 @@ export default function CreateRoomModal({
             rules={[{ required: true }]}
             label="Қатысушы саны"
           >
-            <InputNumber min={2} max={10} />
+            <InputNumber min={2} max={8} />
           </Form.Item>
         </div>
 
