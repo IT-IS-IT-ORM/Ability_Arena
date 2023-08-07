@@ -1,8 +1,10 @@
 import type { allowedRole } from "@/utils";
 
 export interface I_User {
+  id: number;
   username: string;
-  avatarIdx: number;
+  avatarIndex: number;
   role: allowedRole;
   token: string;
+  createTime: string;
 }
