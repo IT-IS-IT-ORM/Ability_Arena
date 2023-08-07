@@ -31,9 +31,10 @@ def custom_exception_handler(exc, context):
 
     # 校验 异常
     if isinstance(exc, ValidationError):
+
         for value in exc.detail.values():
             error_message = value[0]
-            
+
             if isinstance(error_message, list):
                 error_message = error_message[0]
 
@@ -42,7 +43,7 @@ def custom_exception_handler(exc, context):
     # 解析 异常
     if isinstance(exc, ParseError):
         return Response(data={'message': '解析异常, 确保数据格式正确'}, status=HTTP_400_BAD_REQUEST)
-    
+
     # 权限 异常
     if isinstance(exc, PermissionDenied):
         exc = PermissionDenied(detail='权限不足')
@@ -57,7 +58,7 @@ def custom_exception_handler(exc, context):
 
     if isinstance(exc, APIException):
         headers = {}
-        
+
         if getattr(exc, 'auth_header', None):
             headers['WWW-Authenticate'] = exc.auth_header
 
@@ -66,7 +67,6 @@ def custom_exception_handler(exc, context):
         else:
             data = {'message': exc.detail}
 
-        
         return Response(data, status=exc.status_code, headers=headers)
 
     # 自定义 异常
