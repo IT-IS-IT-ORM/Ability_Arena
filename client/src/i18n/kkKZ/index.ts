@@ -25,8 +25,12 @@ export default {
   GamesPage__room: "бөлме",
   GamesPage__createRoom: "Бөлме ашу",
   GamesPage__noRoom: "Бөлме жоқ",
+  GamesPage__createSuccessfully: "Сәтті құрылды",
 
   "GamesPage__crazy-fight": "Хаус шайқас",
+
+  // API for common
+  API_Common_needAuth: 'Авторизация керек',
 
   // API for User
   API_User_usernameIsRequired: "Атау бос болмауы керек",

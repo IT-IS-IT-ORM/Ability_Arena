@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 
 // 全局状态
 import { useRecoilValue } from "recoil";
-import { A_Game } from "@/store";
+import { A_Game, A_User, S_UserIsAuthenticated } from "@/store";
 
 // i18n
 import { useTranslation } from "react-i18next";
@@ -22,7 +22,7 @@ import {
   useMemoizedFn,
 } from "ahooks";
 // API
-import { API_GetRooms } from "@/service/game.api";
+import { API_GetRooms, API_CreateRoom } from "@/service/game.api";
 
 // Antd 组件
 import { message as AntdMessage, Empty } from "antd";
@@ -38,6 +38,8 @@ import { Button } from "@/components/common";
 import classes from "./style.module.scss";
 
 export default memo(function GamesPage() {
+  const user = useRecoilValue(A_User);
+  const isAuthenticated = useRecoilValue(S_UserIsAuthenticated);
   const game = useRecoilValue(A_Game);
   const history = useHistory();
   const { t } = useTranslation();
@@ -58,11 +60,31 @@ export default memo(function GamesPage() {
     pollingErrorRetryCount: 2,
   });
 
-  const handleCreateRoom = useMemoizedFn((values: I_Room) => {
-    console.log(values);
-    setStateOfCreateRoom({
-      modalIsOpen: false,
+  // 创建房间 API
+  const { runAsync: createRoom, loading: loadingCreateRoom } = useRequest(
+    API_CreateRoom,
+    { manual: true }
+  );
+
+  const handleCreateRoom = useMemoizedFn(async (values: I_Room) => {
+    if (!isAuthenticated) {
+      AntdMessage.warning(t("API_Common_needAuth"));
+      return;
+    }
+
+    values.homeowner = user.id;
+    const response = await createRoom(values).catch((err) => {
+      AntdMessage.error(t(err.message));
     });
+
+    if (response?.isOk) {
+      AntdMessage.success(t("GamesPage__createSuccessfully"));
+
+      setRoomList((prevList) => [...prevList, response.data]);
+      setStateOfCreateRoom({
+        modalIsOpen: false,
+      });
+    }
   });
 
   const handleCardClick = (room: I_Room) => {

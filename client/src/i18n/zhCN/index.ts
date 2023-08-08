@@ -25,8 +25,12 @@ export default {
   GamesPage__room: "房间",
   GamesPage__createRoom: "创建房间",
   GamesPage__noRoom: "暂无房间",
+  GamesPage__createSuccessfully: "创建成功",
 
   "GamesPage__crazy-fight": "大乱斗",
+
+  // API for common
+  API_Common_needAuth: "需要登录",
 
   // API for User
   API_User_usernameIsRequired: "用户名不可为空",
