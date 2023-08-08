@@ -27,4 +27,11 @@ export default {
   GamesPage__noRoom: "暂无房间",
 
   "GamesPage__crazy-fight": "大乱斗",
+
+  // API for User
+  API_User_usernameIsRequired: "用户名不可为空",
+  API_User_usernameMaxLength: "用户名不能超过10个字符",
+  API_User_usernameUnique: "用户名已被占用",
+  API_User_registerSuccess: "注册成功",
+  API_User_saveSuccess: "保存成功",
 };

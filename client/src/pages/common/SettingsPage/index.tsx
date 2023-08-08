@@ -137,20 +137,22 @@ export default function SettingsPage() {
 
     if (isAuthenticated) {
       await save(user.id, data).catch((err) => {
-        AntdMessage.error(err.message);
+        AntdMessage.error(t(err.message));
       });
-      AntdMessage.success("保存成功");
+      AntdMessage.success(t("API_User_saveSuccess"));
       localStorage.set("user", user);
     } else {
       const response = await register(data).catch((err) => {
-        AntdMessage.error(err.message);
+        AntdMessage.error(t(err.message));
       });
 
-      AntdMessage.success("注册成功");
+      if (response?.isOk) {
+        AntdMessage.success(t("API_User_registerSuccess"));
 
-      const newUser = response!.data;
-      localStorage.set("user", newUser);
-      setUser(newUser);
+        const newUser = response!.data;
+        localStorage.set("user", newUser);
+        setUser(newUser);
+      }
     }
   };
 

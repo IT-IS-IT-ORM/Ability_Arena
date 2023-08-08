@@ -10,27 +10,14 @@ class UserSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(label='ID', read_only=True)
     username = serializers.CharField(
         label='用户名', max_length=10, trim_whitespace=True, error_messages={
-            'blank': 'Имя пользователя не может быть пустым',
-            'required': 'Имя пользователя не может быть пустым',
-            'max_length': 'Имя пользователя не может превышать 10 символов',
+            'blank': 'API_User_usernameIsRequired',
+            'required': 'API_User_usernameIsRequired',
+            'max_length': 'API_User_usernameMaxLength',
         })
-    # password = serializers.CharField(
-    #     label='密码', write_only=True, max_length=254, trim_whitespace=True, error_messages={
-    #         'blank': 'Пароль не может быть пустым',
-    #         'required': 'Пароль не может быть пустым',
-    #         'max_length': 'Пароль не может превышать 254 символа',
-    #     })
     avatar_index = serializers.CharField(
-        label='头像索引', max_length=2, trim_whitespace=True, error_messages={
-            'blank': 'Имя пользователя не может быть пустым',
-            'required': 'Имя пользователя не может быть пустым',
-            'max_length': '0~99',
-        })
+        label='头像索引', max_length=2, trim_whitespace=True)
     role = serializers.ChoiceField(
-        label='角色', choices=User.ROLE_CHOICES, required=False, error_messages={
-            'max_length': 'Роль не может превышать 10 символов',
-            'invalid_choice': 'Недопустимый роль',
-        }, source='get_role_display')
+        label='角色', choices=User.ROLE_CHOICES, required=False, source='get_role_display')
     create_time = serializers.DateTimeField(label='注册时间', read_only=True)
 
     def can_register(self):
@@ -39,7 +26,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         user = User.objects.filter(username=username).first()
         if user:
-            raise CustomException(message='用户名已被占用')
+            raise CustomException(message='API_User_usernameUnique')
 
         return User.objects.create(**self.initial_data)
 
@@ -50,7 +37,7 @@ class UserSerializer(serializers.ModelSerializer):
             serializers.UniqueTogetherValidator(
                 queryset=User.objects.all(),
                 fields=['username'],
-                message='用户名已被注册'
+                message='API_User_usernameUnique'
             ),
         ]
 

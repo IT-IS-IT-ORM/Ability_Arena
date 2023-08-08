@@ -27,4 +27,11 @@ export default {
   GamesPage__noRoom: "Бөлме жоқ",
 
   "GamesPage__crazy-fight": "Хаус шайқас",
+
+  // API for User
+  API_User_usernameIsRequired: "Атау бос болмауы керек",
+  API_User_usernameMaxLength: "Атау 10 таңбадан аспау керек",
+  API_User_usernameUnique: "Бұл атау бос емес",
+  API_User_registerSuccess: "Сәтті тіркелу",
+  API_User_saveSuccess: "Сәтті сақтау",
 };
