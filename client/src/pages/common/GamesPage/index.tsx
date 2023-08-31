@@ -84,6 +84,7 @@ export default memo(function GamesPage() {
       setStateOfCreateRoom({
         modalIsOpen: false,
       });
+      history.push(`/room/${response.data.id}`)
     }
   });
 
