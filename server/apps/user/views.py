@@ -1,13 +1,13 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.views import APIView
 from rest_framework.response import Response
-# from rest_framework.status import HTTP_201_CREATED
+from rest_framework.status import HTTP_201_CREATED
 
-# from user.serializers import (UserSerializer, LoginSerializer)
+from user.serializers import (UserSerializer, LoginSerializer)
 from user.models import User
 
-# from utils.jwt import create_jwt
-# from utils.authentication import LoginRequiredAuthentication
+from utils.jwt import create_jwt
+from utils.authentication import LoginRequiredAuthentication
 
 
 class UserViewSet(ModelViewSet):
@@ -56,6 +56,26 @@ class LoginAPIView(APIView):
         serializer.is_valid(raise_exception=True)
         # 校验 登录数据 正确性 (错误时会抛出 CustomExeption, 通过 middleware 捕获)
         user = serializer.is_correct()
+        # jwt 令牌
+        token = create_jwt({'uid': user.id})
+        # User模型 反序列化数据
+        data = UserSerializer(instance=user).data
+        data['token'] = token
+
+        return Response(data)
+
+class RegisterAPIView(APIView):
+    """
+    注册 API 类
+    """
+    authentication_classes = []
+
+    def post(self, request):
+        serializer = UserSerializer(data=request.data)
+        # 校验 登录数据 合法性
+        serializer.is_valid(raise_exception=True)
+        # 校验 登录数据 正确性 (错误时会抛出 CustomExeption, 通过 middleware 捕获)
+        user = serializer.can_register()
         # jwt 令牌
         token = create_jwt({'uid': user.id})
         # User模型 反序列化数据

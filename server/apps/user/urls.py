@@ -2,7 +2,7 @@ from django.urls import path
 from rest_framework import routers
 from django.conf import settings
 
-from user.views import UserViewSet, LoginAPIView
+from user.views import UserViewSet, LoginAPIView, RegisterAPIView
 
 if settings.DEBUG:
     router = routers.DefaultRouter()
@@ -16,6 +16,8 @@ urlpatterns = router.urls
 urlpatterns += [ 
     # 登录 接口
     path('auth/login/', LoginAPIView.as_view()),
+    # 注册 接口
+    path('auth/register/', RegisterAPIView.as_view()),
 ]
 
 app_name = 'user'

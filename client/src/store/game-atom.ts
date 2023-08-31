@@ -1,45 +1,32 @@
-import type { I_Game } from '@/def_types/game';
+import type { I_Room } from "@/def_types/game";
 
-import { atom } from 'recoil';
-
-// 图片资源
-import { cover } from '@/assets/image/game/liar-card';
+import { atom, selector } from "recoil";
+import { A_User } from "@/store/user-atom";
 
 export interface gameStateProperties {
-	gameList: I_Game[];
+  roomList: I_Room[];
 }
 
 export const defaultGameState: gameStateProperties = {
-	gameList: [
-		{
-			name: 'liar-card',
-			status: 'Beta',
-			cover,
-			hasBot: false,
-		},
-		{
-			name: 'fool-card',
-			status: 'Planning',
-			cover,
-			hasBot: false,
-		},
-		{
-			name: 'landlords-card',
-			status: 'Planning',
-			cover,
-			hasBot: false,
-		},
-		{
-			name: 'crazy-fight',
-			status: 'Planning',
-			cover,
-			hasBot: false,
-		},
-	],
+  roomList: [],
 };
 
 export const A_Game = atom({
-	key: 'A_Game',
-	// default value, aka initial value
-	default: defaultGameState,
+  key: "A_Game",
+  // default value, aka initial value
+  default: defaultGameState,
+});
+
+export const S_RoomDetail = selector({
+  key: "S_RoomDetail",
+  get({ get }) {
+    const user = get(A_User);
+    const game = get(A_Game);
+
+    return game.roomList.find(
+      (room) =>
+        room.homeowner === user.id ||
+        room.member.find((record) => record.member === user.id)
+    );
+  },
 });

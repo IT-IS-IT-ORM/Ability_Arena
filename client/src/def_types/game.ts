@@ -1,8 +1,10 @@
-export type gameStatus = 'Planning' | 'InProgress' | 'Beta' | 'Completed';
+type ID = number;
 
-export interface I_Game {
-	name: string;
-	cover: string;
-	status: gameStatus;
-	hasBot: boolean;
+export interface I_Room {
+  id: ID;
+  name: string;
+  maxMemberCount: number;
+  homeowner: ID;
+  password?: string;
+  member: { id: ID; member: ID }[];
 }

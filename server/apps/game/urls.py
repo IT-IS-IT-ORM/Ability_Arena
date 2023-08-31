@@ -1,18 +1,16 @@
-# from django.urls import path
-# from rest_framework import routers
-# from django.conf import settings
+from django.urls import path
+from rest_framework import routers
+from django.conf import settings
 
-# from user.views import UserViewSet, LoginAPIView
+from game.views import RoomViewSet
 
-# if settings.DEBUG:
-#     router = routers.DefaultRouter()
-# else:
-#     router = routers.SimpleRouter()
+if settings.DEBUG:
+    router = routers.DefaultRouter()
+else:
+    router = routers.SimpleRouter()
 
-# router.register(r'user', UserViewSet)
+router.register(r'room', RoomViewSet)
 
-# urlpatterns = router.urls
-
-urlpatterns = []
+urlpatterns = router.urls
 
 app_name = 'game'

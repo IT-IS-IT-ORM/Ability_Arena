@@ -7,7 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # 用户 API
-    # path('api/', include('user.urls')),
+    path('api/', include('user.urls')),
     # 游戏 API
     path('api/', include('game.urls')),
 
