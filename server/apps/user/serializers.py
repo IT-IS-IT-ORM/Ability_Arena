@@ -45,9 +45,9 @@ class UserSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField(
         label='用户名', max_length=10, trim_whitespace=True, error_messages={
-            'blank': 'Имя пользователя не может быть пустым',
-            'required': 'Имя пользователя не может быть пустым',
-            'max_length': 'Имя пользователя не может превышать 10 символов',
+            'blank': 'API_User_usernameIsRequired',
+            'required': 'API_User_usernameIsRequired',
+            'max_length': 'API_User_usernameMaxLength',
         })
     password = serializers.CharField(
         label='密码', write_only=True, max_length=254, trim_whitespace=True, error_messages={
