@@ -19,6 +19,7 @@ class RoomSerializer(serializers.ModelSerializer):
 
     def add_member(self, room_json):
         members = RoomMember.objects.filter(room=room_json['id'])
+        # TODO: 这里直接返回User
         room_json['member'] = RoomMemberSerializer(
             instance=members, many=True).data
 
