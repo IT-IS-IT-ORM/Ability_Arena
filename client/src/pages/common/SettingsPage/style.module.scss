@@ -28,8 +28,8 @@
 
   :global .avatar-grid {
     position: absolute;
-
     @include flex($wrap: wrap, $gap: 20px);
+    @include useScroll;
 
     width: calc(100% - 24px * 2);
     max-height: calc(100% - 32px * 2 - 140px - 32px);
