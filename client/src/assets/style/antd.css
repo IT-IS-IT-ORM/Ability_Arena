@@ -1,4 +1,12 @@
 .ant-select-dropdown {
-	font-size: 20px;
-	font-family: inherit;
+  font-size: 20px;
+  font-family: inherit;
+}
+
+.ant-select-dropdown .ant-select-item-option-selected[aria-selected="true"] {
+  background: #fff;
+}
+.ant-select-dropdown
+  .ant-select-item-option-selected[aria-selected="true"]:hover {
+  background: rgba(0, 0, 0, 0.04);
 }
