@@ -72,19 +72,27 @@
 
   :global .info {
     width: 100%;
+    max-width: 260px;
     padding: 10px 20px;
     background: #fff;
+    overflow: hidden;
 
-    @include flex(
-      $direction: column,
-      $justifyContent: space-between,
-      $gap: 10px
-    );
+    @include flex($justifyContent: space-between, $gap: 10px);
+
+    .name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .number-of-gamer {
+      flex: 0 0 62px;
+    }
 
     .status {
       @include flex($alignItems: center, $gap: 10px);
 
       width: max-content;
+      max-width: 62px;
       padding: 4px 10px;
       border-radius: 6px;
       background: #536976;
