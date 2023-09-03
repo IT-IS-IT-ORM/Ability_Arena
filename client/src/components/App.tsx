@@ -27,7 +27,7 @@ export default function App() {
 			<AntdConfigProvider
 				theme={{
 					token: {
-						colorPrimary: '#001fff',
+						colorPrimary: '#000',
 					},
 				}}
 				locale={antdLocale}>

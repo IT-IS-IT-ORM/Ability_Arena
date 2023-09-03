@@ -90,12 +90,12 @@
 			background: transparent;
 		}
 		@if ($onlyOnHover == 0) {
-			background: #001fff;
+			background: #fff;
 		}
 	}
 
 	&:hover::-webkit-scrollbar-thumb {
-		background: #001fff;
+		background: #fff;
 	}
 
 	&::-webkit-scrollbar-track {
