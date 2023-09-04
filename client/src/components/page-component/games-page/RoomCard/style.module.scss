@@ -1,101 +1,109 @@
-@import '@/assets/style/mixins.scss';
+@import "@/assets/style/mixins.scss";
 
 .roomCard {
-	position: relative;
-	overflow: hidden;
-	cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
 
-	@include flex($direction: column);
+  @include flex($direction: column);
 
-	border: 1px solid var(--c-primary);
-	box-shadow: var(--c-primary) 0 2px 5px 0;
+  border: 1px solid #000;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 8px 8px;
 
-	:global .lt,
-	:global .rt,
-	:global .rb,
-	:global .lb {
-		position: absolute;
-		width: 20px;
-		height: 20px;
-	}
+  :global .lt,
+  :global .rt,
+  :global .rb,
+  :global .lb {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+  }
 
-	:global .lt {
-		border-top: 4px solid var(--c-primary);
-		border-left: 4px solid var(--c-primary);
+  :global .lt {
+    border-top: 4px solid #000;
+    border-left: 4px solid #000;
 
-		top: 0px;
-		left: 0;
-	}
+    top: 0px;
+    left: 0;
+  }
 
-	:global .rt {
-		border-top: 4px solid var(--c-primary);
-		border-right: 4px solid var(--c-primary);
+  :global .rt {
+    border-top: 4px solid #000;
+    border-right: 4px solid #000;
 
-		top: 0;
-		right: 0;
-	}
+    top: 0;
+    right: 0;
+  }
 
-	:global .rb {
-		border-bottom: 4px solid var(--c-primary);
-		border-right: 4px solid var(--c-primary);
+  :global .rb {
+    border-bottom: 4px solid #000;
+    border-right: 4px solid #000;
 
-		bottom: 0;
-		right: 0;
-	}
+    bottom: 0;
+    right: 0;
+  }
 
-	:global .lb {
-		border-bottom: 4px solid var(--c-primary);
-		border-left: 4px solid var(--c-primary);
+  :global .lb {
+    border-bottom: 4px solid #000;
+    border-left: 4px solid #000;
 
-		bottom: 0;
-		left: 0;
-	}
+    bottom: 0;
+    left: 0;
+  }
 
-	:global .beta-banner {
-		position: absolute;
-		padding: 0 36px;
-		transform: rotate(-45deg) translate(-30px, -12px);
+  :global .beta-banner {
+    position: absolute;
+    padding: 0 36px;
+    transform: rotate(-45deg) translate(-30px, -12px);
 
-		color: #fff;
-		font-size: 16px;
-		text-align: center;
-		letter-spacing: 1px;
-		background: #368f6d;
-	}
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    letter-spacing: 1px;
+    background: #368f6d;
+  }
 
-	:global .cover {
-		width: 260px;
-		height: 240px;
-		padding: 20px;
-		object-fit: cover;
-	}
+  :global .cover {
+    width: 260px;
+    height: 240px;
+    padding: 20px;
+    object-fit: cover;
+  }
 
-	:global .info {
-		width: 100%;
-		padding: 10px 20px;
-		background: #fff;
+  :global .info {
+    width: 100%;
+    max-width: 260px;
+    padding: 10px 20px;
+    background: #fff;
+    overflow: hidden;
 
-		@include flex(
-			$direction: column,
-			$justifyContent: space-between,
-			$gap: 10px
-		);
+    @include flex($justifyContent: space-between, $gap: 10px);
 
-		.status {
-			@include flex($alignItems: center, $gap: 10px);
+    .name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-			width: max-content;
-			padding: 4px 10px;
-			border-radius: 6px;
-			background: #536976;
-			background: linear-gradient(-45deg, #292e49, #536976);
+    .number-of-gamer {
+      flex: 0 0 62px;
+    }
 
-			color: rgba(255, 255, 255, 0.88);
-			font-size: 16px;
+    .status {
+      @include flex($alignItems: center, $gap: 10px);
 
-			svg {
-				@include svgStyle($color: rgba(255, 255, 255, 0.88));
-			}
-		}
-	}
+      width: max-content;
+      max-width: 62px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: #536976;
+      background: linear-gradient(-45deg, #292e49, #536976);
+
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 16px;
+
+      svg {
+        @include svgStyle($color: rgba(255, 255, 255, 0.88));
+      }
+    }
+  }
 }

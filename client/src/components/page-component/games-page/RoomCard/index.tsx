@@ -33,6 +33,9 @@ export default function RoomCard({ room, onClick }: RoomCardProps) {
 
       <div className="info">
         <span className="name">{room.name}</span>
+        <span className="status number-of-gamer">
+          {room.member.length} / {room.maxMemberCount}
+        </span>
       </div>
     </div>
   );

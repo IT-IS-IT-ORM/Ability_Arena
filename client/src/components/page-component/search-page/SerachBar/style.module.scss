@@ -28,13 +28,13 @@
 			margin-left: 1px;
 			border-start-end-radius: var(--border-radius);
 			border-end-end-radius: var(--border-radius);
-			background: var(--c-primary);
+			background: #fff;
 
 			.anticon-search {
 				transform: none;
 
 				svg {
-					@include svgStyle($color: #fff);
+					@include svgStyle($color: #000);
 					transform: translate(-1px, 1px) scale(0.9);
 				}
 			}

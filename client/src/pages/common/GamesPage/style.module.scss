@@ -10,7 +10,6 @@
     @include flex($alignItems: center, $gap: 16px);
 
     button {
-      --c-box-shadow: var(--c-primary);
       white-space: nowrap;
     }
 

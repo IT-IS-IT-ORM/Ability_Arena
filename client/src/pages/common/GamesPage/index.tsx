@@ -13,14 +13,7 @@ import { A_Game, A_User, S_UserIsAuthenticated } from "@/store";
 import { useTranslation } from "react-i18next";
 
 // Hooks
-import {
-  useWebSocket,
-  useRequest,
-  useMount,
-  useSafeState,
-  useSetState,
-  useMemoizedFn,
-} from "ahooks";
+import { useRequest, useSafeState, useSetState, useMemoizedFn } from "ahooks";
 // API
 import { API_GetRooms, API_CreateRoom } from "@/service/game.api";
 
@@ -84,11 +77,16 @@ export default memo(function GamesPage() {
       setStateOfCreateRoom({
         modalIsOpen: false,
       });
-      history.push(`/room/${response.data.id}`)
+      history.push(`/room/${response.data.id}`);
     }
   });
 
   const handleCardClick = (room: I_Room) => {
+    if (!isAuthenticated) {
+      AntdMessage.warning(t("API_Common_needAuth"));
+      return;
+    }
+
     history.push(`/room/${room.id}`);
   };
 

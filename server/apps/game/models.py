@@ -19,6 +19,18 @@ class Room(models.Model):
 
     def __str__(self):
         return f'{self.name}'
+    
+    def add_member(self, room, member):
+        already_inside = RoomMember.objects.filter(room=room, member=member).count() > 0
+        not already_inside and RoomMember.objects.create(room=room, member=member)
+    
+    def discard_member(self, room, member):
+        room_member = RoomMember.objects.get(room=room, member=member)
+        room_member.delete()
+
+        # 房间内再无玩家 (都退出了房间)
+        if RoomMember.objects.filter(room=room).count() == 0:
+            room.delete()
 
 
 @receiver(post_save, sender=Room)
