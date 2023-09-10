@@ -39,7 +39,7 @@ class GameConsumer(JsonWebsocketConsumer):
 
         print('加入房间')
         self.room.add_member(self.room, self.user)
-        self.channel_layer.group_add(
+        async_to_sync(self.channel_layer.group_add)(
             self.room_group_name,
             self.channel_name
         )
@@ -58,7 +58,7 @@ class GameConsumer(JsonWebsocketConsumer):
     def disconnect(self, close_code):
         print('退出房间')
         self.room.discard_member(self.room, self.user)
-        self.channel_layer.group_discard(
+        async_to_sync(self.channel_layer.group_discard)(
             self.room_group_name,
             self.channel_name
         )
