@@ -24,6 +24,15 @@ const commonRoutes: I_Route[] = [
   },
 
   {
+    path: "/docs",
+    component: lazy(() => import("@/pages/common/DocsPage")),
+    fallback: <CommonLoadingSkeleton />,
+    auth: false,
+    role: role.all(),
+    exact: true,
+  },
+
+  {
     path: "/settings",
     component: lazy(() => import("@/pages/common/SettingsPage")),
     fallback: <CommonLoadingSkeleton />,
