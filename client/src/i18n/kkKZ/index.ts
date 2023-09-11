@@ -2,6 +2,7 @@ export default {
   // Navigator
   Navigator__home: "Бастапқы",
   Navigator__games: "Ойындар",
+  Navigator__docs: "Нұсқаулық",
   Navigator__settings: "Баптау",
 
   // Home Page

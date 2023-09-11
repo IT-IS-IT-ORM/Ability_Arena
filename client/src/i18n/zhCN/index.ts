@@ -2,6 +2,7 @@ export default {
   // Navigator
   Navigator__home: "主页",
   Navigator__games: "游戏",
+  Navigator__docs: "说明书",
   Navigator__settings: "设置",
 
   // Home Page
