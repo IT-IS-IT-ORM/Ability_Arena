@@ -28,7 +28,7 @@
 
 		position: absolute;
 		z-index: 2;
-		opacity: 0.5;
+		opacity: 1;
 		backdrop-filter: blur(20px);
 
 		display: grid;
@@ -178,7 +178,7 @@
 
 	:global .title {
 		position: absolute;
-		top: calc(12.5%);
+		top: calc(12%);
 		left: 24px;
 		transform: translateY(-100%);
 
