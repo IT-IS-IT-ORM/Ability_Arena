@@ -5,25 +5,6 @@
 
 ---
 
-## Games
-
-| Name   | Status |   Language | Has Bot |
-| :----- | :----: | ---------: | ------: |
-| 骗子牌 | 开发中 | kkKZ, zhCN |      NO |
-| 6 张牌 | 策划中 | kkKZ, zhCN |      NO |
-| 斗地主 | 策划中 | kkKZ, zhCN |      NO |
-| 大乱斗 | 策划中 | kkKZ, zhCN |      NO |
-
----
-
-## 技术栈
-
-编程语言: `TypeScript`,`JavaScript`
-
-框架: `React`, `Socket.IO`, `TensorFlow`
-
----
-
 ## TODO & BUG
 
 <!-- - (BUG) Xxx Page -->
@@ -31,12 +12,10 @@
 
 - (TODO) Home Page
 
-  - 补充文案, 项目介绍
+  - Dark 模式下依次出现"游戏提示", "梗文"
 
-- (TODO) Light / Dark 主题
+## 技术栈
 
-- (TODO) Layout box 3D 效果
-  - 跟随鼠标 水平, 垂直 轻微移动
+编程语言: `TypeScript`
 
-- (TODO) Game card 3D 效果
-  - 跟随鼠标 3d 轻微旋转
+框架: `React`, `TensorFlow`
