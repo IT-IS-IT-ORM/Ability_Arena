@@ -9,7 +9,7 @@ djangorestframework = "==3.12.4"
 channels = "==3.0.4"
 channels-redis = "*"
 pyjwt = "*"
-django = "==4.2"
+django = "===3.2.8"
 
 [dev-packages]
 

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "84a221167927deb95f4a5169be560077dc687bbf636d2c41824d39b9369beaf5"
+            "sha256": "11d85d352d8ba930dfb5a6f6dae34c9a4e168855ebbe8a4591cb4446c4ecff39"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -177,12 +177,12 @@
         },
         "django": {
             "hashes": [
-                "sha256:ad33ed68db9398f5dfb33282704925bce044bef4261cd4fb59e4e7f9ae505a78",
-                "sha256:c36e2ab12824e2ac36afa8b2515a70c53c7742f0d6eaefa7311ec379558db997"
+                "sha256:42573831292029639b798fe4d3812996bfe4ff3275f04566da90764daec011a5",
+                "sha256:f6d2c4069c9b9bfac03bedff927ea1f9e0d29e34525cec8a68fd28eb2a8df7af"
             ],
             "index": "pypi",
-            "markers": "python_version >= '3.8'",
-            "version": "==4.2"
+            "markers": "python_version >= '3.6'",
+            "version": "==3.2.8"
         },
         "django-cors-headers": {
             "hashes": [
@@ -330,6 +330,13 @@
             ],
             "version": "==23.2.0"
         },
+        "pytz": {
+            "hashes": [
+                "sha256:7b4fddbeb94a1eba4b557da24f19fdf9db575192544270a9101d8509f9f43d7b",
+                "sha256:ce42d816b81b68506614c11e8937d3aa9e41007ceb50bfdcb0749b921bf646c7"
+            ],
+            "version": "==2023.3.post1"
+        },
         "redis": {
             "hashes": [
                 "sha256:06570d0b2d84d46c21defc550afbaada381af82f5b83e5b3777600e05d8e2ed0",
@@ -347,11 +354,11 @@
         },
         "setuptools": {
             "hashes": [
-                "sha256:3d4dfa6d95f1b101d695a6160a7626e15583af71a5f52176efa5d39a054d475d",
-                "sha256:3d8083eed2d13afc9426f227b24fd1659489ec107c0e86cec2ffdde5c92e790b"
+                "sha256:00478ca80aeebeecb2f288d3206b0de568df5cd2b8fada1209843cc9a8d88a48",
+                "sha256:af3d5949030c3f493f550876b2fd1dd5ec66689c4ee5d5344f009746f71fd5a8"
             ],
             "markers": "python_version >= '3.8'",
-            "version": "==68.1.2"
+            "version": "==68.2.0"
         },
         "six": {
             "hashes": [
@@ -420,14 +427,6 @@
             ],
             "markers": "python_version >= '3.7'",
             "version": "==4.7.1"
-        },
-        "tzdata": {
-            "hashes": [
-                "sha256:11ef1e08e54acb0d4f95bdb1be05da659673de4acbd21bf9c69e94cc5e907a3a",
-                "sha256:7e65763eef3120314099b6939b5546db7adce1e7d6f2e179e3df563c70511eda"
-            ],
-            "markers": "sys_platform == 'win32'",
-            "version": "==2023.3"
         },
         "zope-interface": {
             "hashes": [
