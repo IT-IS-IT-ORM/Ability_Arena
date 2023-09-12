@@ -1,0 +1,13 @@
+@import "@/assets/style/mixins.scss";
+
+.chatBlock {
+    @include flex($direction: column);
+
+    :global .head {
+        @include flex($alignItems: center, $gap: 20px);
+    }
+    
+    :global .chat {}
+    
+    :global .enter {}
+}
