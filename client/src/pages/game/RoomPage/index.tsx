@@ -10,6 +10,8 @@ import { A_User } from "@/store";
 import { useWebSocket, useMount } from "ahooks";
 // API
 import { WS_GameURI } from "@/service/game.ws";
+// Custom Component
+import { ChatBlock } from "@/components/page-component/games-page";
 
 // Scoped style
 import classes from "./style.module.scss";
@@ -37,5 +39,9 @@ export default memo(function RoomPage() {
 
   console.log("latestMessage: ", latestMessage);
 
-  return <div className={classes.roomPage}>room page, room id: {1}</div>;
+  return (
+    <div className={classes.roomPage}>
+      <ChatBlock room={{ name: "abcdefgh" }} />
+    </div>
+  );
 });
