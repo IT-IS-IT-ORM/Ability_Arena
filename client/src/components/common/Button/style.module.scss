@@ -16,9 +16,9 @@
   border: none;
   outline: none;
   background: #fff;
-  box-shadow: 1px 1px 1px 1px var(--c-box-shadow), 2px 2px 0 0 var(--c-box-shadow),
-    3px 3px 0 0 var(--c-box-shadow), 4px 4px 0 0 var(--c-box-shadow),
-    5px 5px 0 0 var(--c-box-shadow);
+  box-shadow: 1px 1px 1px 1px var(--c-box-shadow),
+    2px 2px 0 0 var(--c-box-shadow), 3px 3px 0 0 var(--c-box-shadow),
+    4px 4px 0 0 var(--c-box-shadow), 5px 5px 0 0 var(--c-box-shadow);
 
   cursor: pointer;
   user-select: none;
@@ -29,4 +29,12 @@
     box-shadow: 0 0 0 0;
     transform: translate(5px, 5px);
   }
+
+  &--block {
+    width: 100%;
+  }
+}
+
+.buttonBlock {
+  width: 100%;
 }
