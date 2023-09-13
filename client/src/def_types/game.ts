@@ -1,4 +1,7 @@
+import type { I_User } from "@/def_types/user";
+
 type ID = number;
+type UUID = string;
 
 export interface I_Room {
   id: ID;
@@ -6,5 +9,15 @@ export interface I_Room {
   maxMemberCount: number;
   homeowner: ID;
   password?: string;
-  member: { id: ID; member: ID }[];
+  memberList: {
+    id: ID;
+    member: I_User;
+  }[];
+}
+
+export interface I_WS_Message<T> {
+  messageId: UUID;
+  messageType: string;
+  messageTime: string;
+  data: T;
 }
