@@ -14,8 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
             'required': 'API_User_usernameIsRequired',
             'max_length': 'API_User_usernameMaxLength',
         })
-    avatar_index = serializers.CharField(
-        label='头像索引', max_length=2, trim_whitespace=True)
+    avatar_index = serializers.IntegerField(label='头像索引', min_value=0, max_value=99)
     role = serializers.ChoiceField(
         label='角色', choices=User.ROLE_CHOICES, required=False, source='get_role_display')
     create_time = serializers.DateTimeField(label='注册时间', read_only=True)
