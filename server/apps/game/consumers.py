@@ -1,12 +1,27 @@
 from channels.generic.websocket import JsonWebsocketConsumer
 
 from user.models import User
+from user.serializers import UserSerializer
 from game.models import Room, RoomMember
 from game.serializers import RoomSerializer, RoomMemberSerializer
 
 from utils.jwt import check_jwt
 
 from asgiref.sync import async_to_sync
+from datetime import datetime
+from uuid import uuid4
+
+
+'''
+WS message 模板
+
+{
+    message_id: id,
+    message_type: 'chat.xxx', 'game.xxx', 'action.xxx',
+    message_time: date time string,
+    data: {} | []
+}
+'''
 
 
 class GameConsumer(JsonWebsocketConsumer):
@@ -48,10 +63,11 @@ class GameConsumer(JsonWebsocketConsumer):
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
             {
-                "type": "chat.message",
-                "room_id": self.room_id,
-                "username": self.user.username,
-                "message": 'a new person join',
+                "type": "group.send",
+                "message_id": str(uuid4()),
+                "message_type": "chat.info.player_join",
+                "message_time": str(datetime.now()),
+                "data": UserSerializer(instance=self.user).data
             }
         )
 
@@ -65,10 +81,11 @@ class GameConsumer(JsonWebsocketConsumer):
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
             {
-                "type": "chat.message",
-                "room_id": self.room_id,
-                "username": self.user.username,
-                "message": '有人退出了',
+                "type": "group.send",
+                "message_id": str(uuid4()),
+                "message_type": "chat.info.player_leave",
+                "message_time": str(datetime.now()),
+                "data": UserSerializer(instance=self.user).data
             }
         )
         print('断开WS链接')
@@ -77,7 +94,5 @@ class GameConsumer(JsonWebsocketConsumer):
         print('receive_json: ', content)
         self.chat_message(content)
 
-    def chat_message(self, message):
-        self.send_json({
-            'message': message
-        })
+    def group_send(self, message):
+        self.send_json(message)
