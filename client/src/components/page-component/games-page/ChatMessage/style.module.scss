@@ -1,0 +1,41 @@
+@import "@/assets/style/mixins.scss";
+
+.chatInfo {
+  width: 100%;
+  @include flex($direction: column, $alignItems: center, $gap: 2px);
+
+  :global .time,
+  :global .content {
+    font-size: 16px;
+  }
+
+  :global .time {
+    font-size: 14px;
+    color: var(--c-text-secondary);
+  }
+}
+
+.chatMessage {
+  width: 100%;
+  @include flex($gap: 8px);
+
+  :global .avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  :global .block {
+    @include flex($direction: column, $gap: 8px);
+
+    .row {
+      @include flex($alignItems: center, $gap: 8px);
+
+      .time {
+        font-size: 14px;
+        color: var(--c-text-secondary);
+      }
+    }
+  }
+}
