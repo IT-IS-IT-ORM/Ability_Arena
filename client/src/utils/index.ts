@@ -11,3 +11,5 @@ export { default as getAntdLocale } from "./getAntdLocale";
 export { convertKeysCase } from "./convertKeysCase";
 
 export { objectToUrlParams } from "./objectToParams";
+
+export { default as getAvatar } from "./getAvatar";
