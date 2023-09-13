@@ -1,11 +1,9 @@
-// Types
-import type { I_Room } from "@/def_types/game";
-
-// React
-import { useMemo } from "react";
 // Recoil
 import { useRecoilValue } from "recoil";
-import { A_User } from "@/store";
+import { A_User, A_Game } from "@/store";
+
+// Hooks
+import { useCreation } from "ahooks";
 
 // Icon
 import { BiArrowBack } from "react-icons/bi";
@@ -20,10 +18,12 @@ import classes from "./style.module.scss";
 
 // Props
 interface ChatBlockProps {
-  room: I_Room;
+  className?: string;
 }
 
-export default function ChatBlock({ room }: ChatBlockProps) {
+export default function ChatBlock({ className }: ChatBlockProps) {
+  const game = useRecoilValue(A_Game);
+
   const messages = [
     {
       messageType: "chat.info",
@@ -69,20 +69,31 @@ export default function ChatBlock({ room }: ChatBlockProps) {
 
   const user = useRecoilValue(A_User);
 
-  const isMyRoom = useMemo(() => room.homeowner === user.id, [room, user]);
+  const isMyRoom = useCreation(
+    () => game.currentRoom?.homeowner === user.id,
+    [game.currentRoom, user.id]
+  );
+
+  if (!game.currentRoom) {
+    return <></>;
+  }
 
   return (
-    <section className={classes.chatBlock}>
+    <section className={`${classes.chatBlock} ${className}`}>
       <div className="head">
         <Button>
           <BiArrowBack />
         </Button>
-        <span className="room-name">{room.name}</span>
+        <span className="room-name">{game.currentRoom.name}</span>
       </div>
 
       <div className="chat">
-        {messages.map((message) => (
-          <ChatMessage isMyRoom={isMyRoom} {...message} />
+        {game.messageList.map((message) => (
+          <ChatMessage
+            key={message.messageId}
+            isMyRoom={isMyRoom}
+            {...message}
+          />
         ))}
       </div>
 
