@@ -5,7 +5,7 @@ import type { MouseEventHandler } from "react";
 import classes from "./style.module.scss";
 
 interface I_ButtonProps {
-  children: JSX.Element | string;
+  children: any;
   className?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
