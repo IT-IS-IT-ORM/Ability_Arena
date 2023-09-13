@@ -1,13 +1,58 @@
 @import "@/assets/style/mixins.scss";
 
 .chatBlock {
-    @include flex($direction: column);
+  height: 100%;
+  @include flex($direction: column);
 
-    :global .head {
-        @include flex($alignItems: center, $gap: 20px);
+  :global .head {
+    @include flex($alignItems: center, $gap: 20px);
+  }
+
+  :global .chat {
+    width: 100%;
+    padding: 4px 12px;
+    margin: 24px 0 16px 0;
+    flex-grow: 1;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 4px 12px;
+    overflow: hidden auto;
+    @include flex($direction: column, $gap: 12px);
+    @include useScroll;
+  }
+
+  :global .enter {
+    width: 100%;
+    margin-top: 8px;
+
+    input,
+    textarea {
+      @include useFont;
     }
-    
-    :global .chat {}
-    
-    :global .enter {}
+
+    input {
+      display: none;
+    }
+
+    :global .ant-input-textarea {
+      &::after {
+        margin-top: 8px;
+        @include useFont($size: 16px, $color: #fff);
+      }
+
+      textarea {
+        height: 100px;
+        resize: none;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      :global .ant-input-textarea {
+        display: none;
+      }
+
+      input {
+        display: block;
+      }
+    }
+  }
 }
