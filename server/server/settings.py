@@ -24,6 +24,7 @@ ALLOWED_HOSTS = ['*']
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5678',
     'http://127.0.0.1:5678',
+    'http://192.168.214.38:5678',
 ]
 
 CORS_ALLOW_HEADERS = list(default_headers) + [
