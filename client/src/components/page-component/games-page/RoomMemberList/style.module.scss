@@ -1,0 +1,41 @@
+@import "@/assets/style/mixins.scss";
+
+.roomMemberList {
+  padding: 12px;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 4px 12px;
+  list-style: none;
+  @include flex($direction: column, $gap: 8px);
+
+  :global .title {
+    margin-bottom: 12px;
+  }
+
+  :global .member {
+    width: 100%;
+    @include flex($alignItems: center, $gap: 4px);
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .username {
+      width: 100px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    svg {
+      margin-left: auto;
+      cursor: pointer;
+      @include svgStyle($color: #ff0000);
+    }
+  }
+
+  :global .add-bot {
+    margin-top: auto;
+  }
+}
