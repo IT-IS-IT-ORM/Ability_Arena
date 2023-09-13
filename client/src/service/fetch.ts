@@ -6,6 +6,7 @@
  */
 
 export const HOST = "http://localhost";
+// export const HOST = "http://192.168.214.38";
 export const PORT = "8000";
 
 export const BASE_URL = `${HOST}:${PORT}/api`;
