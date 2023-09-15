@@ -21,6 +21,9 @@
 - (TODO) Room Page
   - 移动端布局
 
+- (TODO) 数据库 
+  - Room, RoomMember 的 on_delete = models.CASCADE 是否合理?
+
 ## 技术栈
 
 编程语言: `TypeScript`
