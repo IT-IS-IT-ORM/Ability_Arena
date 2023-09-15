@@ -1,8 +1,8 @@
 // 类型
 import type { I_Room } from "@/def_types/game";
 
-// i18n
-import { useTranslation } from "react-i18next";
+// React
+import { memo } from "react";
 
 // Scoped style
 import classes from "./style.module.scss";
@@ -16,9 +16,7 @@ interface RoomCardProps {
   onClick?: (room: I_Room) => void;
 }
 
-export default function RoomCard({ room, onClick }: RoomCardProps) {
-  const { t } = useTranslation();
-
+export default memo(function RoomCard({ room, onClick }: RoomCardProps) {
   return (
     <div className={classes.roomCard} onClick={() => onClick?.(room)}>
       <div className="lt"></div>
@@ -34,9 +32,9 @@ export default function RoomCard({ room, onClick }: RoomCardProps) {
       <div className="info">
         <span className="name">{room.name}</span>
         <span className="status number-of-gamer">
-          {room.member.length} / {room.maxMemberCount}
+          {room.memberList.length} / {room.maxMemberCount}
         </span>
       </div>
     </div>
   );
-}
+});

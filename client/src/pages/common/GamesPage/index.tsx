@@ -46,7 +46,7 @@ export default memo(function GamesPage() {
 
   useRequest(API_GetRooms, {
     onSuccess({ data }) {
-      setRoomList(data.sort((a, b) => a.member.length - b.member.length));
+      setRoomList(data.sort((a, b) => a.memberList.length - b.memberList.length));
     },
     pollingInterval: 2000,
     pollingWhenHidden: false,
@@ -81,14 +81,14 @@ export default memo(function GamesPage() {
     }
   });
 
-  const handleCardClick = (room: I_Room) => {
+  const handleCardClick = useMemoizedFn((room: I_Room) => {
     if (!isAuthenticated) {
       AntdMessage.warning(t("API_Common_needAuth"));
       return;
     }
 
     history.push(`/room/${room.id}`);
-  };
+  });
 
   return (
     <main className={classes.gamesPage}>
