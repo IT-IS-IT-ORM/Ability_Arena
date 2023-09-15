@@ -17,6 +17,10 @@ interface RoomCardProps {
 }
 
 export default memo(function RoomCard({ room, onClick }: RoomCardProps) {
+// 点击后，如果有密码，弹出密码框
+// 输入密码后 发请求检查，正确则跳转至房间，错误提示错误
+// 检查房间是否有剩余位置，有责加入，无提示错误
+
   return (
     <div className={classes.roomCard} onClick={() => onClick?.(room)}>
       <div className="lt"></div>
