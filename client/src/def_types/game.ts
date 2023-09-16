@@ -17,7 +17,15 @@ export interface I_Room {
 
 export interface I_WS_Message<T> {
   messageId: UUID;
-  messageType: string;
+  messageType: string[];
   messageTime: string;
   data: T;
 }
+
+export interface I_PlaerMessage {
+  content: string;
+  sender: I_User;
+}
+
+export interface I_WS_ChatMessage
+  extends I_WS_Message<I_User | I_PlaerMessage> {}
