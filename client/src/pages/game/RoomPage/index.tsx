@@ -1,3 +1,6 @@
+// Types
+import type { I_WS_Message, I_WS_ChatMessage } from "@/def_types/game";
+
 // React
 import { memo, useEffect, useState } from "react";
 // Router
@@ -17,7 +20,7 @@ import { API_GetRoom } from "@/service/game.api";
 import { WS_GameURI } from "@/service/game.ws";
 
 // Antd Component
-import { message as AntdMessage } from "antd";
+import { message as AntdMessage, message } from "antd";
 // Custom Component
 import { Button } from "@/components/common";
 import {
@@ -75,16 +78,44 @@ export default memo(function RoomPage() {
   useAsyncEffect(async () => {
     if (latestMessage) {
       // 解析消息
-      const data = convertKeysCase(JSON.parse(latestMessage.data), "camel");
-      data.messageType = convertKeysCase(data.messageType, "camel");
-      
-      console.log(data);
+      const message = convertKeysCase(
+        JSON.parse(latestMessage.data),
+        "camel"
+      ) as I_WS_Message<unknown>;
+      message.messageType = (message.messageType as any as string)
+        .split(".")
+        .map((type) => convertKeysCase(type, "camel"));
+
+      // 分配消息
+      const messageTypeMapping = {
+        action: handleActionMessage,
+        chat: handleChatMessage,
+        game: handleGameMessage,
+      };
+
+      messageTypeMapping[
+        message.messageType[0] as keyof typeof messageTypeMapping
+      ](message as any);
     }
   }, [latestMessage]);
 
-  // 处理 Chat 事件
-  const handleChatEvent = (message: any) => {
-    // const messageTypeArr =
+  // 处理 Action 消息
+  const handleActionMessage = (message: any) => {
+    console.log("处理 Action 事件: ", message);
+  };
+
+  // 处理 Chat 消息
+  const handleChatMessage = (message: I_WS_ChatMessage) => {
+    console.log("处理 Chat 事件: ", message);
+    setGame((prevGame) => ({
+      ...prevGame,
+      messageList: [...prevGame.messageList, message],
+    }));
+  };
+
+  // 处理 Game 消息
+  const handleGameMessage = (message: any) => {
+    console.log("处理 Game 事件: ", message);
   };
 
   return (
