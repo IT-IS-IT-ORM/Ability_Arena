@@ -9,7 +9,9 @@ import { A_User, A_Game } from "@/store";
 // i18n
 import { useTranslation } from "react-i18next";
 // Hooks
-import { useWebSocket, useMount, useRequest } from "ahooks";
+import { useWebSocket, useMount, useRequest, useAsyncEffect } from "ahooks";
+// Utils
+import { convertKeysCase } from "@/utils";
 // Service
 import { API_GetRoom } from "@/service/game.api";
 import { WS_GameURI } from "@/service/game.ws";
@@ -69,7 +71,21 @@ export default memo(function RoomPage() {
     return;
   });
 
-  console.log("latestMessage: ", latestMessage);
+  // 处理 WS 消息
+  useAsyncEffect(async () => {
+    if (latestMessage) {
+      // 解析消息
+      const data = convertKeysCase(JSON.parse(latestMessage.data), "camel");
+      data.messageType = convertKeysCase(data.messageType, "camel");
+      
+      console.log(data);
+    }
+  }, [latestMessage]);
+
+  // 处理 Chat 事件
+  const handleChatEvent = (message: any) => {
+    // const messageTypeArr =
+  };
 
   return (
     <div className={classes.roomPage}>
