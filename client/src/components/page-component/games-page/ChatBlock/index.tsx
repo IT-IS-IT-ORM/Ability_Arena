@@ -22,52 +22,8 @@ interface ChatBlockProps {
 }
 
 export default function ChatBlock({ className }: ChatBlockProps) {
-  const game = useRecoilValue(A_Game);
-
-  const messages = [
-    {
-      messageType: "chat.info",
-      messageContent: "Gamer1234 加入了房间",
-      messageTime: "2023-09-13 10:10:10",
-    },
-    {
-      messageType: "chat.message",
-      messageContent: "哇，终于可以玩游戏了，我先等一下其他玩家加入~",
-      messageTime: "2023-09-13 10:10:16",
-      sender: {
-        id: 1,
-        username: "Gamer1234",
-        avatarIndex: 24,
-      },
-    },
-    {
-      messageType: "chat.info",
-      messageContent: "GamerXxx 加入了房间",
-      messageTime: "2023-09-13 10:10:23",
-    },
-    {
-      messageType: "chat.message",
-      messageContent: "Hi! 你是萌新吗?",
-      messageTime: "2023-09-13 10:10:29",
-      sender: {
-        id: 1,
-        username: "Gamer1234",
-        avatarIndex: 24,
-      },
-    },
-    {
-      messageType: "chat.message",
-      messageContent: "没错, 第一次玩疯狂三国杀",
-      messageTime: "2023-09-13 10:10:48",
-      sender: {
-        id: 2,
-        username: "GamerXxx",
-        avatarIndex: 29,
-      },
-    },
-  ];
-
   const user = useRecoilValue(A_User);
+  const game = useRecoilValue(A_Game);
 
   const isMyRoom = useCreation(
     () => game.currentRoom?.homeowner === user.id,
@@ -92,12 +48,12 @@ export default function ChatBlock({ className }: ChatBlockProps) {
           <ChatMessage
             key={message.messageId}
             isMyRoom={isMyRoom}
-            {...message}
+            message={message}
           />
         ))}
       </div>
 
-      <div className="enter">
+      <div className="enter" data-helpText="按 Ctrl+Enter 发送消息">
         <Input.TextArea
           showCount
           rows={3}

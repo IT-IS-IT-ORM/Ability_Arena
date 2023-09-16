@@ -32,6 +32,13 @@
 
   :global .enter {
     width: 100%;
+    position: relative;
+
+    &::before {
+      content: attr(data-helpText);
+      @include positioned($bottom: 0, $left: 0);
+      @include useFont($size: 16px, $color: #fff);
+    }
 
     input,
     textarea {
