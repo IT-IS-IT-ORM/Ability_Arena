@@ -35,7 +35,7 @@
     position: relative;
 
     &::before {
-      content: attr(data-helpText);
+      content: attr(data-helptext);
       @include positioned($bottom: 0, $left: 0);
       @include useFont($size: 16px, $color: #fff);
     }
@@ -43,6 +43,7 @@
     input,
     textarea {
       @include useFont;
+      @include useScroll;
     }
 
     input {
