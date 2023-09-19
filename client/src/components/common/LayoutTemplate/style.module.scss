@@ -11,7 +11,7 @@
 		display: flex;
 
 		width: 85%;
-		max-width: 1120px;
+		max-width: 1280px;
 		height: 85%;
 		border-radius: 12px;
 		background: #0f0c29;
@@ -22,6 +22,10 @@
 		transform-origin: center center;
 		will-change: transform;
 		transition: width var(--transition), height var(--transition), transform var(--transition);
+
+		@media screen and (min-width: 1660px) {
+			max-width: 1400px;
+		}
 
 		@media screen and (max-width: 860px) {
 			flex-direction: column;
