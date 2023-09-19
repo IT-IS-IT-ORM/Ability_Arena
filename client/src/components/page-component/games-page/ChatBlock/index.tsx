@@ -1,14 +1,22 @@
+// Types
+import type { KeyboardEventHandler } from "react";
+
+// React
+import { useRef } from "react";
 // Recoil
 import { useRecoilValue } from "recoil";
 import { A_User, A_Game } from "@/store";
 
+// i18n
+import { useTranslation } from "react-i18next";
+
 // Hooks
-import { useCreation } from "ahooks";
+import { useCreation, useSafeState } from "ahooks";
 
 // Icon
 import { BiArrowBack } from "react-icons/bi";
 // Antd Component
-import { Input } from "antd";
+import { Input, message as AntdMessage } from "antd";
 // Custom Component
 import { Button } from "@/components/common";
 import { ChatMessage } from "@/components/page-component/games-page";
@@ -19,11 +27,17 @@ import classes from "./style.module.scss";
 // Props
 interface ChatBlockProps {
   className?: string;
+  onSendMessage: (message: string) => void;
 }
 
-export default function ChatBlock({ className }: ChatBlockProps) {
+export default function ChatBlock({
+  className,
+  onSendMessage,
+}: ChatBlockProps) {
+  const { t } = useTranslation();
   const user = useRecoilValue(A_User);
   const game = useRecoilValue(A_Game);
+  const [inputMessage, setInputMessage] = useSafeState("");
 
   const isMyRoom = useCreation(
     () => game.currentRoom?.homeowner === user.id,
@@ -33,6 +47,24 @@ export default function ChatBlock({ className }: ChatBlockProps) {
   if (!game.currentRoom) {
     return <></>;
   }
+
+  const sendMessage = () => {
+    if (inputMessage.trim() === "") {
+      AntdMessage.warning("Empty content!");
+      return;
+    }
+    onSendMessage(inputMessage);
+    setInputMessage("");
+  };
+
+  const handlePressEnter: KeyboardEventHandler<HTMLTextAreaElement> = ({
+    ctrlKey,
+  }) => {
+    if (ctrlKey) {
+      // @ts-ignore
+      sendMessage();
+    }
+  };
 
   return (
     <section className={`${classes.chatBlock} ${className}`}>
@@ -53,14 +85,24 @@ export default function ChatBlock({ className }: ChatBlockProps) {
         ))}
       </div>
 
-      <div className="enter" data-helpText="按 Ctrl+Enter 发送消息">
+      <div className="enter" data-helptext={t("GamesPage__Chat__sendMessage")}>
         <Input.TextArea
           showCount
           rows={3}
           maxLength={128}
-          placeholder="输入你的消息..."
+          value={inputMessage}
+          placeholder={t("GamesPage__Chat__inputMessage") as string}
+          onChange={({ target: { value } }) =>
+            setInputMessage(value as any as string)
+          }
+          onPressEnter={handlePressEnter}
         />
-        <Input placeholder="输入你的消息..." />
+        <Input
+          value={inputMessage}
+          placeholder={t("GamesPage__Chat__inputMessage") as string}
+          onChange={({ target: { value } }) => setInputMessage(value)}
+          onPressEnter={sendMessage}
+        />
       </div>
     </section>
   );

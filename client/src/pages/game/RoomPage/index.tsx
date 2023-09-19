@@ -2,7 +2,7 @@
 import type { I_WS_Message, I_WS_ChatMessage } from "@/def_types/game";
 
 // React
-import { memo, useEffect, useState } from "react";
+import { memo } from "react";
 // Router
 import { useParams, useHistory } from "react-router-dom";
 // Recoil
@@ -12,7 +12,14 @@ import { A_User, A_Game } from "@/store";
 // i18n
 import { useTranslation } from "react-i18next";
 // Hooks
-import { useWebSocket, useMount, useRequest, useAsyncEffect } from "ahooks";
+import {
+  useWebSocket,
+  useMount,
+  useRequest,
+  useAsyncEffect,
+  useUpdateEffect,
+  useUnmount
+} from "ahooks";
 // Utils
 import { convertKeysCase } from "@/utils";
 // Service
@@ -20,7 +27,7 @@ import { API_GetRoom } from "@/service/game.api";
 import { WS_GameURI } from "@/service/game.ws";
 
 // Antd Component
-import { message as AntdMessage, message } from "antd";
+import { message as AntdMessage } from "antd";
 // Custom Component
 import { Button } from "@/components/common";
 import {
@@ -43,13 +50,11 @@ export default memo(function RoomPage() {
     { manual: true }
   );
 
-  const { connect, disconnect, latestMessage, sendMessage } = useWebSocket(
-    WS_GameURI(parseInt(params.roomId), user.token),
-    {
+  const { connect, disconnect, latestMessage, sendMessage, readyState } =
+    useWebSocket(WS_GameURI(parseInt(params.roomId), user.token), {
       manual: true,
       reconnectLimit: 0,
-    }
-  );
+    });
 
   // 校验 roomId
   useMount(async () => {
@@ -99,6 +104,26 @@ export default memo(function RoomPage() {
     }
   }, [latestMessage]);
 
+  // 断开 WS 链接的 cleanup
+  useUpdateEffect(() => {
+    // 2 - Closing; 3 - Closed;
+    if (readyState >= 2) {
+      setGame((prevGame) => ({
+        currentRoom: null,
+        roomList: prevGame.roomList,
+        messageList: [],
+      }));
+    }
+  }, [readyState]);
+  
+  useUnmount(()=> {
+    setGame((prevGame) => ({
+      currentRoom: null,
+      roomList: prevGame.roomList,
+      messageList: [],
+    }));
+  })
+
   // 处理 Action 消息
   const handleActionMessage = (message: any) => {
     console.log("处理 Action 事件: ", message);
@@ -118,15 +143,38 @@ export default memo(function RoomPage() {
     console.log("处理 Game 事件: ", message);
   };
 
+  const formattedDate = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    // 获取月份（需要加1，因为月份从0开始，然后使用padStart函数补0）
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  };
+
+  const handleSendMessage = (message: string) => {
+    sendMessage?.(
+      JSON.stringify({
+        messageType: "chat.message.send",
+        messageTime: formattedDate(),
+        data: message,
+      })
+    );
+  };
+
   return (
     <div className={classes.roomPage}>
       {!getRoomLoading && (
         <>
-          <ChatBlock className="chat-block" />
+          <ChatBlock className="chat-block" onSendMessage={handleSendMessage} />
           <RoomMemberList className="room-member-list" />
           <div className="room-setting">
-            <Button block>房间设置</Button>
-            <Button block>开始游戏</Button>
+            <Button block>{t("GamesPage__roomSetting")}</Button>
+            <Button block>{t("GamesPage__startGame")}</Button>
           </div>
         </>
       )}
