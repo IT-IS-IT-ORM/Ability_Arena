@@ -27,6 +27,8 @@
   }
 
   :global .block {
+    width: 100%;
+    overflow: hidden;
     @include flex($direction: column, $gap: 8px);
 
     .row {
@@ -36,6 +38,14 @@
         font-size: 14px;
         color: var(--c-text-secondary);
       }
+    }
+
+    .content {
+      width: 100%;
+      white-space: pre-wrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      overflow-wrap: break-word;
     }
   }
 }
