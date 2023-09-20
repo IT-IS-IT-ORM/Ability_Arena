@@ -90,9 +90,25 @@ class GameConsumer(JsonWebsocketConsumer):
         )
         print('断开WS链接')
 
-    def receive_json(self, content):
+    def receive_json(self, content: dict):
         print('receive_json: ', content)
-        self.chat_message(content)
+
+        async_to_sync(self.channel_layer.group_send)(
+            self.room_group_name,
+            {
+                **{
+                    "type": "group.send",
+                    "message_id": str(uuid4())
+                },
+                **content,
+                **{
+                    "data": {
+                        'content': content['data'],
+                        'sender': UserSerializer(instance=self.user).data
+                    }
+                }
+            }
+        )
 
     def group_send(self, message):
         self.send_json(message)
