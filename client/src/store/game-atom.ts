@@ -21,17 +21,3 @@ export const A_Game = atom({
   // default value, aka initial value
   default: defaultGameState,
 });
-
-export const S_RoomDetail = selector({
-  key: "S_RoomDetail",
-  get({ get }) {
-    const user = get(A_User);
-    const game = get(A_Game);
-
-    return game.roomList.find(
-      (room) =>
-        room.homeowner === user.id ||
-        room.member.find((record) => record.member === user.id)
-    );
-  },
-});
