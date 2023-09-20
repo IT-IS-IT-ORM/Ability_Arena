@@ -27,6 +27,13 @@ export default {
   GamesPage__createRoom: "创建房间",
   GamesPage__noRoom: "暂无房间",
   GamesPage__createSuccessfully: "创建成功",
+  GamesPage__numberInTheRoom: "房间人数",
+  GamesPage__roomSetting: "房间设置",
+  GamesPage__startGame: "开始游戏",
+  GamesPage__addAIBot: "添加AI玩家",
+  GamesPage__Chat__inputMessage: "输入你的消息...",
+  GamesPage__Chat__sendMessage: "按 Ctrl+Enter 发送消息",
+  GamesPage__Chat__playerJoin: `{{player}} 加入了房间`,
 
   "GamesPage__crazy-fight": "大乱斗",
 

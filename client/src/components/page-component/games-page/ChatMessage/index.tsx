@@ -2,6 +2,8 @@
 import type { I_User } from "@/def_types/user";
 import type { I_WS_ChatMessage, I_PlaerMessage } from "@/def_types/game";
 
+// i18n
+import { useTranslation } from "react-i18next";
 // Utils
 import { getAvatar } from "@/utils";
 // Hooks
@@ -20,6 +22,8 @@ export default function ChatMessage({
   isMyRoom,
   message: { messageTime, messageType, data },
 }: ChatMessageProps) {
+  const { t } = useTranslation();
+
   // 格式化日期时间
   const formattedDate = useCreation(() => {
     const date = new Date(messageTime);
@@ -41,7 +45,9 @@ export default function ChatMessage({
       <div className={classes.chatInfo}>
         <span className="time">{formattedDate}</span>
         <span className="content">
-          {isMyRoom ? "你" : (data as I_User).username} 加入了房间
+          {t("GamesPage__Chat__playerJoin", {
+            player: isMyRoom ? "你" : (data as I_User).username,
+          })}
         </span>
       </div>
     );
@@ -63,7 +69,7 @@ export default function ChatMessage({
           <span className="time">{formattedDate}</span>
         </div>
 
-        <span>{(data as I_PlaerMessage).content}</span>
+        <span className="content">{(data as I_PlaerMessage).content}</span>
       </div>
     </div>
   );

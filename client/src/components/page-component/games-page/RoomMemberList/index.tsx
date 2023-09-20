@@ -2,6 +2,8 @@
 import { useRecoilValue } from "recoil";
 import { A_Game } from "@/store";
 
+// i18n
+import { useTranslation } from "react-i18next";
 // Utils
 import { getAvatar } from "@/utils";
 
@@ -20,6 +22,7 @@ interface RoomMemberListProps {
 }
 
 export default function RoomMemberList({ className }: RoomMemberListProps) {
+  const { t } = useTranslation();
   const game = useRecoilValue(A_Game);
 
   if (!game.currentRoom) {
@@ -29,8 +32,11 @@ export default function RoomMemberList({ className }: RoomMemberListProps) {
   return (
     <ul className={`${classes.roomMemberList} ${className}`}>
       <li className="title">
-        房间人数: {game.currentRoom.memberList.length} /{" "}
-        {game.currentRoom.maxMemberCount}
+        <span>{t("GamesPage__numberInTheRoom")}:</span>
+        <span>
+          {game.currentRoom.memberList.length} /{" "}
+          {game.currentRoom.maxMemberCount}
+        </span>
       </li>
 
       {game.currentRoom.memberList.map(({ id, member }) => (
@@ -45,8 +51,8 @@ export default function RoomMemberList({ className }: RoomMemberListProps) {
         </li>
       ))}
       <li className="add-bot">
-        <Button>
-          添加AI玩家
+        <Button block>
+          {t("GamesPage__addAIBot")}
           <GoHubot />
         </Button>
       </li>

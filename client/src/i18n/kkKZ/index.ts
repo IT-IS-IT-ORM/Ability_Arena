@@ -27,6 +27,13 @@ export default {
   GamesPage__createRoom: "Бөлме ашу",
   GamesPage__noRoom: "Бөлме жоқ",
   GamesPage__createSuccessfully: "Сәтті құрылды",
+  GamesPage__numberInTheRoom: "Ойыншы саны",
+  GamesPage__roomSetting: "Бөлме параметр",
+  GamesPage__startGame: "Ойынды бастау",
+  GamesPage__addAIBot: "AI бот қосу",
+  GamesPage__Chat__inputMessage: "Хабарламаңызды енгізіңіз...",
+  GamesPage__Chat__sendMessage: "Жіберу үшін Ctrl+Enter пернелерін басыңыз",
+  GamesPage__Chat__playerJoin: `{{player}} бөлмеге кірді`,
 
   "GamesPage__crazy-fight": "Хаус шайқас",
 
