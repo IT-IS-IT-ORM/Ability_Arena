@@ -11,7 +11,7 @@ import { A_User, A_Game } from "@/store";
 import { useTranslation } from "react-i18next";
 
 // Hooks
-import { useCreation, useSafeState } from "ahooks";
+import { useCreation, useSafeState, useUpdateEffect } from "ahooks";
 
 // Icon
 import { BiArrowBack } from "react-icons/bi";
@@ -38,15 +38,12 @@ export default function ChatBlock({
   const user = useRecoilValue(A_User);
   const game = useRecoilValue(A_Game);
   const [inputMessage, setInputMessage] = useSafeState("");
+  const chatListRef = useRef<HTMLDivElement>(null);
 
   const isMyRoom = useCreation(
     () => game.currentRoom?.homeowner === user.id,
     [game.currentRoom, user.id]
   );
-
-  if (!game.currentRoom) {
-    return <></>;
-  }
 
   const sendMessage = () => {
     if (inputMessage.trim() === "") {
@@ -57,6 +54,14 @@ export default function ChatBlock({
     setInputMessage("");
   };
 
+  // 更新聊天窗口的滚动条位置
+  useUpdateEffect(() => {
+    if (game.messageList.length > 0 && chatListRef.current) {
+      const $messages = chatListRef.current.children;
+      $messages[$messages.length - 1].scrollIntoView({ behavior: "smooth" });
+    }
+  }, [game.messageList]);
+
   const handlePressEnter: KeyboardEventHandler<HTMLTextAreaElement> = ({
     ctrlKey,
   }) => {
@@ -65,6 +70,10 @@ export default function ChatBlock({
       sendMessage();
     }
   };
+
+  if (!game.currentRoom) {
+    return <></>;
+  }
 
   return (
     <section className={`${classes.chatBlock} ${className}`}>
@@ -75,7 +84,7 @@ export default function ChatBlock({
         <span className="room-name">{game.currentRoom.name}</span>
       </div>
 
-      <div className="chat">
+      <div ref={chatListRef} className="chat">
         {game.messageList.map((message) => (
           <ChatMessage
             key={message.messageId}
