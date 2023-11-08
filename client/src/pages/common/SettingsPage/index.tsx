@@ -44,21 +44,6 @@ import {
   Avatar_15,
   Avatar_16,
   Avatar_17,
-  Avatar_18,
-  Avatar_19,
-  Avatar_20,
-  Avatar_21,
-  Avatar_22,
-  Avatar_23,
-  Avatar_24,
-  Avatar_25,
-  Avatar_26,
-  Avatar_27,
-  Avatar_28,
-  Avatar_29,
-  Avatar_30,
-  Avatar_31,
-  Avatar_32,
 } from "@/assets/image/user";
 
 const avatarList = [
@@ -79,21 +64,6 @@ const avatarList = [
   Avatar_15,
   Avatar_16,
   Avatar_17,
-  Avatar_18,
-  Avatar_19,
-  Avatar_20,
-  Avatar_21,
-  Avatar_22,
-  Avatar_23,
-  Avatar_24,
-  Avatar_25,
-  Avatar_26,
-  Avatar_27,
-  Avatar_28,
-  Avatar_29,
-  Avatar_30,
-  Avatar_31,
-  Avatar_32,
 ];
 
 const availableLanguages = [
