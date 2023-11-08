@@ -24,6 +24,10 @@
     transform: rotate(180deg);
     cursor: pointer;
     @include positioned($top: 8px, $right: 20px, $zIndex: 10);
+
+    @media screen and (max-width: 576px) {
+      transform: translateY(100%) rotate(180deg);
+    }
   }
 
   :global .grid {
