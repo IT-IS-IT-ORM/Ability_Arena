@@ -19,7 +19,7 @@
 		box-shadow: rgba(52, 61, 233, 0.4) -2px 0 96px 24px;
 		transition: width var(--transition), height var(--transition);
 
-		@media screen and (max-width: 860px) {
+		@media screen and (max-width: 992px) {
 			flex-direction: column;
 		}
 
