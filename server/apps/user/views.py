@@ -17,9 +17,11 @@ class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-    authentication_classes = [LoginRequiredAuthentication]
-    # permission_classes = []
-    # throttle_classes = []
+    def get_authenticators(self):
+        if self.request.method != 'POST':
+            return [LoginRequiredAuthentication()]
+        
+        return super().get_authenticators()
 
     def get_serializer_context(self):
         """
@@ -56,26 +58,6 @@ class LoginAPIView(APIView):
         serializer.is_valid(raise_exception=True)
         # 校验 登录数据 正确性 (错误时会抛出 CustomExeption, 通过 middleware 捕获)
         user = serializer.is_correct()
-        # jwt 令牌
-        token = create_jwt({'uid': user.id})
-        # User模型 反序列化数据
-        data = UserSerializer(instance=user).data
-        data['token'] = token
-
-        return Response(data)
-
-class RegisterAPIView(APIView):
-    """
-    注册 API 类
-    """
-    authentication_classes = []
-
-    def post(self, request):
-        serializer = UserSerializer(data=request.data)
-        # 校验 登录数据 合法性
-        serializer.is_valid(raise_exception=True)
-        # 校验 登录数据 正确性 (错误时会抛出 CustomExeption, 通过 middleware 捕获)
-        user = serializer.can_register()
         # jwt 令牌
         token = create_jwt({'uid': user.id})
         # User模型 反序列化数据
