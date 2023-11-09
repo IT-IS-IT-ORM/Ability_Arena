@@ -14,16 +14,17 @@
 		padding-bottom: 0;
 	}
 
-	@media screen and (max-width: 860px) {
+	@media screen and (max-width: 992px) {
 		display: none;
 	}
 
 	button {
-		width: calc(220px - 24px * 2);
+		width: calc(250px - 24px * 2);
 		justify-content: flex-start;
 
 		svg {
-			@include svgStyle();
+			flex: 0 0 auto;
+			@include svgStyle;
 		}
 	}
 }

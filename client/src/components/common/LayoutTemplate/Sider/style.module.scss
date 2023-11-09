@@ -1,7 +1,7 @@
 @import "@/assets/style/mixins.scss";
 
 .sider {
-  flex: 0 0 220px;
+  flex: 0 0 250px;
   @include flex($direction: column);
 
   border-top-left-radius: inherit;
@@ -10,7 +10,7 @@
 
   user-select: none;
 
-  @media screen and (max-width: 860px) {
+  @media screen and (max-width: 992px) {
     flex: 0 0 64px;
     @include flex($direction: row, $alignItems: center, $gap: 8px);
 
@@ -33,7 +33,7 @@
       color: var(--c-primary);
     }
 
-    @media screen and (max-width: 860px) {
+    @media screen and (max-width: 992px) {
       margin: 0 0 0 24px;
     }
   }
@@ -59,7 +59,7 @@
       @include svgStyle();
     }
 
-    @media screen and (max-width: 860px) {
+    @media screen and (max-width: 992px) {
       display: flex;
     }
 
@@ -96,7 +96,7 @@
       font-weight: 700;
     }
 
-    @media screen and (max-width: 860px) {
+    @media screen and (max-width: 992px) {
       margin: 0 24px 0 0;
     }
 
