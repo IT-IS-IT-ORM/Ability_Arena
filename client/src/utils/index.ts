@@ -13,3 +13,4 @@ export { convertKeysCase } from "./convertKeysCase";
 export { objectToUrlParams } from "./objectToParams";
 
 export { default as getAvatar } from "./getAvatar";
+export { avatarList } from "./getAvatar";

@@ -19,7 +19,7 @@ import {
   Avatar_17,
 } from "@/assets/image/user";
 
-const avatarList = [
+export const avatarList = [
   Avatar_1,
   Avatar_2,
   Avatar_3,

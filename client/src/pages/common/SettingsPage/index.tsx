@@ -13,6 +13,7 @@ import { API_Register, API_UpdateProfile } from "@/service/user.api";
 
 // 工具库
 import { localStorage } from "@/utils";
+import { avatarList } from "@/utils";
 
 // 图标库
 import { BiUser } from "react-icons/bi";
@@ -24,47 +25,6 @@ import { Button } from "@/components/common";
 
 // Scoped style
 import classes from "./style.module.scss";
-
-// 静态资源
-import {
-  Avatar_1,
-  Avatar_2,
-  Avatar_3,
-  Avatar_4,
-  Avatar_5,
-  Avatar_6,
-  Avatar_7,
-  Avatar_8,
-  Avatar_9,
-  Avatar_10,
-  Avatar_11,
-  Avatar_12,
-  Avatar_13,
-  Avatar_14,
-  Avatar_15,
-  Avatar_16,
-  Avatar_17,
-} from "@/assets/image/user";
-
-const avatarList = [
-  Avatar_1,
-  Avatar_2,
-  Avatar_3,
-  Avatar_4,
-  Avatar_5,
-  Avatar_6,
-  Avatar_7,
-  Avatar_8,
-  Avatar_9,
-  Avatar_10,
-  Avatar_11,
-  Avatar_12,
-  Avatar_13,
-  Avatar_14,
-  Avatar_15,
-  Avatar_16,
-  Avatar_17,
-];
 
 const availableLanguages = [
   {
