@@ -15,15 +15,6 @@ const commonRoutes: I_Route[] = [
   },
 
   {
-    path: "/games",
-    component: lazy(() => import("@/pages/common/GamesPage")),
-    fallback: <CommonLoadingSkeleton />,
-    auth: false,
-    role: role.all(),
-    exact: true,
-  },
-
-  {
     path: "/docs",
     component: lazy(() => import("@/pages/common/DocsPage")),
     fallback: <CommonLoadingSkeleton />,
