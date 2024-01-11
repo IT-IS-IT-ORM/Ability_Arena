@@ -24,7 +24,7 @@ const props = defineProps<{
 
     color: #000;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 18px;
     letter-spacing: 2px;
     text-decoration: none;
     text-transform: uppercase;
