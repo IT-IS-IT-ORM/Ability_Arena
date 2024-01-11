@@ -19,6 +19,8 @@
 </template>
 
 <script setup lang="ts">
+// Vue
+import { defineComponent } from 'vue';
 // Hooks
 import { useFullscreen } from 'vue-hooks-plus';
 

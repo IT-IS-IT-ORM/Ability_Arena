@@ -17,7 +17,6 @@
                     <rect fill="var(--c-primary)" width="240" height="11" stroke="#000" stroke-opacity=".2"
                         fill-opacity=".75" rx="0" />
                     <rect class="bar" fill="url(#Pattern)" width="440" height="11" mask="url(#roundedMask)"></rect>
-
                 </svg>
             </div>
         </div>
@@ -27,6 +26,9 @@
 </template>
 
 <script setup lang="ts">
+// Vue
+import { defineComponent } from 'vue';
+
 defineComponent({ name: 'LoadResource' });
 </script>
 
