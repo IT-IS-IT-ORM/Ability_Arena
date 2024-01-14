@@ -1,17 +1,18 @@
 <template>
-    <Mail theme="outline" :size="26" :strokeWidth="3" fill="var(--c-primary)" />
+    <img :src="resource.header[0]" alt="消息" class="notification">
 </template>
 
 <script setup lang="ts">
-// Icons
-import { Mail } from '@icon-park/vue-next';
+// Constant
+import resource from '@/constants/resource';
 </script>
 
 <style scoped lang="scss">
 @import '@/assets/style/mixins.scss';
 
-.i-icon-mail {
+.notification {
+    width: 45px;
+    height: 45px;
     cursor: pointer;
-    @include positioned($position: relative, $top: 3px);
 }
 </style>

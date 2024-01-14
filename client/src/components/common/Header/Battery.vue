@@ -1,63 +1,50 @@
 <template>
-    <div class="battery">
-        <Lightning v-show="charging" theme="filled" :size="16" :strokeWidth="1" fill="var(--c-primary)" />
-        <div v-show="!isSupported || level <= 0.1" class="error"></div>
-        <div v-show="isSupported" class="level" :style="{ '--level': `${level * 100}%` }"></div>
+    <div class="battery" :data-level="`${parseInt((level * 100).toString())}%`" :style="{ '--color': levelColor }">
+        <img :src="resource.header[2]" alt="电量">
     </div>
 </template>
 
 <script setup lang="ts">
+// Vue
+import { computed } from 'vue';
 // Hooks
 import { useBattery } from '@vueuse/core';
-// Icons
-import { Lightning } from '@icon-park/vue-next';
+// Constant
+import resource from '@/constants/resource';
 
-const { charging, level, isSupported } = useBattery();
+const { level } = useBattery();
+const levelColor = computed(() => {
+    if (level.value >= 0.75) {
+        return 'var(--c-success)';
+    }
+    else if (level.value >= 0.20) {
+        return 'var(--c-primary)';
+    }
+    return 'var(--c-error)';
+});
 </script>
 
 <style scoped lang="scss">
 @import '@/assets/style/mixins.scss';
 
 .battery {
-    width: 30px;
-    height: 18px;
-    border: 2px solid var(--c-primary);
-    position: relative;
+    width: 45px;
+    height: 45px;
     cursor: pointer;
+    position: relative;
+
+    img {
+        width: 45px;
+        height: 45px;
+        transform: rotate(90deg);
+    }
 
     &::after {
-        content: "";
-        width: 5px;
-        height: 10px;
-        background-color: var(--c-primary);
-        transform: translateY(-50%);
-        @include positioned($top: 50%, $left: calc(100%));
-    }
-
-    .i-icon-lightning {
-        filter: drop-shadow(0 0 1px #fff);
-        @include centerPositioned($top: calc(52% + 2px));
-    }
-
-    .error {
-        width: 4px;
-        height: 10px;
-        background-color: var(--c-error);
-        @include centerPositioned($top: 25%);
-
-        &::after {
-            content: "";
-            width: 4px;
-            height: 4px;
-            background-color: inherit;
-            @include positioned($top: calc(100% + 2px), $left: 0);
-        }
-    }
-
-    .level {
-        width: var(--level);
-        height: 100%;
-        background-color: rgb(16, 132, 96);
+        font-size: 12px;
+        line-height: 1;
+        content: attr(data-level);
+        color: var(--color);
+        @include centerPositioned;
     }
 }
 </style>
