@@ -6,4 +6,9 @@ export default {
   wave: {
     disabled: true,
   },
+  theme: {
+    token: {
+      borderRadius: '0px'
+    }
+  }
 };
