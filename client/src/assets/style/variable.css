@@ -1,14 +1,19 @@
 :root {
-	/* 色彩模式 */
-	color-scheme: DARK;
+  /* 色彩模式 */
+  color-scheme: DARK;
 
-	/* 调色盘 */
-	--c-primary: #001fff;
+  /* 调色盘 */
+  --c-primary: #1677ff;
+  --c-success: #52c41a;
+  --c-error: #ff4d4f;
 
-	/* 排版 */
-	--c-text: #1e1e1e;
-	--c-text-secondary: rgba(255, 255, 255, 0.8);
+  /* 排版 */
+  --c-text: #1e1e1e;
+  --c-text-secondary: rgb(70, 77, 106);
 
-	/* 过渡贝塞尔曲线 */
-	--transition: 300ms ease;
+  /* Shape */
+  --border-radius: 0;
+
+  /* 过渡贝塞尔曲线 */
+  --transition: 340ms cubic-bezier(0.4, 0, 0.2, 1);
 }
