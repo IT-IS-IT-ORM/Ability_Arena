@@ -10,9 +10,12 @@ import { defineComponent } from 'vue';
 
 defineComponent({ name: 'Btn' });
 
-const props = defineProps<{
-    block: boolean
-}>();
+const props = defineProps({
+    block: {
+        type: Boolean,
+        default: false
+    }
+});
 </script>
 
 <style scoped lang="scss">
@@ -20,18 +23,18 @@ const props = defineProps<{
 
 .btn {
     // css vars
-    --c-box-shadow: #000;
+    --c-box-shadow: var(--c-primary);
 
     color: #000;
     font-weight: 400;
-    font-size: 18px;
+    font-size: 14px;
     letter-spacing: 2px;
     text-decoration: none;
     text-transform: uppercase;
 
     @include flex($justifyContent: center, $alignItems: center, $gap: 12px);
 
-    padding: 12px 16px;
+    padding: 4px 10px;
     border: none;
     outline: none;
     background: #fff;
