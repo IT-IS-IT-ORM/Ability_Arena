@@ -3,6 +3,8 @@
  */
 
 * {
+  /* 用户选择 */
+  user-select: none;
   /* 丝滑滚动 */
   scroll-behavior: smooth;
   /* 移除间距 */
@@ -33,4 +35,8 @@ body {
 
 #resource {
   display: none;
+}
+
+img {
+  pointer-events: none;
 }
