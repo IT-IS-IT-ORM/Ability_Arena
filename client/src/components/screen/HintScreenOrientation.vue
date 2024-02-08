@@ -3,7 +3,9 @@
         <h1 class="title">疯狂三国杀</h1>
 
         <p class="info">
-            <span>欢迎使用我们的应用！</span>
+            <span>欢迎来到疯狂三国杀！</span>
+            <span>您可以通过以下链接找到我们的群聊: </span>
+            <span><a href="https://t.me/itisit_kz" target="_blank">https://t.me/itisit_kz</a></span>
             <span>当点击 "开始" 按钮后，应用将进入横屏和全屏模式，以提供更好的使用体验。</span>
             <br>
             <span>注意：</span>
