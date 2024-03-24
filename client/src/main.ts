@@ -28,7 +28,10 @@ const pinia = createPinia();
 router.beforeEach((to, _, next) => {
   if (to.meta.requiresAuth) {
     const token = localStorage.get<string, boolean>("token", false);
-    !token && next("/login");
+
+    if (!token) {
+      return next("/login");
+    }
   }
   next();
 });
