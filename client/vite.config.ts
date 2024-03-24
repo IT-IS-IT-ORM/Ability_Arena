@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import vue from "@vitejs/plugin-vue";
 
 import path from "path";
 import autoprefixer from "autoprefixer";
@@ -9,7 +9,7 @@ import sass from "sass";
 export default defineConfig({
   server: {
     host: "0.0.0.0",
-    port: 5678,
+    port: 2333,
   },
 
   resolve: {
@@ -18,7 +18,12 @@ export default defineConfig({
     },
   },
 
-  plugins: [react()],
+  plugins: [vue()],
+
+  define: {
+    // 启用生产环境构建下激活不匹配的详细警告
+    __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: "true",
+  },
 
   css: {
     postcss: {
