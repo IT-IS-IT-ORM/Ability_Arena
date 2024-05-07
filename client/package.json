@@ -11,6 +11,7 @@
     "@icon-park/vue-next": "^1.4.2",
     "@vueuse/core": "^10.7.2",
     "pinia": "^2.1.7",
+    "socket.io-client": "^4.7.5",
     "vue": "3.4.6",
     "vue-hooks-plus": "^1.8.6",
     "vue-router": "^4.3.0"
