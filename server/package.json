@@ -7,10 +7,8 @@
     "node": ">=18.0.0"
   },
   "imports": {
-    "#root/*.js": "./*.js",
-    "#utils/*.js": "./utils/*.js",
-    "#apps/*.js": "./apps/*.js",
-    "#router/*.js": "./router/*.js"
+    "#src/*.js": "./src/*.js",
+    "#apps/*.js": "./src/apps/*.js"
   },
   "scripts": {
     "dev": "nodemon src/app.js"
