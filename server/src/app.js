@@ -6,20 +6,22 @@ import koaCors from "@koa/cors";
 import { koaBody } from "koa-body";
 import koaLogger from "koa-logger";
 // Middleware
-import { authMiddleware } from "#root/middleware/auth.js";
-import { koaBodyConfig } from "#root/middleware/koaBody.js";
+import { authMiddleware } from "#src/middleware/auth.js";
+import { koaBodyConfig } from "#src/middleware/koaBody.js";
 // Routes
-import { apiRouter, mediaRouter } from "#router/index.js";
-import "#router/init.js";
+import { apiRouter, mediaRouter } from "#src/router/index.js";
+import "#src/router/init.js";
 // Utils
-import { getLocalIP, ensureMediaDirectories } from "#utils/index.js";
-// Database
+import { getLocalIP, ensureMediaDirectories } from "#src/utils/index.js";
 // Redis
-import { testRedisConnection } from "#root/redis/index.js";
+import { testRedisConnection } from "#src/redis/index.js";
+// DB
+import { initDatabase } from "#src/db/index.js";
 
 // 初始化环境变量
 dotenv.config();
 
+console.log("--------------------------------");
 ensureMediaDirectories();
 
 // 初始化 Koa 应用
@@ -30,15 +32,6 @@ app.use(koaBody(koaBodyConfig));
 app.use(koaLogger());
 app.use(authMiddleware);
 
-// 初始化数据库连接
-AppDataSource.initialize()
-  .then(() => {
-    console.log("✅ 数据库连接初始化成功");
-  })
-  .catch((error) => {
-    console.error("❌ 数据库连接初始化失败:", error);
-  });
-
 app.use(apiRouter.routes());
 app.use(apiRouter.allowedMethods());
 app.use(mediaRouter.routes());
@@ -47,6 +40,7 @@ app.use(mediaRouter.allowedMethods());
 const appPort = process.env.APP_PORT;
 
 testRedisConnection();
+await initDatabase();
 
 app.listen(appPort, "0.0.0.0", () => {
   console.log("--------------------------------");
