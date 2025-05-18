@@ -7,11 +7,6 @@ const userSchema = new mongoose.Schema({
     required: true,
     maxLength: 24,
   },
-  password: {
-    type: String,
-    required: true,
-    maxLength: 254,
-  },
   avatarIndex: {
     type: Number,
     default: 0,
@@ -23,8 +18,10 @@ const userSchema = new mongoose.Schema({
     min: 0,
     max: 100_000_000,
   },
+  isOnline: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-const User = mongoose.model("User", userSchema);
-
-export default User;
+export default mongoose.model("User", userSchema, "user");
