@@ -35,8 +35,9 @@ export default defineConfig({
     },
 
     preprocessorOptions: {
-      sass: {
-        implementation: sass,
+      scss: {
+        api: "modern",
+        additionalData: '@use "@/assets/style/mixins.scss" as *;',
       },
     },
   },
