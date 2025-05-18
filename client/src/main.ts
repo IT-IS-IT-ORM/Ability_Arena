@@ -27,9 +27,9 @@ const pinia = createPinia();
 
 router.beforeEach((to, _, next) => {
   if (to.meta.requiresAuth) {
-    const token = localStorage.get<string, boolean>("token", false);
+    const username = localStorage.get<string, boolean>("username", false);
 
-    if (!token) {
+    if (!username) {
       return next("/login");
     }
   }

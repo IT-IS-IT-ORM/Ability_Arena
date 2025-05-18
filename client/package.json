@@ -1,6 +1,5 @@
 {
-  "name": "crazy-kill-client",
-  "private": false,
+  "name": "ability_arena_client",
   "version": "1.0.0",
   "type": "module",
   "scripts": {

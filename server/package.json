@@ -1,0 +1,42 @@
+{
+  "name": "ability_arena_server",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/app.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "imports": {
+    "#root/*.js": "./*.js",
+    "#utils/*.js": "./utils/*.js",
+    "#apps/*.js": "./apps/*.js",
+    "#router/*.js": "./router/*.js"
+  },
+  "scripts": {
+    "dev": "nodemon src/app.js"
+  },
+  "dependencies": {
+    "@koa/cors": "^5.0.0",
+    "@types/node": "^22.15.17",
+    "dotenv": "^16.5.0",
+    "ioredis": "^5.6.1",
+    "koa": "^3.0.0",
+    "koa-body": "^6.0.1",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^13.0.1",
+    "mongoose": "^8.15.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "author": {
+    "name": "Yernar.T",
+    "email": "toktaryernar@gmail.com",
+    "url": "https://github.com/YernarT"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IT-IS-IT-ORM/Ability_Arena"
+  },
+  "packageManager": "pnpm@9.6.0"
+}

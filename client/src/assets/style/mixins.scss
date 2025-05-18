@@ -1,37 +1,37 @@
 @mixin flex(
-	$direction: row,
-	$justifyContent: flex-start,
-	$alignItems: flex-start,
-	$alignContent: stretch,
-	$gap: 0,
-	$wrap: nowrap
+  $direction: row,
+  $justifyContent: flex-start,
+  $alignItems: flex-start,
+  $alignContent: stretch,
+  $gap: 0,
+  $wrap: nowrap
 ) {
-	display: flex;
-	flex-direction: $direction;
-	justify-content: $justifyContent;
-	align-items: $alignItems;
-	align-content: $alignContent;
-	gap: $gap;
-	flex-wrap: $wrap;
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justifyContent;
+  align-items: $alignItems;
+  align-content: $alignContent;
+  gap: $gap;
+  flex-wrap: $wrap;
 }
 
 @mixin flexCenter($direction: row, $gap: 0) {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: $gap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: $gap;
 }
 
 @mixin svgStyle($size: 24px, $color: #000, $fill: $color, $stroke: $color) {
-	@include flexCenter();
+  @include flexCenter();
 
-	fill: $fill;
-	color: $color;
-	font-size: $size;
+  fill: $fill;
+  color: $color;
+  font-size: $size;
 
-	path {
-		stroke: $stroke;
-	}
+  path {
+    stroke: $stroke;
+  }
 }
 
 @mixin positioned(
@@ -63,46 +63,50 @@
   transform: translate(-50%, -50%);
 }
 
-@mixin useFont($size: 20px, $color: #1e1e1e, $weight: 400) {
-	font-family: 'Ubuntu Mono', 'ZCOOL KuaiLe', monospace, sans-serif;
-	font-size: $size;
-	font-weight: $weight;
-	font-display: swap;
-	color: $color;
-}
-
 // $type options: `thin` | `none`
 // $onlyOnHover options: `1` | `0`
 @mixin useScroll($type: thin, $onlyOnHover: 0) {
-	&::-webkit-scrollbar {
-		width: 4px;
-		height: 4px;
-		background: transparent;
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+    background: transparent;
 
-		@if ($type == none) {
-			display: none;
-		}
-	}
+    @if ($type == none) {
+      display: none;
+    }
+  }
 
-	&::-webkit-scrollbar-thumb {
-		border-radius: 0;
-		@if ($onlyOnHover == 1) {
-			background: transparent;
-		}
-		@if ($onlyOnHover == 0) {
-			background: #fff;
-		}
-	}
+  &::-webkit-scrollbar-thumb {
+    border-radius: 0;
+    @if ($onlyOnHover == 1) {
+      background: transparent;
+    }
+    @if ($onlyOnHover == 0) {
+      background: #fff;
+    }
+  }
 
-	&:hover::-webkit-scrollbar-thumb {
-		background: #fff;
-	}
+  &:hover::-webkit-scrollbar-thumb {
+    background: #fff;
+  }
 
-	&::-webkit-scrollbar-track {
-		border-radius: 0;
-	}
+  &::-webkit-scrollbar-track {
+    border-radius: 0;
+  }
 
-	&:hover::-webkit-scrollbar-track {
-		background: #000;
-	}
+  &:hover::-webkit-scrollbar-track {
+    background: #000;
+  }
+}
+
+// $centralize options: `1` | `0`
+@mixin viewTemplate($centralize: 1) {
+  width: 100dvw;
+  height: 100dvh;
+  overflow: hidden;
+  background-color: #000;
+
+  @if ($centralize == 1) {
+    @include flexCenter;
+  }
 }

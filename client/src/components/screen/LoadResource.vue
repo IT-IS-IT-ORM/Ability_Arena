@@ -2,7 +2,7 @@
     <div class="load-resource">
         <h1 class="title">疯狂三国杀</h1>
 
-        <div class="loading">
+        <div v-if="isLoading" class="loading">
             <span>加载中...</span>
             <div class="progress-bar">
                 <svg xmlns="http://www.w3.org/2000/svg" width="240" height="11" viewBox="0 0 240 11">
@@ -21,15 +21,43 @@
             </div>
         </div>
 
+        <div v-else class="action">
+            <Btn @click="onLogin">进入游戏</Btn>
+        </div>
+
         <div class="version">版本号: 1.0.0</div>
     </div>
 </template>
 
 <script setup lang="ts">
 // Vue
-import { defineComponent } from 'vue';
+import { defineComponent, ref, onMounted } from 'vue';
+// Utils
+import { loadResource } from '@/utils';
+// Constant
+import resource from '@/constants/resource';
 
 defineComponent({ name: 'LoadResource' });
+const emits = defineEmits(['done']);
+
+const isLoading = ref(true);
+
+onMounted(() => {
+    const resourceList = [
+        ...resource.header.map(path => loadResource('image', path)),
+        ...resource.footer.map(path => loadResource('image', path))
+    ];
+    Promise.allSettled(resourceList).then(() => {
+        // 模拟加载大量资源
+        setTimeout(() => {
+            isLoading.value = false;
+        }, 1500);
+    });
+});
+
+const onLogin = () => {
+    emits('done');
+}
 </script>
 
 <style scoped lang="scss">
@@ -79,6 +107,15 @@ defineComponent({ name: 'LoadResource' });
                     x: 0px;
                 }
             }
+        }
+    }
+
+    .action {
+        margin-top: auto;
+        @include flex($alignItems: center, $gap: 24px);
+
+        .btn {
+            width: 165px;
         }
     }
 

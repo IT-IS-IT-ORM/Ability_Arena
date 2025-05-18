@@ -19,4 +19,16 @@ export default {
     "/avatar/avatar_16.jpg",
     "/avatar/avatar_17.jpg",
   ],
+  // 顶部导航栏
+  header: [
+    "/image/header/notification.png",
+    "/image/header/internet.png",
+    "/image/header/battery.png",
+  ],
+  // 底部导航栏
+  footer: [
+    "/image/footer/hero-icon.png",
+    "/image/footer/thing-icon.png",
+    "/image/footer/wiki-icon.png",
+  ],
 };

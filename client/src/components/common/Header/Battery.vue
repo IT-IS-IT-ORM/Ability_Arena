@@ -1,5 +1,5 @@
 <template>
-    <div class="battery" :data-level="`${parseInt((level * 100).toString())}%`" :style="{ '--color': levelColor }">
+    <div class="battery" :data-level="power" :style="{ '--color': levelColor }">
         <img :src="resource.header[2]" alt="电量">
     </div>
 </template>
@@ -12,8 +12,11 @@ import { useBattery } from '@vueuse/core';
 // Constant
 import resource from '@/constants/resource';
 
-const { level } = useBattery();
+const { level, isSupported } = useBattery();
+
 const levelColor = computed(() => {
+    if (!isSupported.value) return 'var(--c-error)';
+
     if (level.value >= 0.75) {
         return 'var(--c-success)';
     }
@@ -22,6 +25,11 @@ const levelColor = computed(() => {
     }
     return 'var(--c-error)';
 });
+
+const power = computed(() => {
+    if (!isSupported.value) return '?';
+    return `${parseInt((level.value * 100).toString())}%`
+})
 </script>
 
 <style scoped lang="scss">

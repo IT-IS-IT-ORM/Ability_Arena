@@ -10,20 +10,12 @@
   /* 移除间距 */
   margin: 0;
   padding: 0;
-  /* 重置排版 */
-  font: inherit;
   /* 盒模型 */
   box-sizing: border-box;
-}
-
-html,
-body {
-  /* 移动端 click 事件 触发的 :active 背景色 变更 */
-  -webkit-tap-highlight-color: transparent;
 
   /* 全局字体 */
   font-family: "Ubuntu Mono", "ZCOOL KuaiLe", monospace, sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   font-display: swap;
   color: var(--c-text);
@@ -31,6 +23,12 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  /* 移动端 click 事件 触发的 :active 背景色 变更 */
+  -webkit-tap-highlight-color: transparent;
 }
 
 #resource {
