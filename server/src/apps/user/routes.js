@@ -1,4 +1,4 @@
-import { apiRouter } from "#router/index.js";
+import { apiRouter } from "#src/router/index.js";
 import { UserApi } from "#apps/user/main.js";
 
 const userApi = new UserApi();
