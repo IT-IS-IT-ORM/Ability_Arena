@@ -1,6 +1,16 @@
 <template>
-  <button class="button-comp" :class="{ 'button-comp--block': block }">
-    <slot></slot>
+  <button
+    class="button-comp"
+    :class="{
+      'button-comp--block': block,
+      'button-comp--loading': loading,
+    }"
+  >
+    <div v-show="loading" class="button-comp__loading">加载中...</div>
+
+    <div v-show="!loading" class="button-comp__content">
+      <slot></slot>
+    </div>
   </button>
 </template>
 
@@ -15,14 +25,16 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  loading: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-const { block } = toRefs(props);
+const { block, loading } = toRefs(props);
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/style/mixins.scss";
-
 .button-comp {
   // css vars
   --c-box-shadow: var(--c-primary);
@@ -43,9 +55,18 @@ const { block } = toRefs(props);
   cursor: pointer;
   user-select: none;
   touch-action: manipulation;
+  transition: var(--transition);
+
+  &:active {
+    transform: scale(0.95);
+  }
 
   &--block {
     width: 100%;
+  }
+
+  &--loading {
+    pointer-events: none;
   }
 }
 </style>
