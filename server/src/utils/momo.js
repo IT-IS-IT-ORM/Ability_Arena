@@ -1,4 +1,4 @@
-import User from "#src/db/collections/user.js";
+import User from "#src/db/collections/player.js";
 import { findOrCreate } from "#src/utils/findOrCreate.js";
 /**
  * 创建一批用户

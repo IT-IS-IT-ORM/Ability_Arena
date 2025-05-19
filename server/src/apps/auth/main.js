@@ -1,27 +1,27 @@
-import User from "#src/db/collections/user.js";
-import { UserSerializer } from "#apps/user/serializer.js";
+import Player from "#src/db/collections/player.js";
+import { PlayerSerializer } from "#apps/player/serializer.js";
 
 export class AuthApi {
   constructor() {
-    this.userModel = User;
+    this.playerModel = Player;
   }
 
   create = async (ctx) => {
     const { username } = ctx.request.body;
 
-    const user = await this.userModel.create({ username });
+    const player = await this.playerModel.create({ username });
 
     ctx.body = {
-      data: await new UserSerializer(user).toJSON(),
+      data: await new PlayerSerializer(player).toJSON(),
     };
   };
 
   login = async (ctx) => {
     const { username } = ctx.request.body;
 
-    const user = await this.userModel.findOne({ username });
+    const player = await this.playerModel.findOne({ username });
 
-    if (!user) {
+    if (!player) {
       ctx.body = {
         message: "auth.account_does_not_exist",
       };
@@ -29,7 +29,7 @@ export class AuthApi {
       return;
     }
 
-    if (user.isOnline) {
+    if (player.isOnline) {
       ctx.body = {
         message: "auth.account_already_online",
       };
@@ -38,7 +38,7 @@ export class AuthApi {
     }
 
     ctx.body = {
-      data: await new UserSerializer(user).toJSON(),
+      data: await new PlayerSerializer(player).toJSON(),
     };
     ctx.status = 200;
   };
