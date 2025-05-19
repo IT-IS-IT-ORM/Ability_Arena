@@ -10,8 +10,6 @@ defineComponent({ name: "ThingView" });
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/style/mixins.scss";
-
 .thing-view {
   @include viewTemplate;
 }

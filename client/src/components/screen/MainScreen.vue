@@ -23,8 +23,6 @@ defineComponent({ name: "MainScreen" });
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/style/mixins.scss";
-
 .main-screen {
   width: 300px;
   max-width: 100%;

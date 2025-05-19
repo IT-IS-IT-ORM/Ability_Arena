@@ -31,8 +31,6 @@ const { placeholder } = toRefs(props);
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/style/mixins.scss";
-
 .input-comp {
   width: 100%;
   @include flex($direction: column);

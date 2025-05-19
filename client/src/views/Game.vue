@@ -10,8 +10,6 @@ defineComponent({ name: "GameView" });
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/style/mixins.scss";
-
 .game-view {
   @include viewTemplate;
 }

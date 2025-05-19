@@ -10,8 +10,6 @@ defineComponent({ name: "HeroView" });
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/style/mixins.scss";
-
 .hero-view {
   @include viewTemplate;
 }

@@ -14,8 +14,6 @@ defineComponent({ name: "LoginView" });
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/style/mixins.scss";
-
 .login-view {
   @include viewTemplate;
 }

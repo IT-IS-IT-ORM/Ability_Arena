@@ -14,8 +14,6 @@ defineComponent({ name: "SettingsView" });
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/style/mixins.scss";
-
 .settings-view {
   @include viewTemplate;
 }

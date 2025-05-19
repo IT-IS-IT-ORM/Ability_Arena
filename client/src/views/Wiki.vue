@@ -10,8 +10,6 @@ defineComponent({ name: "WikiView" });
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/style/mixins.scss";
-
 .wiki-view {
   @include viewTemplate;
 }

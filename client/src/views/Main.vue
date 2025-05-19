@@ -14,8 +14,6 @@ defineComponent({ name: "MainView" });
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/style/mixins.scss";
-
 .main-view {
   @include viewTemplate;
 }
