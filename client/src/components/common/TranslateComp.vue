@@ -4,14 +4,22 @@
     :class="{ 'translate-comp--open': isOpenLanguageList }"
     @click="isOpenLanguageList = !isOpenLanguageList"
   >
-    <IconTranslate theme="outline" size="24" fill="var(--c-text)" />
+    <IconTranslate theme="outline" size="16" fill="var(--c-text)" />
+
+    {{ currentLanguage }}
+
+    <IconSwitch
+      class="translate-comp__switch"
+      theme="outline"
+      size="16"
+      fill="var(--c-text)"
+    />
 
     <div class="language-list">
       <ButtonComp
         v-for="language in languageList"
         class="language-item"
         :key="language.value"
-        :type="$i18n.locale === language.value ? 'primary' : 'default'"
         @click="setLanguage(language.value)"
       >
         {{ language.label }}
@@ -22,7 +30,7 @@
 
 <script setup lang="ts">
 // Vue
-import { ref } from "vue";
+import { ref, computed } from "vue";
 // i18n
 import i18nInstance from "@/i18n/index";
 // Utils
@@ -30,7 +38,10 @@ import { localStorage } from "@/utils/localStorage";
 // Components
 import ButtonComp from "@/components/ui/ButtonComp.vue";
 // Icons
-import { Translate as IconTranslate } from "@icon-park/vue-next";
+import {
+  Translate as IconTranslate,
+  Switch as IconSwitch,
+} from "@icon-park/vue-next";
 
 defineOptions({ name: "TranslateComp" });
 
@@ -42,6 +53,12 @@ const languageList: { label: string; value: "en" | "cn" | "kz" }[] = [
   { label: "Қазақша", value: "kz" },
 ];
 
+const currentLanguage = computed(() => {
+  return languageList.find(
+    (language) => language.value === i18nInstance.global.locale.value
+  )!.label;
+});
+
 const setLanguage = (language: "en" | "cn" | "kz") => {
   i18nInstance.global.locale.value = language;
   localStorage.set("language", language);
@@ -52,18 +69,24 @@ const setLanguage = (language: "en" | "cn" | "kz") => {
 .translate-comp {
   position: relative;
 
+  .translate-comp__switch {
+    margin-inline-start: auto;
+  }
+
   .language-list {
+    width: 100%;
+    padding: 8px;
     opacity: 0;
     pointer-events: none;
     overflow: hidden;
-    transform: translate(calc(-100% - 8px), -50%);
+    transform: translate(0, 8px);
     transition: var(--transition);
-    @include flex($alignItems: center, $gap: 8px);
-    @include positioned($top: 50%, $left: 0);
+    @include flex($direction: column, $alignItems: center, $gap: 8px);
+    @include positioned($top: 100%, $left: 0);
 
     .language-item {
-      width: max-content;
-      transform: translateX(100dvw);
+      width: calc(100% - 8px);
+      transform: translateY(-40dvh);
       transition: var(--transition);
       @include flex($alignItems: center, $justifyContent: center);
     }
