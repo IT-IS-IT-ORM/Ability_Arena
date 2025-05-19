@@ -21,24 +21,27 @@ export interface localStorageProperties {
 
 export const localStorage: localStorageProperties = {
   get(key, defaultValue, deserializer?) {
-    let data = window.localStorage.getItem(key) as string | null;
+    let data = window.localStorage.getItem(key);
 
     // key 存在
     if (data) {
       let deserializedData;
       // 执行反序列化
-      deserializedData = deserializer?.(data) ?? JSON.parse(data);
+      try {
+        deserializedData = deserializer?.(data) ?? JSON.parse(data);
+      } catch {
+        return defaultValue;
+      }
+
       return deserializedData;
     }
 
-    console.warn(`本地数据 ${key} 不存在`);
     return defaultValue;
   },
 
-  async set(key, value, serializer?) {
+  set(key, value, serializer?) {
     // 执行序列化
     let serializedValue = serializer?.(value) ?? JSON.stringify(value);
-
-    await window.localStorage.setItem(key, serializedValue);
+    window.localStorage.setItem(key, serializedValue);
   },
 };
