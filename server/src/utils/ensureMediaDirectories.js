@@ -7,12 +7,7 @@ import path from "path";
 export function ensureMediaDirectories() {
   const basePath = path.join(process.cwd(), "media");
 
-  const subDirs = [
-    "user/avatar",
-    "user/backgroundImage",
-    "article/cover",
-    "article/images",
-  ];
+  const subDirs = [];
 
   // 确保 /media 存在
   if (!fs.existsSync(basePath)) {
