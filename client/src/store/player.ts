@@ -1,16 +1,32 @@
+// Type-Def
+import type { BasePlayer } from "@/type-def/Player";
+
 // Pinia
 import { defineStore } from "pinia";
+// Utils
+import { localStorage } from "@/utils/localStorage";
 
-export const playerStore = defineStore("playerStore", {
+const getDefaultPlayer: () => BasePlayer = () => {
+  const player = localStorage.get<BasePlayer, BasePlayer>("player", {
+    _id: "",
+    username: "",
+    avatarIndex: 0,
+    gold: 0,
+    isOnline: false,
+  });
+
+  return player;
+};
+
+export const usePlayerStore = defineStore("playerStore", {
   state: () => ({
-    me: {
-      id: 19,
-      nickname: "Yernar2001",
-      email: "toktaryernar@gmail.com",
-      avatarIndex: 9,
-      mmr: 0,
-      createTime: "2024-01-04 00:12:00",
-      token: "ejysadkabdkjnsbk.asdkjb787s&sdma.kjbKJBKaj898_sada",
-    },
+    me: getDefaultPlayer(),
   }),
+
+  actions: {
+    setMe(player: BasePlayer) {
+      this.me = player;
+      localStorage.set("player", player);
+    },
+  },
 });
