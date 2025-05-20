@@ -1,4 +1,10 @@
-export function fetchInstance(url: string, options: RequestInit) {
+// Type-Def
+import type { BasePlayer } from "@/type-def/Player";
+
+// Utils
+import { localStorage } from "@/utils/localStorage";
+
+export async function fetchInstance(url: string, options: RequestInit) {
   const protocol = window.location.protocol;
   let host = window.location.host;
 
@@ -15,5 +21,24 @@ export function fetchInstance(url: string, options: RequestInit) {
     },
   };
 
-  return fetch(url, { ...defaultOptions, ...options });
+  // 添加 Authorization 头
+  const player = localStorage.get<BasePlayer, null>("player", null);
+  
+  if (player && defaultOptions.headers) {
+    (defaultOptions.headers as Record<string, string>)["Authorization"] =
+      player._id;
+  }
+
+  try {
+    const response = await fetch(url, { ...defaultOptions, ...options });
+
+    if (!response || response.status >= 400) {
+      const errorData = await response.json().catch(() => null);
+      throw errorData || response;
+    }
+
+    return await response.json();
+  } catch (error) {
+    return Promise.reject(error);
+  }
 }
