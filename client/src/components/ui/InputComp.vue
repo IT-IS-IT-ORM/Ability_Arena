@@ -32,15 +32,42 @@ const { placeholder } = toRefs(props);
 
 <style scoped lang="scss">
 .input-comp {
-  width: 100%;
+  width: 220px;
   @include flex($direction: column);
 
   .input {
+    // css vars
+    --btn-text: var(--c-text);
+    --btn-border-color: var(--c-border);
+    --btn-background: #fff;
+    --btn-box-shadow: #000;
+
+    font-weight: 400;
+    font-size: 20px;
+    letter-spacing: 2px;
+    text-decoration: none;
+
+    @include flex($justifyContent: center, $alignItems: center, $gap: 12px);
+
     width: 100%;
-    padding: 8px 10px;
+    padding: 12px 16px;
+    border: none;
     outline: none;
-    border: 2px solid var(--c-border);
-    background-color: #fff;
+    background: #fff;
+    box-sizing: border-box;
+
+    cursor: pointer;
+    user-select: none;
+    touch-action: manipulation;
+    transition: var(--transition);
+
+    &:active {
+      transform: translate(5px, 5px);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
   }
 
   .error-message {
