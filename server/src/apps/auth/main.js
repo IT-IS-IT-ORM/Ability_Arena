@@ -17,9 +17,9 @@ export class AuthApi {
   };
 
   login = async (ctx) => {
-    const { username } = ctx.request.body;
+    const { username, avatarIndex } = ctx.request.body;
 
-    const player = await this.playerModel.findOne({ username });
+    let player = await this.playerModel.findOne({ username });
 
     if (!player) {
       ctx.body = {
@@ -36,6 +36,13 @@ export class AuthApi {
       ctx.status = 400;
       return;
     }
+
+    // 更新玩家头像
+    await this.playerModel.updateOne(
+      { _id: player._id },
+      { $set: { avatarIndex } }
+    );
+    player.avatarIndex = avatarIndex;
 
     ctx.body = {
       data: await new PlayerSerializer(player).toJSON(),
