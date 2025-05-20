@@ -9,7 +9,7 @@ defineOptions({ name: "PageContent" });
 </script>
 
 <style scoped lang="scss">
-.pageContent {
+.page-content {
   flex-grow: 1;
   overflow: hidden auto;
 

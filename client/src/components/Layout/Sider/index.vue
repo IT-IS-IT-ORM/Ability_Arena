@@ -1,11 +1,12 @@
 <template>
   <aside class="sider">
     <h1 class="brand">
-      <span>Play</span>
-      <span>ground</span>
+      <span>Ability</span>
+      <span>Arena</span>
     </h1>
 
     <div
+      ref="Ref_NavigatorBtn"
       class="navigator-btn"
       role="button"
       @click="isOpenNavbar = !isOpenNavbar"
@@ -13,7 +14,7 @@
       <IconApplicationMenu theme="outline" size="24" fill="var(--c-text)" />
     </div>
 
-    <Navbar :isOpen="isOpenNavbar" />
+    <Navbar v-model:isOpen="isOpenNavbar" ref="Ref_Navbar" />
 
     <div class="logo">
       <span>Powered by</span>
@@ -24,7 +25,9 @@
 
 <script setup lang="ts">
 // Vue
-import { ref } from "vue";
+import { ref, useTemplateRef } from "vue";
+// Hooks
+import { onClickOutside } from "@vueuse/core";
 // Components
 import Navbar from "@/components/Layout/Sider/Navbar.vue";
 // Icons
@@ -33,6 +36,16 @@ import { ApplicationMenu as IconApplicationMenu } from "@icon-park/vue-next";
 defineOptions({ name: "Sider" });
 
 const isOpenNavbar = ref(false);
+const Ref_Navbar = useTemplateRef<HTMLElement>("Ref_Navbar");
+const Ref_NavigatorBtn = useTemplateRef("Ref_NavigatorBtn");
+
+onClickOutside(
+  Ref_NavigatorBtn,
+  () => {
+    isOpenNavbar.value = false;
+  },
+  { ignore: [Ref_Navbar] }
+);
 </script>
 
 <style scoped lang="scss">
@@ -63,16 +76,23 @@ const isOpenNavbar = ref(false);
     margin: 32px 0 36px 24px;
 
     span {
-      font-size: 24px;
+      font-size: 32px;
       font-weight: 700;
     }
 
     span:first-child {
       color: var(--c-primary);
+      margin-right: 8px;
     }
 
     @media screen and (max-width: 992px) {
       margin: 0 0 0 24px;
+    }
+
+    @media screen and (max-width: 576px) {
+      span {
+        font-size: 24px;
+      }
     }
   }
 
@@ -87,7 +107,8 @@ const isOpenNavbar = ref(false);
     align-items: center;
 
     cursor: pointer;
-    transition: background-color var(--transition);
+    transform: translateY(2px);
+    transition: var(--transition);
 
     &:hover {
       background: rgba(232, 234, 237, 0.88);

@@ -1,7 +1,7 @@
 <template>
   <ul class="navbarList" :class="{ 'navbarList--open': isOpen }">
     <li v-for="item in navbarItems" class="navbarItem" :key="item.to">
-      <ButtonComp @click="$router.push(item.to)">
+      <ButtonComp @click="handleItemClick(item.to)">
         <img :src="item.icon" alt="icon" />
         {{ $t(item.text) }}
       </ButtonComp>
@@ -13,6 +13,8 @@
 </template>
 
 <script setup lang="ts">
+// Router
+import { useRouter } from "vue-router";
 // Components
 import ButtonComp from "@/components/ui/ButtonComp.vue";
 import TranslateComp from "@/components/common/TranslateComp.vue";
@@ -23,13 +25,20 @@ import IconSettings from "@/components/icons/Settings.svg";
 
 defineOptions({ name: "Navbar" });
 
-defineProps<{ isOpen: boolean }>();
+const isOpen = defineModel<boolean>("isOpen");
+
+const router = useRouter();
+
+const handleItemClick = (to: string) => {
+  isOpen.value = false;
+  router.push(to);
+};
 
 const navbarItems = [
   {
-    to: "/games",
+    to: "/game",
     icon: IconGame,
-    text: "Navigator__games",
+    text: "Navigator__game",
   },
   {
     to: "/wiki",
@@ -69,7 +78,6 @@ const navbarItems = [
     }
 
     .navbarItem {
-      list-style: none;
       padding: 0;
     }
   }
@@ -80,6 +88,7 @@ const navbarItems = [
 }
 
 .navbarItem {
+  list-style: none;
   padding: 16px 24px;
 
   &:first-child {
@@ -89,8 +98,16 @@ const navbarItems = [
     padding-bottom: 0;
   }
 
+  img[alt="icon"] {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
   :deep(.button-comp) {
     width: calc(250px - 24px * 2);
+    height: 48px;
+    font-size: 20px;
 
     svg {
       flex: 0 0 auto;

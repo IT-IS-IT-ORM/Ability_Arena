@@ -16,14 +16,14 @@ import { useRoute } from "vue-router";
 import Sider from "@/components/Layout/Sider/index.vue";
 import PageContent from "@/components/Layout/PageContent.vue";
 
+defineOptions({ name: "Layout" });
+
 const route = useRoute();
 
 const inGame = computed(
   // TODO: 判断是否在游戏中
   () => false
 );
-
-defineOptions({ name: "LayoutTemplate" });
 </script>
 
 <style scoped lang="scss">
@@ -34,6 +34,24 @@ defineOptions({ name: "LayoutTemplate" });
   height: 100dvh;
   background: #000;
 
+  @supports (padding: env(safe-area-inset-top)) {
+    & {
+      padding-top: env(safe-area-inset-top);
+      padding-right: env(safe-area-inset-right);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+    }
+  }
+
+  @supports (padding: constant(safe-area-inset-top)) {
+    & {
+      padding-top: constant(safe-area-inset-top);
+      padding-right: constant(safe-area-inset-right);
+      padding-bottom: constant(safe-area-inset-bottom);
+      padding-left: constant(safe-area-inset-left);
+    }
+  }
+
   .box {
     display: flex;
 
@@ -41,11 +59,13 @@ defineOptions({ name: "LayoutTemplate" });
     max-width: 1280px;
     height: 85%;
     max-height: 920px;
+
     border-radius: 12px;
     background: #0f0c29;
     background: linear-gradient(45deg, #24243e, #302b63, #0f0c29);
     box-shadow: rgba(52, 61, 233, 0.4) -2px 0 96px 24px;
-    transition: width var(--transition), height var(--transition);
+
+    transition: var(--transition);
 
     @media screen and (max-width: 992px) {
       flex-direction: column;
