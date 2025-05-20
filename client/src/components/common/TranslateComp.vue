@@ -4,14 +4,14 @@
     :class="{ 'translate-comp--open': isOpenLanguageList }"
     @click="isOpenLanguageList = !isOpenLanguageList"
   >
-    <IconTranslate theme="outline" size="16" fill="var(--c-text)" />
+    <IconTranslate theme="outline" size="24" fill="var(--c-text)" />
 
     {{ currentLanguage }}
 
     <IconSwitch
       class="translate-comp__switch"
       theme="outline"
-      size="16"
+      size="24"
       fill="var(--c-text)"
     />
 
