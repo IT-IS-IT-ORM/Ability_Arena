@@ -98,15 +98,3 @@
     background: #000;
   }
 }
-
-// $centralize options: `1` | `0`
-@mixin viewTemplate($centralize: 1) {
-  width: 100dvw;
-  height: 100dvh;
-  overflow: hidden;
-  background-color: #000;
-
-  @if ($centralize == 1) {
-    @include flexCenter;
-  }
-}
