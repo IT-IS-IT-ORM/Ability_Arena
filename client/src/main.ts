@@ -5,10 +5,10 @@ import { createRouter, createWebHistory } from "vue-router";
 import routes from "@/constants/routes";
 // Pinia
 import { createPinia } from "pinia";
+// i18n
+import i18nInstance from "@/i18n/index";
 // Component
 import App from "@/components/App.vue";
-// Utils
-import { localStorage } from "@/utils/localStorage";
 
 // Global CSS Files
 import "@/assets/style/variable.css";
@@ -25,18 +25,8 @@ const router = createRouter({
 // Store
 const pinia = createPinia();
 
-router.beforeEach((to, _, next) => {
-  if (to.meta.requiresAuth) {
-    const username = localStorage.get<string, boolean>("username", false);
-
-    if (!username) {
-      return next("/login");
-    }
-  }
-  next();
-});
-
 app.use(router);
 app.use(pinia);
+app.use(i18nInstance);
 
 app.mount("#app");
