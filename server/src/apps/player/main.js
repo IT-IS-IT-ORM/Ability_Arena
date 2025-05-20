@@ -49,10 +49,10 @@ export class PlayerApi {
       player = await this.playerModel.findById(id);
     }
 
-    const updatedPlayer = await this.playerModel.findByIdAndUpdate(id, {
-      ...player,
-      ...ctx.request.body,
-    });
+    const updatedPlayer = await this.playerModel.findByIdAndUpdate(
+      id,
+      ctx.request.body
+    );
 
     ctx.body = {
       data: await new PlayerSerializer(updatedPlayer).toJSON(),
