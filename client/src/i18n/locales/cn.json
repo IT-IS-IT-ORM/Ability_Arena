@@ -1,0 +1,47 @@
+{
+  "Navigator__game": "游戏",
+  "Navigator__wiki": "百科",
+  "Navigator__settings": "设置",
+
+  "Auth__login": "进入游戏",
+
+  "PlayerForm__username": "用户名",
+  "PlayerForm__usernameCannotBeEmpty": "用户名不能为空",
+  "PlayerForm__usernameMaxLength": "用户名不能超过 24 个字符",
+
+  "MainScreen__startMatching": "开始匹配",
+
+  "SettingsPage__changeAvatar": "更改头像",
+  "SettingsPage__save": "保存",
+
+  "ScreenWarning__title": "检测到屏幕被旋转",
+  "ScreenWarning__description": "请将设备旋转至纵向模式",
+
+  "PageNotFound__resourceNotFound": "资源不存在",
+
+  "GamesPage__SearchBar__placeholder": "搜索...",
+  "GamesPage__SearchBar__empty": "无法搜索空文本",
+  "GamesPage__notReady": "暂未开放",
+
+  "GamesPage__room": "房间",
+  "GamesPage__createRoom": "创建房间",
+  "GamesPage__noRoom": "暂无房间",
+  "GamesPage__createSuccessfully": "创建成功",
+  "GamesPage__numberInTheRoom": "房间人数",
+  "GamesPage__roomSetting": "房间设置",
+  "GamesPage__startGame": "开始游戏",
+  "GamesPage__addAIBot": "添加AI玩家",
+  "GamesPage__Chat__inputMessage": "输入你的消息...",
+  "GamesPage__Chat__sendMessage": "按 Ctrl+Enter 发送消息",
+  "GamesPage__Chat__playerJoin": "{{player}} 加入了房间",
+
+  "GamesPage__crazy-fight": "大乱斗",
+
+  "API_Common_needAuth": "需要登录",
+
+  "API_User_usernameIsRequired": "用户名不可为空",
+  "API_User_usernameMaxLength": "用户名不能超过10个字符",
+  "API_User_usernameUnique": "用户名已被占用",
+  "API_User_registerSuccess": "注册成功",
+  "API_User_saveSuccess": "保存成功"
+}

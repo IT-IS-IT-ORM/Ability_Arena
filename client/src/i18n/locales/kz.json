@@ -1,0 +1,17 @@
+{
+  "Navigator__game": "Ойындар",
+  "Navigator__wiki": "Нұсқаулық",
+  "Navigator__settings": "Баптау",
+
+  "Auth__login": "Ойынға кіру",
+
+  "PlayerForm__username": "Ойыншы аты",
+  "PlayerForm__usernameCannotBeEmpty": "Ойыншы аты болуы керек",
+  "PlayerForm__usernameMaxLength": "Ойыншы аты 24 символдан ұзын болмауы керек",
+
+  "SettingsPage__changeAvatar": "Сурет өзгерту",
+  "SettingsPage__save": "Сақтау",
+
+  "ScreenWarning__title": "Экран айналдырылған",
+  "ScreenWarning__description": "Құрылғыңызды тігінен ұстаңыз"
+}

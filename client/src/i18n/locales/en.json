@@ -1,0 +1,17 @@
+{
+  "Navigator__game": "Games",
+  "Navigator__wiki": "Wiki",
+  "Navigator__settings": "Settings",
+
+  "Auth__login": "Enter the game",
+
+  "PlayerForm__username": "Username",
+  "PlayerForm__usernameCannotBeEmpty": "Username cannot be empty",
+  "PlayerForm__usernameMaxLength": "Username cannot be longer than 24 characters",
+
+  "SettingsPage__changeAvatar": "Change photo",
+  "SettingsPage__save": "Save",
+
+  "ScreenWarning__title": "Screen rotation detected",
+  "ScreenWarning__description": "Please rotate your device to portrait mode"
+}
