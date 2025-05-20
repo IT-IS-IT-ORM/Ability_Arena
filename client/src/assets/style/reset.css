@@ -29,6 +29,7 @@ html,
 body {
   /* 移动端 click 事件 触发的 :active 背景色 变更 */
   -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
 }
 
 #resource {
