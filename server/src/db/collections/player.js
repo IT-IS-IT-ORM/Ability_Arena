@@ -9,8 +9,8 @@ const playerSchema = new mongoose.Schema({
   },
   avatarIndex: {
     type: Number,
-    default: 0,
-    min: 0,
+    default: 1,
+    min: 1,
   },
   gold: {
     type: Number,
