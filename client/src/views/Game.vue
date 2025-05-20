@@ -11,6 +11,5 @@ defineComponent({ name: "GameView" });
 
 <style scoped lang="scss">
 .game-view {
-  @include viewTemplate;
 }
 </style>

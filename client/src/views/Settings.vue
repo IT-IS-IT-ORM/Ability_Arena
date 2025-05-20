@@ -1,20 +1,19 @@
 <template>
   <div class="settings-view">
-    <EnterScreen />
+    <SettingsScreen />
   </div>
 </template>
 
 <script setup lang="ts">
 // Vue
-import { defineComponent } from "vue";
+import {} from "vue";
 // Components
-import EnterScreen from "@/components/screen/EnterScreen.vue";
+import SettingsScreen from "@/components/screen/SettingsScreen.vue";
 
-defineComponent({ name: "SettingsView" });
+defineOptions({ name: "SettingsView" });
 </script>
 
 <style scoped lang="scss">
 .settings-view {
-  @include viewTemplate;
 }
 </style>

@@ -11,6 +11,5 @@ defineComponent({ name: "HeroView" });
 
 <style scoped lang="scss">
 .hero-view {
-  @include viewTemplate;
 }
 </style>

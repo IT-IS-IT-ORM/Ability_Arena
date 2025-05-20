@@ -2,22 +2,14 @@ export default [
   {
     path: "/",
     name: "main",
-    component: () => import("@/views/Main.vue"),
-    meta: {
-      requiresAuth: true,
-    },
-  },
-  {
-    path: "/login",
-    name: "login",
-    component: () => import("@/views/Login.vue"),
+    redirect: "/game",
   },
   {
     path: "/settings",
     name: "settings",
     component: () => import("@/views/Settings.vue"),
     meta: {
-      requiresAuth: true,
+      requiresAuth: false,
     },
   },
   {
@@ -25,15 +17,15 @@ export default [
     name: "hero",
     component: () => import("@/views/Hero.vue"),
     meta: {
-      requiresAuth: true,
+      requiresAuth: false,
     },
   },
   {
-    path: "/thing",
-    name: "thing",
-    component: () => import("@/views/Thing.vue"),
+    path: "/items",
+    name: "items",
+    component: () => import("@/views/Items.vue"),
     meta: {
-      requiresAuth: true,
+      requiresAuth: false,
     },
   },
   {
@@ -41,7 +33,7 @@ export default [
     name: "wiki",
     component: () => import("@/views/Wiki.vue"),
     meta: {
-      requiresAuth: true,
+      requiresAuth: false,
     },
   },
   {

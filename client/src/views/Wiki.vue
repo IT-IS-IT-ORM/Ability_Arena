@@ -11,6 +11,5 @@ defineComponent({ name: "WikiView" });
 
 <style scoped lang="scss">
 .wiki-view {
-  @include viewTemplate;
 }
 </style>
