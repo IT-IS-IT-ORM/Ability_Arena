@@ -10,7 +10,7 @@ const getDefaultPlayer: () => BasePlayer = () => {
   const player = localStorage.get<BasePlayer, BasePlayer>("player", {
     _id: "",
     username: "",
-    avatarIndex: 0,
+    avatarIndex: 1,
     gold: 0,
     isOnline: false,
   });
@@ -28,5 +28,9 @@ export const usePlayerStore = defineStore("playerStore", {
       this.me = player;
       localStorage.set("player", player);
     },
+  },
+
+  getters: {
+    isAuthenticated: (state) => state.me._id !== "",
   },
 });
