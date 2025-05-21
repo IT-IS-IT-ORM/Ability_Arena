@@ -1,5 +1,5 @@
 // Type-Def
-import type { BasePlayer } from "@/type-def/Player";
+import type { I_BasePlayer } from "@/type-def/Player";
 
 // Utils
 import { localStorage } from "@/utils/localStorage";
@@ -22,8 +22,8 @@ export async function fetchInstance(url: string, options: RequestInit) {
   };
 
   // 添加 Authorization 头
-  const player = localStorage.get<BasePlayer, null>("player", null);
-  
+  const player = localStorage.get<I_BasePlayer, null>("player", null);
+
   if (player && defaultOptions.headers) {
     (defaultOptions.headers as Record<string, string>)["Authorization"] =
       player._id;
