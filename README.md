@@ -9,5 +9,6 @@
 | 类别     | 技术                                                                                |
 | -------- | ----------------------------------------------------------------------------------- |
 | 编程语言 | `JavaScript`, `TypeScript`                                                          |
-| Server   | `Socket.IO`, `Koa.js`, `Mongo DB`                                                   |
+| Server   | `Socket.IO`, `Koa.js`                                                               |
 | Frontend | `Socket.IO`, `Vue 3`, [Icon Park 图标库](https://iconpark.oceanengine.com/official) |
+| 数据服务 | `Mongo DB`, `Redis`                                                                 |
