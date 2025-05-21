@@ -41,17 +41,10 @@ export class PlayerApi {
       return;
     }
 
-    let player;
-
-    if (ctx.player.id === id) {
-      player = ctx.player;
-    } else {
-      player = await this.playerModel.findById(id);
-    }
-
-    const updatedPlayer = await this.playerModel.findByIdAndUpdate(
-      id,
-      ctx.request.body
+    const updatedPlayer = await this.playerModel.findOneAndUpdate(
+      { _id: id },
+      ctx.request.body,
+      { new: true }
     );
 
     ctx.body = {
