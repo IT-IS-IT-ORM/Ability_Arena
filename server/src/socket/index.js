@@ -1,5 +1,7 @@
 import { Server } from "socket.io";
 import Player from "#src/db/collections/player.js";
+import { PlayerSerializer } from "#src/apps/player/serializer.js";
+
 import { connectionPool } from "#src/socket/connectionPool.js";
 import { initRoomHandlers } from "#src/socket/room.js";
 import { initGameHandlers } from "#src/socket/game.js";
@@ -17,7 +19,7 @@ export function initSocket(server) {
       const player = await Player.findById(playerId);
 
       if (player) {
-        socket.player = player;
+        socket.player = await new PlayerSerializer(player).toJSON();
         socket.playerId = playerId;
       }
     }
