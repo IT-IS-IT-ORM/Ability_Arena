@@ -54,6 +54,7 @@
 import { ref } from "vue";
 // Store
 import { usePlayerStore } from "@/store/player";
+import { useSocketStore } from "@/store/socket";
 // Hooks
 import { useSettingsService } from "@/service/SettingsService";
 // Components
@@ -63,6 +64,7 @@ import InputComp from "@/components/ui/InputComp.vue";
 defineOptions({ name: "SettingsScreen" });
 
 const playerStore = usePlayerStore();
+const socketStore = useSocketStore();
 
 const isShowAvatarGrid = ref(false);
 const username = ref(playerStore.me.username);
@@ -76,6 +78,7 @@ const handleAvatarChange = (i: number) => {
 const { loadingLogin, loadingUpdate, login, update } = useSettingsService({
   onSuccessLogin(response) {
     playerStore.setMe(response.data);
+    !socketStore.isConnected && socketStore.connect();
   },
   onErrorLogin(error) {
     usernameError.value = error.message;
