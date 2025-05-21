@@ -5,6 +5,9 @@ import Koa from "koa";
 import koaCors from "@koa/cors";
 import { koaBody } from "koa-body";
 import koaLogger from "koa-logger";
+// Socket
+import http from "http";
+import { initSocket } from "#src/socket/index.js";
 // Middleware
 import { authMiddleware } from "#src/middleware/auth.js";
 import { koaBodyConfig } from "#src/middleware/koaBody.js";
@@ -39,14 +42,21 @@ app.use(mediaRouter.allowedMethods());
 
 const appPort = process.env.APP_PORT;
 
+const server = http.createServer(app.callback());
+
+// 初始化 Socket.IO
+initSocket(server);
+
 testRedisConnection();
 await initDatabase();
 
-app.listen(appPort, "0.0.0.0", () => {
+server.listen(appPort, "0.0.0.0", () => {
   console.log("--------------------------------");
   console.log("🚀 服务器成功启动!");
+  console.log("📡 WebSocket 服务已启动");
   for (const ip of getLocalIP()) {
     console.log(`http://${ip}:${appPort}`);
+    console.log(`ws://${ip}:${appPort}`);
   }
   console.log("--------------------------------");
 });
