@@ -13,8 +13,8 @@ import { computed } from "vue";
 // Router
 import { useRoute } from "vue-router";
 // Components
-import Sider from "@/components/Layout/Sider/index.vue";
-import PageContent from "@/components/Layout/PageContent.vue";
+import Sider from "@/components/ui/Layout/Sider/index.vue";
+import PageContent from "@/components/ui/Layout/PageContent.vue";
 
 defineOptions({ name: "Layout" });
 

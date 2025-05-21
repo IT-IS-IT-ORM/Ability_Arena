@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 // Vue
-import { defineComponent, defineModel, toRefs } from "vue";
+import { defineComponent, toRefs } from "vue";
 
 defineComponent({ name: "InputComp" });
 

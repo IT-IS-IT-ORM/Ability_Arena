@@ -29,7 +29,7 @@ import { ref, useTemplateRef } from "vue";
 // Hooks
 import { onClickOutside } from "@vueuse/core";
 // Components
-import Navbar from "@/components/Layout/Sider/Navbar.vue";
+import Navbar from "@/components/ui/Layout/Sider/Navbar.vue";
 // Icons
 import { ApplicationMenu as IconApplicationMenu } from "@icon-park/vue-next";
 
