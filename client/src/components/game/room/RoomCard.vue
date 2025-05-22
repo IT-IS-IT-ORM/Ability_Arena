@@ -19,7 +19,7 @@
       </div>
 
       <ButtonComp @click="handleActionBtn">
-        {{ roomStatus === "等待中" ? "加入" : "观战" }}
+        {{ canJoinRoom ? "加入" : "观战" }}
       </ButtonComp>
     </div>
   </div>
@@ -35,7 +35,8 @@ import { computed } from "vue";
 import { useRouter } from "vue-router";
 // Store
 import { usePlayerStore } from "@/store/player";
-import { useRoomStore } from "@/store/room";
+// Hooks
+import { useRoom } from "@/hooks/useRoom";
 // Components
 import ButtonComp from "@/components/ui/ButtonComp.vue";
 // Icons
@@ -50,7 +51,14 @@ const props = defineProps<{ room: I_Room }>();
 
 const router = useRouter();
 const playerStore = usePlayerStore();
-const roomStore = useRoomStore();
+const { joinRoom } = useRoom({
+  onSuccessJoinRoom: (room: I_Room) => {
+    router.push({
+      name: "room",
+      params: { id: room.id },
+    });
+  },
+});
 
 const roomStatus = computed(() => {
   if (props.room.status === "waiting") {
@@ -60,15 +68,17 @@ const roomStatus = computed(() => {
   return "游戏中";
 });
 
-const handleActionBtn = () => {
-  playerStore.me.inRoom = true;
-  roomStore.room = props.room;
+const canJoinRoom = computed(() => {
+  const maxPlayers = 10;
 
-  if (props.room.status === "waiting") {
-    router.push({
-      name: "room",
-      params: { id: props.room.id },
-    });
+  return (
+    props.room.status === "waiting" && props.room.members.length < maxPlayers
+  );
+});
+
+const handleActionBtn = () => {
+  if (canJoinRoom.value) {
+    joinRoom(props.room.id);
   } else {
     // 观战
     playerStore.me.inGame = true;

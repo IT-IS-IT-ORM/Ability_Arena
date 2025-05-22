@@ -98,6 +98,14 @@ export function initRoomHandlers(io, socket) {
         return callback({ success: false, error: "已经在房间中" });
       }
 
+      // 检查房间是否满员
+      const memberCount = await redisClient.scard(getRoomMembersKey(roomId));
+      const maxPlayers = 10;
+
+      if (memberCount >= maxPlayers) {
+        return callback({ success: false, error: "房间已满员" });
+      }
+
       // 添加成员
       await redisClient.sadd(getRoomMembersKey(roomId), socket.playerId);
 
@@ -110,6 +118,12 @@ export function initRoomHandlers(io, socket) {
       };
 
       socket.join(roomId);
+      io.to(roomId).emit("room:memberJoined", {
+        playerId: socket.playerId,
+        roomId,
+      });
+
+      // 通知所有成员
       io.to(roomId).emit("room:memberJoined", {
         playerId: socket.playerId,
         roomId,
