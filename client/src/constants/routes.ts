@@ -44,4 +44,12 @@ export default [
       requiresAuth: false,
     },
   },
+  {
+    path: "/room/:id",
+    name: "room",
+    component: () => import("@/views/Room.vue"),
+    meta: {
+      requiresAuth: false,
+    },
+  },
 ];
