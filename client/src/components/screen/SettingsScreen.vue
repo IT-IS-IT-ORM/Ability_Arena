@@ -77,6 +77,7 @@ const handleAvatarChange = (i: number) => {
 
 const { loadingLogin, loadingUpdate, login, update } = useSettingsService({
   onSuccessLogin(response) {
+    usernameError.value = "";
     playerStore.setMe(response.data);
     !socketStore.isConnected && socketStore.connect();
   },
@@ -84,6 +85,7 @@ const { loadingLogin, loadingUpdate, login, update } = useSettingsService({
     usernameError.value = error.message;
   },
   onSuccessUpdate(response) {
+    usernameError.value = "";
     playerStore.setMe(response.data);
   },
   onErrorUpdate(error) {
