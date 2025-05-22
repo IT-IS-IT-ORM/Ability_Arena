@@ -47,6 +47,11 @@ export class PlayerApi {
         ctx.request.body,
         { new: true }
       );
+
+      ctx.body = {
+        data: await new PlayerSerializer(updatedPlayer).toJSON(),
+      };
+      ctx.status = 200;
     } catch (error) {
       if (error.code === 11000) {
         ctx.body = {
@@ -59,13 +64,7 @@ export class PlayerApi {
         };
         ctx.status = 400;
       }
-      return;
     }
-
-    ctx.body = {
-      data: await new PlayerSerializer(updatedPlayer).toJSON(),
-    };
-    ctx.status = 200;
   };
 
   delete = async (ctx) => {
