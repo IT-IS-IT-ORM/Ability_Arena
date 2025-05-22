@@ -22,7 +22,15 @@ export const useSocketStore = defineStore("socket", {
 
       if (!playerStore.me._id) return;
 
-      this.socket = io("ws://localhost:3332", {
+      let protocol = window.location.protocol;
+      let host = window.location.host;
+
+      protocol = protocol.replace("http", "ws");
+      protocol = protocol.replace("https", "wss");
+      host = host.replace("localhost", "127.0.0.1");
+      host = host.replace("2333", "3332");
+
+      this.socket = io(`${protocol}//${host}`, {
         auth: {
           playerId: playerStore.me._id,
         },
