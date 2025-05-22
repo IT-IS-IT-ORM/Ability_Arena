@@ -41,11 +41,26 @@ export class PlayerApi {
       return;
     }
 
-    const updatedPlayer = await this.playerModel.findOneAndUpdate(
-      { _id: id },
-      ctx.request.body,
-      { new: true }
-    );
+    try {
+      const updatedPlayer = await this.playerModel.findOneAndUpdate(
+        { _id: id },
+        ctx.request.body,
+        { new: true }
+      );
+    } catch (error) {
+      if (error.code === 11000) {
+        ctx.body = {
+          message: "auth.username_already_exists",
+        };
+        ctx.status = 409;
+      } else {
+        ctx.body = {
+          message: error.toString(),
+        };
+        ctx.status = 400;
+      }
+      return;
+    }
 
     ctx.body = {
       data: await new PlayerSerializer(updatedPlayer).toJSON(),
