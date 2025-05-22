@@ -1,7 +1,7 @@
 <template>
   <div class="layout">
     <div class="box">
-      <Sider v-if="!inGame" />
+      <Sider v-if="shouldShowSider" />
       <PageContent />
     </div>
   </div>
@@ -10,20 +10,20 @@
 <script setup lang="ts">
 // Vue
 import { computed } from "vue";
-// Router
-import { useRoute } from "vue-router";
+// Store
+import { usePlayerStore } from "@/store/player";
 // Components
 import Sider from "@/components/ui/Layout/Sider/index.vue";
 import PageContent from "@/components/ui/Layout/PageContent.vue";
 
 defineOptions({ name: "Layout" });
 
-const route = useRoute();
+const playerStore = usePlayerStore();
 
-const inGame = computed(
-  // TODO: 判断是否在游戏中
-  () => false
-);
+const shouldShowSider = computed(() => {
+  if (!playerStore.isAuthenticated) return true;
+  return playerStore.me.inRoom || playerStore.me.inGame;
+});
 </script>
 
 <style scoped lang="scss">
@@ -54,7 +54,8 @@ const inGame = computed(
 
   .box {
     display: flex;
-
+    position: relative;
+    
     width: 85%;
     max-width: 1280px;
     height: 85%;
