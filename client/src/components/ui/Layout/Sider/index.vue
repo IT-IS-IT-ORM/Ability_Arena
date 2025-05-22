@@ -16,10 +16,10 @@
 
     <Navbar v-model:isOpen="isOpenNavbar" ref="Ref_Navbar" />
 
-    <div class="logo">
+    <a class="logo" href="https://itisit.netlify.app/" target="_blank">
       <span>Powered by</span>
       <strong>IT IS IT</strong>
-    </div>
+    </a>
   </aside>
 </template>
 
@@ -130,10 +130,12 @@ onClickOutside(
   .logo {
     @include flex($direction: column);
 
+    cursor: pointer;
     margin: auto 24px 24px 24px;
 
     color: #000;
     line-height: 1;
+    text-decoration: none;
 
     span {
       font-size: 16px;
