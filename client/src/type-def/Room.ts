@@ -8,3 +8,8 @@ export interface I_Room {
   status: string;
   members: I_BasePlayer[];
 }
+
+export interface I_RoomStatistics {
+  onlinePlayers: number;
+  roomsCount: number;
+}
