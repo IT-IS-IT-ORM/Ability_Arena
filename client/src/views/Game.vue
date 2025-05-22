@@ -7,10 +7,7 @@
         placeholder="输入房间名称"
         :errorMessage="roomNameError"
       />
-      <ButtonComp
-        :loading="loadingCreateRoom"
-        @click="handleCreateRoom"
-      >
+      <ButtonComp :loading="loadingCreateRoom" @click="handleCreateRoom">
         创建房间
       </ButtonComp>
     </div>
@@ -41,6 +38,8 @@ import { ref } from "vue";
 // Router
 import { useRouter } from "vue-router";
 // Store
+import { usePlayerStore } from "@/store/player";
+// Hooks
 import { useRoom } from "@/hooks/useRoom";
 // Components
 import InputComp from "@/components/ui/InputComp.vue";
@@ -53,6 +52,7 @@ import {
 } from "@icon-park/vue-next";
 
 const router = useRouter();
+const playerStore = usePlayerStore();
 
 const roomName = ref("");
 const roomNameError = ref("");
@@ -67,8 +67,13 @@ const { rooms, roomStatistics, loadingCreateRoom, createRoom } = useRoom({
 });
 
 function handleCreateRoom() {
+  if (!playerStore.isAuthenticated) {
+    roomNameError.value = "请先登录";
+    return;
+  }
+
   const roomNameVal = roomName.value.trim();
-  
+
   if (!roomNameVal) {
     roomNameError.value = "房间名称不能为空";
     return;
