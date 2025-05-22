@@ -79,7 +79,9 @@ const { loadingLogin, loadingUpdate, login, update } = useSettingsService({
   onSuccessLogin(response) {
     usernameError.value = "";
     playerStore.setMe(response.data);
-    !socketStore.isConnected && socketStore.connect();
+    // 重新连接, 附带 auth 信息
+    socketStore.disconnect();
+    socketStore.connect();
   },
   onErrorLogin(error) {
     usernameError.value = error.message;
