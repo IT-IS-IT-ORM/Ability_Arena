@@ -52,6 +52,7 @@ onClickOutside(
 .sider {
   flex: 0 0 250px;
   position: relative;
+  transition: var(--transition);
   @include flex($direction: column);
 
   border-top-left-radius: inherit;

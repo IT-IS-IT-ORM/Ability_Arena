@@ -1,7 +1,9 @@
 <template>
   <div class="layout">
     <div class="box">
-      <Sider v-if="shouldShowSider" />
+      <Transition name="should-show-sider">
+        <Sider v-if="shouldShowSider" />
+      </Transition>
       <PageContent />
     </div>
   </div>
@@ -22,7 +24,7 @@ const playerStore = usePlayerStore();
 
 const shouldShowSider = computed(() => {
   if (!playerStore.isAuthenticated) return true;
-  return playerStore.me.inRoom || playerStore.me.inGame;
+  return !(playerStore.me.inRoom || playerStore.me.inGame);
 });
 </script>
 
@@ -55,7 +57,8 @@ const shouldShowSider = computed(() => {
   .box {
     display: flex;
     position: relative;
-    
+    overflow: hidden;
+
     width: 85%;
     max-width: 1280px;
     height: 85%;
@@ -76,6 +79,25 @@ const shouldShowSider = computed(() => {
       width: 100%;
       height: 100%;
       border-radius: 0;
+    }
+
+    .should-show-sider-enter-active,
+    .should-show-sider-leave-active {
+      @media screen and (min-width: 992px) {
+        transform: translateX(0);
+      }
+      @media screen and (max-width: 992px) {
+        transform: translateY(0);
+      }
+    }
+    .should-show-sider-enter-from,
+    .should-show-sider-leave-to {
+      @media screen and (min-width: 992px) {
+        transform: translateX(-100%);
+      }
+      @media screen and (max-width: 992px) {
+        transform: translateY(-100%);
+      }
     }
   }
 }
