@@ -20,8 +20,6 @@ export const useSocketStore = defineStore("socket", {
     connect() {
       const playerStore = usePlayerStore();
 
-      if (!playerStore.me._id) return;
-
       let protocol = window.location.protocol;
       let host = window.location.host;
 

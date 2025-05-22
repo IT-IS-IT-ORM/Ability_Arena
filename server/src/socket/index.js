@@ -30,17 +30,23 @@ export function initSocket(server) {
   // Socket.IO 连接处理
   io.on("connection", async (socket) => {
     const playerId = socket.playerId;
-    const playerUsername = socket.player.username;
-    console.log(`玩家 ${playerUsername} 已连接`);
+    const playerUsername = socket.player?.username ?? socket.id;
 
-    await connectionPool.addConnection(playerId, socket);
+    console.log(`Socket connected: ${playerUsername}`);
+
+    if (playerId) {
+      await connectionPool.addConnection(playerId, socket);
+    }
 
     initRoomHandlers(io, socket);
     initGameHandlers(io, socket);
 
     socket.on("disconnect", async () => {
-      console.log(`玩家 ${playerUsername} 已断开连接`);
-      await connectionPool.removeConnection(playerId);
+      console.log(`Socket disconnected: ${playerUsername}`);
+
+      if (playerId) {
+        await connectionPool.removeConnection(playerId);
+      }
     });
   });
 
