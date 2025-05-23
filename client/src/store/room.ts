@@ -1,5 +1,5 @@
 // Type-Def
-import type { I_Room, I_RoomStatistics } from "@/type-def/Room";
+import type { I_Room, I_RoomStatistics, I_RoomAction } from "@/type-def/Room";
 
 // Pinia
 import { defineStore } from "pinia";
@@ -14,6 +14,8 @@ export const useRoomStore = defineStore("room", {
       onlinePlayers: 0,
       roomsCount: 0,
     } as I_RoomStatistics,
+    isListeningRoomActions: false,
+    roomActions: [] as I_RoomAction[],
   }),
 
   actions: {
@@ -135,6 +137,82 @@ export const useRoomStore = defineStore("room", {
           }
         );
       });
+    },
+
+    // 发送房间通知
+    sendRoomNotification(roomId: string, content: string) {
+      return new Promise<void>((resolve, reject) => {
+        const socketStore = useSocketStore();
+        if (!socketStore.socket) {
+          reject();
+          return;
+        }
+
+        socketStore.socket.emit(
+          "room:notification",
+          { roomId, content },
+          (response: any) => {
+            if (response.success) {
+              resolve();
+            } else {
+              reject(response.error);
+            }
+          }
+        );
+      });
+    },
+
+    // 获取房间消息
+    fetchRoomMessages() {
+      return new Promise<void>((resolve, reject) => {
+        const socketStore = useSocketStore();
+        if (!socketStore.socket) {
+          reject("common_socket_not_connected");
+          return;
+        }
+
+        if (this.isListeningRoomActions) {
+          return;
+        }
+
+        this.isListeningRoomActions = true;
+
+        const onActionHanlder = (actionType: string, data: any) => {
+          console.log("Action", actionType, data);
+
+          this.roomActions.push({
+            type: actionType,
+            data,
+            timestamp: data.timestamp,
+          });
+        };
+
+        socketStore.socket.on("room:memberJoined", (data: any) =>
+          onActionHanlder("playerJoined", data)
+        );
+        socketStore.socket.on("room:memberLeft", (data: any) =>
+          onActionHanlder("playerLeft", data)
+        );
+        socketStore.socket.on("room:newMessage", (data: any) =>
+          onActionHanlder("message", data)
+        );
+        resolve();
+      });
+    },
+
+    // 清除房间消息
+    cancelFetchRoomMessages() {
+      const socketStore = useSocketStore();
+      if (!socketStore.socket) {
+        return;
+      }
+
+      socketStore.socket.off("room:memberJoined");
+      socketStore.socket.off("room:memberLeft");
+      socketStore.socket.off("room:newMessage");
+
+      this.roomActions = [];
+      this.isListeningRoomActions = false;
     },
 
     // 获取房间统计信息
