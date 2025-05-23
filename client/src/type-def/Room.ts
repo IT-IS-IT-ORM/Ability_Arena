@@ -13,3 +13,9 @@ export interface I_RoomStatistics {
   onlinePlayers: number;
   roomsCount: number;
 }
+
+export interface I_RoomAction {
+  type: string;
+  data: any;
+  timestamp: string;
+}
