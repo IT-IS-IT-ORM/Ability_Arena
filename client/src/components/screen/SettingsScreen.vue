@@ -89,6 +89,9 @@ const { loadingLogin, loadingUpdate, login, update } = useSettingsService({
   onSuccessUpdate(response) {
     usernameError.value = "";
     playerStore.setMe(response.data);
+    // 重新连接, 更新 player 信息
+    socketStore.disconnect();
+    socketStore.connect();
   },
   onErrorUpdate(error) {
     usernameError.value = error.message;
