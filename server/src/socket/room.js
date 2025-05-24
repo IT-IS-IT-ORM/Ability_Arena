@@ -88,6 +88,10 @@ export function initRoomHandlers(io, socket) {
         return callback({ success: false, error: "room_not_found" });
       }
 
+      if (!socket.player) {
+        return callback({ success: false, error: "player_not_found" });
+      }
+
       // 检查房间是否满员
       const memberCount = await redisClient.scard(getRoomMembersKey(roomId));
       const maxPlayers = 10;
@@ -256,6 +260,16 @@ export function initRoomHandlers(io, socket) {
       // 获取房间信息和成员
       const roomData = await redisClient.hgetall(getRoomKey(roomId));
       const members = await redisClient.smembers(getRoomMembersKey(roomId));
+
+      // 检查是否是房间成员
+      const isMember = await redisClient.sismember(
+        getRoomMembersKey(roomId),
+        socket.playerId
+      );
+
+      if (!isMember) {
+        return callback({ success: false, error: "room_not_a_member" });
+      }
 
       // 获取成员信息
       const membersInfo = await Promise.all(
