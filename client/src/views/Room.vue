@@ -59,10 +59,7 @@
       <div class="room-view__footer">
         <div class="input-box">
           <InputComp v-model="inputMessage" />
-          <ButtonComp
-            :loading="loadingSendMessage"
-            @click="handleSendMessage"
-          >
+          <ButtonComp @click="handleSendMessage">
             <IconSend theme="outline" size="24" fill="var(--c-text)" />
           </ButtonComp>
         </div>
@@ -186,6 +183,7 @@ async function handleStartGame() {
 }
 
 async function handleSendMessage() {
+  if (loadingSendMessage.value) return;
   if (inputMessage.value.trim() === "") return;
   await sendMessage(inputMessage.value);
   inputMessage.value = "";
