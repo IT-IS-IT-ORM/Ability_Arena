@@ -1,5 +1,7 @@
 <template>
   <div class="hall-view">
+    <Alerts />
+
     <div class="hall-view__header">
       <InputComp
         v-model="roomName"
@@ -44,6 +46,7 @@ import { useRoom } from "@/hooks/useRoom";
 // Components
 import InputComp from "@/components/ui/InputComp.vue";
 import ButtonComp from "@/components/ui/ButtonComp.vue";
+import Alerts from "@/components/hall/Alerts.vue";
 import RoomCard from "@/components/game/room/RoomCard.vue";
 // Icons
 import {
