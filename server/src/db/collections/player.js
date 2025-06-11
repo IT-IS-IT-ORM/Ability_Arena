@@ -13,11 +13,11 @@ const playerSchema = new mongoose.Schema(
       default: 1,
       min: 1,
     },
-    gold: {
+    mmr: {
       type: Number,
-      default: 100,
+      default: 0,
       min: 0,
-      max: 100_000_000,
+      max: 1_000_000,
     },
     isOnline: {
       type: Boolean,
