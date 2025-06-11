@@ -17,7 +17,7 @@
 import { useRouter } from "vue-router";
 // Components
 import ButtonComp from "@/components/ui/ButtonComp.vue";
-import TranslateComp from "@/components/common/TranslateComp.vue";
+import TranslateComp from "@/components/shared/TranslateComp.vue";
 // Icons
 import IconGame from "@/components/icons/Game.svg";
 import IconWiki from "@/components/icons/Wiki.svg";
