@@ -3,7 +3,6 @@ import vue from "@vitejs/plugin-vue";
 
 import path from "path";
 import autoprefixer from "autoprefixer";
-import sass from "sass";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -12,9 +11,11 @@ export default defineConfig({
     port: 2333,
   },
 
+  root: path.join(import.meta.dirname, "src", "renderer"),
+
   resolve: {
     alias: {
-      "@": path.resolve(path.resolve(), "./src"),
+      "@": path.resolve(path.resolve(), "./src/renderer"),
     },
   },
 
