@@ -99,3 +99,16 @@
     background: #000;
   }
 }
+
+// 限制文本显示的行数
+@mixin maxRow($row: 1, $overflowStyle: ellipsis) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: $overflowStyle;
+  word-wrap: break-word;
+  // 限定显示的行数
+  -webkit-line-clamp: $row;
+  // 兼容标准属性
+  line-clamp: $row;
+}
