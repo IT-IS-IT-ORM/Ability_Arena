@@ -39,7 +39,7 @@
             >
               <img
                 class="avatar"
-                :src="`/avatar/avatar_${member.avatarIndex}.jpg`"
+                :src="playerStore.avatarList[member.avatarIndex]"
               />
 
               <div class="username">
@@ -47,7 +47,7 @@
                 <span>{{ member.username }}</span>
               </div>
 
-              <ButtonComp v-if="isMyRoom" class="kick-btn">
+              <ButtonComp v-if="isMyRoom && !isMe(member)" class="kick-btn">
                 <IconKungfu theme="outline" size="24" fill="var(--c-text)" />
                 移除
               </ButtonComp>
@@ -58,7 +58,7 @@
 
       <div class="room-view__footer">
         <div class="input-box">
-          <InputComp v-model="inputMessage" />
+          <InputComp v-model="inputMessage" @keyup.enter="handleSendMessage" />
           <ButtonComp @click="handleSendMessage">
             <IconSend theme="outline" size="24" fill="var(--c-text)" />
           </ButtonComp>
@@ -135,6 +135,10 @@ const {
     }
   },
 });
+
+function isMe(member: I_Room["members"][number]) {
+  return member._id === playerStore.me._id;
+}
 
 function getComponentByActionType(actionType: string) {
   switch (actionType) {

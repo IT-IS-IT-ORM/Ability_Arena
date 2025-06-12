@@ -5,7 +5,10 @@
   >
     <div class="head">
       <div class="avatar-wrap">
-        <img alt="avatar" :src="avatarList[playerStore.me.avatarIndex]" />
+        <img
+          alt="avatar"
+          :src="playerStore.avatarList[playerStore.me.avatarIndex]"
+        />
       </div>
       <ButtonComp @click="isShowAvatarGrid = !isShowAvatarGrid">
         {{ $t("SettingsPage__changeAvatar") }}
@@ -14,7 +17,7 @@
 
     <div class="avatar-grid" :class="{ 'avatar-grid--show': isShowAvatarGrid }">
       <img
-        v-for="(avatarSrc, index) in avatarList"
+        v-for="(avatarSrc, index) in playerStore.avatarList"
         alt="avatar"
         :key="index"
         :src="avatarSrc"
@@ -61,35 +64,11 @@ import { useSettingsService } from "@/service/SettingsService";
 // Components
 import ButtonComp from "@/components/ui/ButtonComp.vue";
 import InputComp from "@/components/ui/InputComp.vue";
-// Assets
-import {
-  Avatar_1,
-  Avatar_2,
-  Avatar_3,
-  Avatar_4,
-  Avatar_5,
-  Avatar_6,
-  Avatar_7,
-  Avatar_8,
-  Avatar_9,
-} from "@/assets/image/avatar";
 
 defineOptions({ name: "SettingsScreen" });
 
 const playerStore = usePlayerStore();
 const socketStore = useSocketStore();
-
-const avatarList = [
-  Avatar_1,
-  Avatar_2,
-  Avatar_3,
-  Avatar_4,
-  Avatar_5,
-  Avatar_6,
-  Avatar_7,
-  Avatar_8,
-  Avatar_9,
-];
 
 const isShowAvatarGrid = ref(false);
 const username = ref(playerStore.me.username);

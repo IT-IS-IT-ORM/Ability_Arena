@@ -2,7 +2,7 @@
   <div class="message" :class="{ 'is-self': isSelf }">
     <img
       class="sender"
-      :src="`/avatar/avatar_${dataSource.data.player.avatarIndex}.jpg`"
+      :src="playerStore.avatarList[dataSource.data.player.avatarIndex]"
     />
 
     <div class="content">
