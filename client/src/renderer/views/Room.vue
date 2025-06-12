@@ -7,7 +7,7 @@
         @click="handleLeaveRoom"
       >
         <IconLogout theme="outline" size="24" fill="var(--c-text)" />
-        离开房间
+        {{ $t("RoomPage__leaveRoom") }}
       </ButtonComp>
 
       <div class="room-view__header-name">
@@ -37,20 +37,47 @@
               :key="member._id"
               class="group-members__item"
             >
+              <SelectComp
+                v-if="isMe(member)"
+                label="Team"
+                :options="teamOptions"
+              >
+                <template #selected="{ selectedValue }">
+                  <template v-if="selectedValue">
+                    {{ numberToRoman(selectedValue as number) }}
+                  </template>
+                </template>
+              </SelectComp>
+
+              <div v-else class="member-team">
+                <span>Team</span>
+                <span v-if="member.team">
+                  {{ numberToRoman(member.team) }}
+                </span>
+                <span v-else> {{ $t("RoomPage__choosingTeam") }} </span>
+              </div>
+
               <img
                 class="avatar"
                 :src="playerStore.avatarList[member.avatarIndex]"
               />
 
               <div class="username">
-                <span v-if="member._id === room.creator"> [房主] </span>
-                <span>{{ member.username }}</span>
+                <span v-if="member._id === room.creator" class="owner-flag">
+                  [{{ $t("RoomPage__owner") }}]
+                </span>
+                <span class="username-text">
+                  {{ member.username }}
+                </span>
               </div>
 
-              <ButtonComp v-if="isMyRoom && !isMe(member)" class="kick-btn">
-                <IconKungfu theme="outline" size="24" fill="var(--c-text)" />
-                移除
-              </ButtonComp>
+              <IconDelete
+                v-if="isMyRoom && !isMe(member)"
+                class="kick-btn"
+                theme="outline"
+                size="16"
+                fill="var(--c-error)"
+              />
             </div>
           </div>
         </div>
@@ -101,13 +128,14 @@ import { usePlayerStore } from "@/store/player";
 // Components
 import InputComp from "@/components/ui/InputComp.vue";
 import ButtonComp from "@/components/ui/ButtonComp.vue";
+import SelectComp from "@/components/ui/SelectComp.vue";
 import Message from "@/components/game/room/Message.vue";
 import Notification from "@/components/game/room/Notification.vue";
 // Icons
 import {
   Logout as IconLogout,
   Send as IconSend,
-  Kungfu as IconKungfu,
+  Delete as IconDelete,
 } from "@icon-park/vue-next";
 
 const router = useRouter();
@@ -136,8 +164,38 @@ const {
   },
 });
 
+const teamOptions = [
+  { label: "Team Ⅰ", value: 1 },
+  { label: "Team Ⅱ", value: 2 },
+  { label: "Team Ⅲ", value: 3 },
+  { label: "Team Ⅳ", value: 4 },
+  { label: "Team Ⅴ", value: 5 },
+  { label: "Team Ⅵ", value: 6 },
+  { label: "Team Ⅶ", value: 7 },
+  { label: "Team Ⅷ", value: 8 },
+  { label: "Team Ⅸ", value: 9 },
+  { label: "Team Ⅹ", value: 10 },
+];
+
 function isMe(member: I_Room["members"][number]) {
   return member._id === playerStore.me._id;
+}
+
+function numberToRoman(number: number) {
+  const romanMap = {
+    1: "Ⅰ",
+    2: "Ⅱ",
+    3: "Ⅲ",
+    4: "Ⅳ",
+    5: "Ⅴ",
+    6: "Ⅵ",
+    7: "Ⅶ",
+    8: "Ⅷ",
+    9: "Ⅸ",
+    10: "Ⅹ",
+  };
+
+  return romanMap[number as keyof typeof romanMap];
 }
 
 function getComponentByActionType(actionType: string) {
@@ -198,7 +256,7 @@ async function handleSendMessage() {
 .room-view {
   --header-height: 76px;
   --footer-height: 96px;
-  --group-members-width: 220px;
+  --group-members-width: 336px;
   --content-height: calc(
     100% - var(--header-height) - var(--footer-height) - 24px
   );
@@ -257,6 +315,8 @@ async function handleSendMessage() {
       flex-shrink: 0;
       width: var(--group-members-width);
       height: 100%;
+      padding-inline-start: 16px;
+      border-inline-start: 1px solid #fff;
 
       &__title {
         color: #fff;
@@ -275,7 +335,31 @@ async function handleSendMessage() {
         width: 100%;
         padding-inline-end: 8px;
         padding-block-end: 8px;
-        @include flex($alignItems: center, $gap: 8px);
+        @include flex($alignItems: center, $gap: 12px);
+
+        :deep(.select-comp) {
+          flex-shrink: 0;
+          width: 92px;
+          padding: 4px 8px;
+
+          .select-comp__label {
+            font-size: 14px;
+          }
+
+          .select-comp__selected {
+            font-size: 14px;
+          }
+        }
+
+        .member-team {
+          width: 92px;
+          @include flexCenter($direction: column, $gap: 4px);
+
+          span {
+            color: #fff;
+            font-size: 14px;
+          }
+        }
 
         .avatar {
           --size: 32px;
@@ -287,23 +371,35 @@ async function handleSendMessage() {
         }
 
         .username {
+          flex-shrink: 0;
+          flex-grow: 1;
+          @include flex($direction: column, $gap: 4px);
+
           span {
-            color: #fff;
             font-size: 14px;
+          }
+
+          .owner-flag {
+            color: var(--c-primary);
+          }
+
+          .username-text {
+            color: #fff;
           }
         }
 
         :deep(.kick-btn) {
           flex-shrink: 0;
-          padding: 2px 8px;
+          padding: 4px 8px;
           margin-inline-start: auto;
+          cursor: pointer;
 
           .button-comp__content {
             @include flex($alignItems: center, $gap: 4px);
 
             .i-icon {
               display: inline-block;
-              transform: translateY(2px);
+              transform: translateY(1px);
             }
           }
         }
