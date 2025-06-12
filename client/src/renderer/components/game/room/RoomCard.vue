@@ -7,19 +7,19 @@
     <div class="field">
       <IconPeoplesTwo theme="outline" size="16" fill="var(--c-text)" />
       <div>
-        <span>玩家人数:</span>
-        <span>{{ room.members.length }}</span>
+        <span>{{ $t("RoomCard__playersCount") }}:</span>
+        <span>{{ room.members.length }}/10</span>
       </div>
     </div>
 
     <div class="room__footer">
       <div class="status">
-        <span>房间状态:</span>
-        <span>{{ roomStatus }}</span>
+        <span>{{ $t("RoomCard__roomStatus") }}:</span>
+        <span>{{ $t(roomStatus) }}</span>
       </div>
 
       <ButtonComp @click="handleActionBtn">
-        {{ canJoinRoom ? "加入" : "观战" }}
+        {{ canJoinRoom ? $t("RoomCard__joinRoom") : $t("RoomCard__watch") }}
       </ButtonComp>
     </div>
   </div>
@@ -62,10 +62,10 @@ const { joinRoom } = useRoom({
 
 const roomStatus = computed(() => {
   if (props.room.status === "waiting") {
-    return "等待中";
+    return "RoomCard__status_waiting";
   }
 
-  return "游戏中";
+  return "RoomCard__status_playing";
 });
 
 const canJoinRoom = computed(() => {
@@ -103,6 +103,10 @@ const handleActionBtn = () => {
 
   .room__footer {
     @include flex($justifyContent: space-between, $alignItems: center);
+
+    .status {
+      @include flex($alignItems: center, $gap: 4px);
+    }
   }
 }
 </style>

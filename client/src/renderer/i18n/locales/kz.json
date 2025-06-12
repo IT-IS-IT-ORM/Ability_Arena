@@ -13,5 +13,29 @@
   "SettingsPage__save": "Сақтау",
 
   "ScreenWarning__title": "Экран айналдырылған",
-  "ScreenWarning__description": "Құрылғыңызды тігінен ұстаңыз"
+  "ScreenWarning__description": "Құрылғыңызды тігінен ұстаңыз",
+
+  "HallPage__createRoom": "Жаңа ойын",
+  "HallPage__onlinePlayers": "Ойыншылар саны",
+  "HallPage__roomCount": "Бөлмелер саны",
+  "HallPage__empty": "Ойындар табылмады, жаңа ойын құрыңыз",
+  "HallPage__joinRoom": "Бөлмеге қосылу",
+  "HallPage__roomName": "Бөлме аты",
+  "HallPage__roomNamePlaceholder": "Бөлме аты",
+  "HallPage__roomNameMaxLength": "Бөлме аты 24 символдан ұзын болмауы керек",
+  "HallPage__roomNameRequired": "Бөлме атауы міндетті",
+  "HallPage__roomNameUnique": "Бөлме аты болуы керек",
+
+  "RoomPage__leaveRoom": "Шығу",
+  "RoomPage__owner": "Иесі",
+  "RoomPage__choosingTeam": "Таңдалмаған",
+
+  "RoomCard__playersCount": "Ойыншылар саны",
+  "RoomCard__roomStatus": "Бөлме күйі",
+  "RoomCard__joinRoom": "Қосылу",
+  "RoomCard__watch": "Қарау",
+  "RoomCard__status_waiting": "Басталмаған",
+  "RoomCard__status_playing": "Ойында",
+
+  "Shared__needAuth": "Кіру керек"
 }

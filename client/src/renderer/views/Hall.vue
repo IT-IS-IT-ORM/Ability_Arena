@@ -6,29 +6,31 @@
       <InputComp
         v-model="roomName"
         type="text"
-        placeholder="输入房间名称"
+        :placeholder="$t('HallPage__roomNamePlaceholder')"
         :errorMessage="roomNameError"
       />
       <ButtonComp :loading="loadingCreateRoom" @click="handleCreateRoom">
-        创建房间
+        {{ $t("HallPage__createRoom") }}
       </ButtonComp>
     </div>
 
     <div class="hall-view__statistics">
       <div>
         <IconPeoplesTwo theme="outline" size="16" fill="#fff" />
-        在线人数: <strong>{{ roomStatistics.onlinePlayers }}</strong>
+        {{ $t("HallPage__onlinePlayers") }}:
+        <strong>{{ roomStatistics.onlinePlayers }}</strong>
       </div>
       <div>
         <IconArena theme="outline" size="16" fill="#fff" />
-        房间数: <strong>{{ roomStatistics.roomsCount }}</strong>
+        {{ $t("HallPage__roomCount") }}:
+        <strong>{{ roomStatistics.roomsCount }}</strong>
       </div>
     </div>
 
     <div class="hall-view__room-list">
       <RoomCard v-for="room in rooms" :key="room.id" :room="room" />
       <div v-if="rooms.length === 0" class="hall-view__room-list-empty">
-        游戏大厅空空如也, 快来创建一个房间吧
+        {{ $t("HallPage__empty") }}
       </div>
     </div>
   </div>
@@ -44,6 +46,8 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 // Store
 import { usePlayerStore } from "@/store/player";
+// i18n
+import { useI18n } from "vue-i18n";
 // Hooks
 import { useRoom } from "@/hooks/useRoom";
 // Components
@@ -59,6 +63,7 @@ import {
 
 const router = useRouter();
 const playerStore = usePlayerStore();
+const { t } = useI18n();
 
 const roomName = ref("");
 const roomNameError = ref("");
@@ -74,19 +79,20 @@ const { rooms, roomStatistics, loadingCreateRoom, createRoom } = useRoom({
 
 function handleCreateRoom() {
   if (!playerStore.isAuthenticated) {
-    roomNameError.value = "请先登录";
+    roomNameError.value = t("Shared__needAuth");
     return;
   }
 
   const roomNameVal = roomName.value.trim();
 
   if (!roomNameVal) {
-    roomNameError.value = "房间名称不能为空";
+    roomNameError.value = t("HallPage__roomNameRequired");
     return;
   }
 
   if (roomNameVal.length > 12) {
-    roomNameError.value = "房间名称不能超过12个字符";
+    roomNameError.value = t("HallPage__roomNameMaxLength");
+    return;
   }
 
   roomNameError.value = "";

@@ -35,9 +35,29 @@
   "GamesPage__Chat__sendMessage": "按 Ctrl+Enter 发送消息",
   "GamesPage__Chat__playerJoin": "{{player}} 加入了房间",
 
-  "GamesPage__crazy-fight": "大乱斗",
+  "HallPage__onlinePlayers": "在线人数",
+  "HallPage__roomCount": "房间数",
+  "HallPage__empty": "游戏大厅空空如也, 快来创建一个房间吧",
+  "HallPage__createRoom": "创建房间",
+  "HallPage__joinRoom": "加入房间",
+  "HallPage__roomName": "房间名称",
+  "HallPage__roomNamePlaceholder": "房间名称",
+  "HallPage__roomNameMaxLength": "房间名称不能超过 24 个字符",
+  "HallPage__roomNameRequired": "房间名称不能为空",
+  "HallPage__roomNameUnique": "房间名称已存在",
 
-  "API_Common_needAuth": "需要登录",
+  "RoomPage__leaveRoom": "离开房间",
+  "RoomPage__owner": "房主",
+  "RoomPage__choosingTeam": "选择中",
+
+  "RoomCard__playersCount": "玩家人数",
+  "RoomCard__roomStatus": "房间状态",
+  "RoomCard__joinRoom": "加入",
+  "RoomCard__watch": "观战",
+  "RoomCard__status_waiting": "等待中",
+  "RoomCard__status_playing": "游戏中",
+
+  "Shared__needAuth": "需要登录",
 
   "API_User_usernameIsRequired": "用户名不可为空",
   "API_User_usernameMaxLength": "用户名不能超过10个字符",

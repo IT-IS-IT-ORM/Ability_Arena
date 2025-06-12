@@ -13,5 +13,29 @@
   "SettingsPage__save": "Save",
 
   "ScreenWarning__title": "Screen rotation detected",
-  "ScreenWarning__description": "Please rotate your device to portrait mode"
+  "ScreenWarning__description": "Please rotate your device to portrait mode",
+
+  "HallPage__createRoom": "Create room",
+  "HallPage__onlinePlayers": "Online players",
+  "HallPage__roomCount": "Rooms count",
+  "HallPage__empty": "No games found, create a new game",
+  "HallPage__joinRoom": "Join room",
+  "HallPage__roomName": "Room name",
+  "HallPage__roomNamePlaceholder": "Room name",
+  "HallPage__roomNameMaxLength": "Room name cannot be longer than 24 characters",
+  "HallPage__roomNameRequired": "Room name is required",
+  "HallPage__roomNameUnique": "Room name is unique",
+
+  "RoomPage__leaveRoom": "Leave room",
+  "RoomPage__owner": "Owner",
+  "RoomPage__choosingTeam": "Choosing",
+
+  "RoomCard__playersCount": "Players count",
+  "RoomCard__roomStatus": "Room status",
+  "RoomCard__joinRoom": "Join",
+  "RoomCard__watch": "Watch",
+  "RoomCard__status_waiting": "Waiting",
+  "RoomCard__status_playing": "Playing",
+
+  "Shared__needAuth": "Need to login"
 }
