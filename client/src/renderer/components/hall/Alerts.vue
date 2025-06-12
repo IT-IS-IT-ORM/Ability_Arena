@@ -42,13 +42,13 @@ const isSlowNetwork = computed(() => {
 <style scoped lang="scss">
 .alerts {
   width: 100%;
-  margin-block-end: 16px;
-  @include flex($direction: column, $gap: 16px);
+  @include flex($direction: column);
 
   .warning,
   .error {
     width: 100%;
     padding: 8px 12px;
+    margin-block-end: 16px;
     color: #fff;
     @include flex($alignItems: center, $gap: 8px);
   }
