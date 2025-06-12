@@ -27,6 +27,9 @@
 
     <div class="hall-view__room-list">
       <RoomCard v-for="room in rooms" :key="room.id" :room="room" />
+      <div v-if="rooms.length === 0" class="hall-view__room-list-empty">
+        游戏大厅空空如也, 快来创建一个房间吧
+      </div>
     </div>
   </div>
 </template>
@@ -131,6 +134,10 @@ function handleCreateRoom() {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 24px;
+
+    &-empty {
+      color: #fff;
+    }
   }
 }
 </style>
