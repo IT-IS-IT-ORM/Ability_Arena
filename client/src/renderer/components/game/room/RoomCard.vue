@@ -55,7 +55,7 @@ const { joinRoom } = useRoom({
   onSuccessJoinRoom: (room: I_Room) => {
     router.push({
       name: "room",
-      params: { id: room.id },
+      params: { id: room._id },
     });
   },
 });
@@ -78,7 +78,7 @@ const canJoinRoom = computed(() => {
 
 const handleActionBtn = () => {
   if (canJoinRoom.value) {
-    joinRoom(props.room.id);
+    joinRoom(props.room._id);
   } else {
     // 观战
     playerStore.me.inGame = true;

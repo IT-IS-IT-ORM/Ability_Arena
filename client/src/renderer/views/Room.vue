@@ -155,14 +155,7 @@ const {
   sendMessage,
   loadingSendNotification,
   sendNotification,
-} = useRoom({
-  onErrorGetRoomById(error: any) {
-    if (error.error === "room_not_found") {
-      alert("房间不存在");
-      router.push("/hall");
-    }
-  },
-});
+} = useRoom();
 
 const teamOptions = [
   { label: "Team Ⅰ", value: 1 },
@@ -223,7 +216,7 @@ onMounted(() => {
 async function handleLeaveRoom() {
   if (room.value) {
     // 需要等待, 否则离开页面后 hook 会被销毁, 之后的异步代码不会被执行到
-    await leaveRoom(room.value.id);
+    await leaveRoom();
   }
 
   const canBack = window.history.length > 1;

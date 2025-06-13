@@ -1,68 +1,96 @@
 // Type-Def
-import type { I_Room, I_RoomStatistics, I_RoomAction } from "@/type-def/Room";
+import type { I_Room, I_RoomStoreState } from "@/type-def/Room";
 
 // Pinia
 import { defineStore } from "pinia";
 // Store
 import { useSocketStore } from "@/store/socket";
+import { usePlayerStore } from "@/store/player";
+// Constants
+import socketEvent from "@/constants/socketEvent";
 
 export const useRoomStore = defineStore("room", {
-  state: () => ({
-    rooms: [] as I_Room[],
-    room: null as I_Room | null,
+  state: (): I_RoomStoreState => ({
+    rooms: [],
+    room: null,
+
     roomStatistics: {
       onlinePlayers: 0,
       roomsCount: 0,
-    } as I_RoomStatistics,
-    isListeningRoomActions: false,
-    roomActions: [] as I_RoomAction[],
+    },
+
+    roomActions: [],
   }),
 
   actions: {
-    // 获取房间列表
     fetchRooms() {
-      return new Promise<I_Room[]>((resolve, reject) => {
-        const socketStore = useSocketStore();
-        if (!socketStore.socket) {
-          reject();
-          return;
+      const socketStore = useSocketStore();
+      if (!socketStore.socket) {
+        return;
+      }
+
+      // 防止重复监听
+      this.stopFetchRooms();
+      // 立即得到一次房间列表
+      socketStore.socket.emit(socketEvent.room.list, (response: any) => {
+        if (response.success) {
+          this.rooms = response.rooms;
         }
-
-        socketStore.socket.emit("room:list", (response: any) => {
-          if (response.success) {
-            this.rooms = response.rooms;
-            resolve(response.rooms);
-          } else {
-            reject(response.error);
-          }
-        });
-
-        // 获取房间统计信息
-        this.fetchRoomStatistics();
       });
+      // 监听房间列表更新
+      socketStore.socket.on(
+        socketEvent.room.list,
+        (rooms: I_Room[]) => (this.rooms = rooms)
+      );
     },
 
-    // 获取房间详情
+    stopFetchRooms(clearRooms = false) {
+      const socketStore = useSocketStore();
+      if (!socketStore.socket) {
+        return;
+      }
+
+      if (clearRooms) {
+        this.rooms = [];
+      }
+
+      socketStore.socket.off(socketEvent.room.list);
+    },
+
     getRoomById(roomId: string) {
-      return new Promise<I_Room>((resolve, reject) => {
+      return new Promise<void>((resolve, reject) => {
         const socketStore = useSocketStore();
         if (!socketStore.socket) {
           reject();
           return;
         }
 
-        socketStore.socket.emit("room:info", roomId, (response: any) => {
-          if (response.success) {
-            this.room = response.room;
-            resolve(response.room);
-          } else {
-            reject(response.error);
-          }
-        });
+        // 如果房间已存在，则直接返回
+        if (!this.room || this.room._id !== roomId) {
+          // 立即得到一次房间详情
+          socketStore.socket.emit(
+            socketEvent.room.detail,
+            roomId,
+            (response: any) => {
+              if (response.success) {
+                this.room = response.room;
+                resolve();
+              } else {
+                reject(response.error);
+              }
+            }
+          );
+        }
+        // 防止重复监听
+        socketStore.socket.off(socketEvent.room.detail);
+        // 监听房间详情更新
+        socketStore.socket.on(
+          socketEvent.room.detail,
+          (room: I_Room) => (this.room = room)
+        );
       });
     },
 
-    // 创建房间
     createRoom(name: string) {
       return new Promise<I_Room>((resolve, reject) => {
         const socketStore = useSocketStore();
@@ -71,17 +99,23 @@ export const useRoomStore = defineStore("room", {
           return;
         }
 
-        socketStore.socket.emit("room:create", { name }, (response: any) => {
-          if (response.success) {
-            resolve(response.room);
-          } else {
-            reject(response.error);
+        socketStore.socket.emit(
+          socketEvent.room.create,
+          { name },
+          (response: any) => {
+            if (response.success) {
+              this.room = response.room;
+              const playerStore = usePlayerStore();
+              playerStore.me.inRoom = true;
+              resolve(response.room);
+            } else {
+              reject(response.error);
+            }
           }
-        });
+        );
       });
     },
 
-    // 加入房间
     joinRoom(roomId: string) {
       return new Promise<I_Room>((resolve, reject) => {
         const socketStore = useSocketStore();
@@ -90,19 +124,25 @@ export const useRoomStore = defineStore("room", {
           return;
         }
 
-        socketStore.socket.emit("room:join", roomId, (response: any) => {
-          if (response.success) {
-            this.room = response.room;
-            resolve(response.room);
-          } else {
-            reject(response.error);
+        socketStore.socket.emit(
+          socketEvent.room.join,
+          roomId,
+          (response: any) => {
+            if (response.success) {
+              const playerStore = usePlayerStore();
+              playerStore.me.inRoom = true;
+              this.room = response.room;
+              this.listenRoomActions();
+              resolve(response.room);
+            } else {
+              reject(response.error);
+            }
           }
-        });
+        );
       });
     },
 
-    // 离开房间
-    leaveRoom(roomId: string) {
+    leaveRoom() {
       return new Promise<void>((resolve, reject) => {
         const socketStore = useSocketStore();
         if (!socketStore.socket) {
@@ -110,14 +150,25 @@ export const useRoomStore = defineStore("room", {
           return;
         }
 
-        socketStore.socket.emit("room:leave", roomId, () => {
+        if (!this.room) {
+          reject();
+          return;
+        }
+
+        const roomId = this.room._id;
+
+        socketStore.socket.emit(socketEvent.room.leave, roomId, () => {
+          const playerStore = usePlayerStore();
+          playerStore.me.inRoom = false;
+          this.room = null;
+          this.stopListenRoomActions();
+          socketStore.socket!.off(socketEvent.room.detail);
           resolve();
         });
       });
     },
 
-    // 发送房间消息
-    sendRoomMessage(roomId: string, content: string) {
+    sendMessageToRoom(content: string) {
       return new Promise<void>((resolve, reject) => {
         const socketStore = useSocketStore();
         if (!socketStore.socket) {
@@ -125,8 +176,15 @@ export const useRoomStore = defineStore("room", {
           return;
         }
 
+        if (!this.room) {
+          reject();
+          return;
+        }
+
+        const roomId = this.room._id;
+
         socketStore.socket.emit(
-          "room:message",
+          socketEvent.room.message,
           { roomId, content },
           (response: any) => {
             if (response.success) {
@@ -139,8 +197,7 @@ export const useRoomStore = defineStore("room", {
       });
     },
 
-    // 发送房间通知
-    sendRoomNotification(roomId: string, content: string) {
+    sendNotificationToRoom(content: string) {
       return new Promise<void>((resolve, reject) => {
         const socketStore = useSocketStore();
         if (!socketStore.socket) {
@@ -148,8 +205,14 @@ export const useRoomStore = defineStore("room", {
           return;
         }
 
+        if (!this.room) {
+          reject();
+          return;
+        }
+
+        const roomId = this.room._id;
         socketStore.socket.emit(
-          "room:notification",
+          socketEvent.room.notification,
           { roomId, content },
           (response: any) => {
             if (response.success) {
@@ -162,23 +225,16 @@ export const useRoomStore = defineStore("room", {
       });
     },
 
-    // 获取房间消息
-    fetchRoomMessages() {
+    listenRoomActions() {
       return new Promise<void>((resolve, reject) => {
         const socketStore = useSocketStore();
         if (!socketStore.socket) {
-          reject("common_socket_not_connected");
+          reject();
           return;
         }
-
-        if (this.isListeningRoomActions) {
-          return;
-        }
-
-        this.isListeningRoomActions = true;
 
         const onActionHanlder = (actionType: string, data: any) => {
-          console.log("Action", actionType, data);
+          console.log("收到 Action: ", actionType, data);
 
           this.roomActions.push({
             type: actionType,
@@ -187,52 +243,70 @@ export const useRoomStore = defineStore("room", {
           });
         };
 
-        socketStore.socket.on("room:memberJoined", (data: any) =>
-          onActionHanlder("playerJoined", data)
+        // 防止重复监听
+        this.stopListenRoomActions();
+
+        socketStore.socket.on(socketEvent.room.join, (data: any) =>
+          onActionHanlder(socketEvent.room.join, data)
         );
-        socketStore.socket.on("room:memberLeft", (data: any) =>
-          onActionHanlder("playerLeft", data)
+        socketStore.socket.on(socketEvent.room.leave, (data: any) =>
+          onActionHanlder(socketEvent.room.leave, data)
         );
-        socketStore.socket.on("room:newMessage", (data: any) =>
-          onActionHanlder("message", data)
+        socketStore.socket.on(socketEvent.room.message, (data: any) =>
+          onActionHanlder(socketEvent.room.message, data)
         );
+
         resolve();
       });
     },
 
-    // 清除房间消息
-    cancelFetchRoomMessages() {
+    stopListenRoomActions(clearActions = false) {
       const socketStore = useSocketStore();
       if (!socketStore.socket) {
         return;
       }
 
-      socketStore.socket.off("room:memberJoined");
-      socketStore.socket.off("room:memberLeft");
-      socketStore.socket.off("room:newMessage");
+      socketStore.socket.off(socketEvent.room.join);
+      socketStore.socket.off(socketEvent.room.leave);
+      socketStore.socket.off(socketEvent.room.message);
 
-      this.roomActions = [];
-      this.isListeningRoomActions = false;
+      if (clearActions) {
+        this.roomActions = [];
+      }
     },
 
-    // 获取房间统计信息
     fetchRoomStatistics() {
-      return new Promise<I_RoomStatistics>((resolve, reject) => {
+      return new Promise<void>((resolve, reject) => {
         const socketStore = useSocketStore();
         if (!socketStore.socket) {
           reject();
           return;
         }
 
-        socketStore.socket.emit("room:statistics", (response: any) => {
-          if (response.success) {
-            this.roomStatistics = response.statistics;
-            resolve(response.statistics);
-          } else {
-            reject(response.error);
+        // 防止重复监听
+        this.stopFetchRoomStatistics();
+
+        socketStore.socket.emit(
+          socketEvent.room.statistics,
+          (response: any) => {
+            if (response.success) {
+              this.roomStatistics = response.statistics;
+              resolve();
+            } else {
+              reject(response.error);
+            }
           }
-        });
+        );
       });
+    },
+
+    stopFetchRoomStatistics() {
+      const socketStore = useSocketStore();
+      if (!socketStore.socket) {
+        return;
+      }
+
+      socketStore.socket.off(socketEvent.room.statistics);
     },
   },
 });

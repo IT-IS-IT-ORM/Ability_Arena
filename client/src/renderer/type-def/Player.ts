@@ -4,6 +4,7 @@ export interface I_BasePlayer {
   avatarIndex: number;
   mmr: number;
   isOnline: boolean;
+  team: number | null;
   inRoom: boolean;
   inGame: boolean;
 }

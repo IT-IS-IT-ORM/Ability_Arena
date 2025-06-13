@@ -25,6 +25,7 @@ const getDefaultPlayer: () => I_BasePlayer = () => {
     avatarIndex: 1,
     mmr: 0,
     isOnline: false,
+    team: null,
     // Client Only
     inRoom: false,
     inGame: false,

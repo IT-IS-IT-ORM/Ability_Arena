@@ -28,7 +28,7 @@
     </div>
 
     <div class="hall-view__room-list">
-      <RoomCard v-for="room in rooms" :key="room.id" :room="room" />
+      <RoomCard v-for="room in rooms" :key="room._id" :room="room" />
       <div v-if="rooms.length === 0" class="hall-view__room-list-empty">
         {{ $t("HallPage__empty") }}
       </div>
@@ -72,7 +72,7 @@ const { rooms, roomStatistics, loadingCreateRoom, createRoom } = useRoom({
   onSuccessCreateRoom: (room: I_Room) => {
     router.push({
       name: "room",
-      params: { id: room.id },
+      params: { id: room._id },
     });
   },
 });
