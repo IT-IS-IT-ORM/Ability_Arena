@@ -1,41 +1,16 @@
+// Redis
 import redisClient from "#src/redis/index.js";
+// DB
 import Player from "#src/db/collections/player.js";
-
-// Redis 键前缀
-const ROOM_KEY_PREFIX = "room:";
-const ROOM_MEMBERS_PREFIX = "room:members:";
-const ROOM_LIST_KEY = "rooms";
-
-// 生成 Redis 键
-const getRoomKey = (roomId) => `${ROOM_KEY_PREFIX}${roomId}`;
-const getRoomMembersKey = (roomId) => `${ROOM_MEMBERS_PREFIX}${roomId}`;
-
-// 将房间数据转换为 Redis 可存储的格式
-const roomToRedis = (room) => ({
-  id: room.id,
-  name: room.name,
-  creator: room.creator,
-  createdAt: room.createdAt,
-  status: room.status || "waiting",
-});
-
-// 从 Redis 数据转换为房间对象
-const redisToRoom = (data) => ({
-  id: data.id,
-  name: data.name,
-  creator: data.creator,
-  createdAt: new Date(data.createdAt),
-  status: data.status,
-  // 成员列表需要单独获取
-  members: [],
-});
+// Constants
+import socketEvent from "#src/constants/socketEvent.js";
+import { ROOM_STATUS, REDIS_KEYS } from "#src/constants/room.js";
 
 export function initRoomHandlers(io, socket) {
-  // 统计数据
-  socket.on("room:statistics", async (callback) => {
+  socket.on(socketEvent.room.statistics, async (callback) => {
     try {
       const onlinePlayers = await Player.countDocuments({ isOnline: true });
-      const roomsCount = await redisClient.scard(ROOM_LIST_KEY);
+      const roomsCount = await redisClient.scard(REDIS_KEYS.ROOM_LIST_KEY);
 
       callback({
         success: true,
@@ -49,28 +24,25 @@ export function initRoomHandlers(io, socket) {
     }
   });
 
-  // 创建房间
-  socket.on("room:create", async (roomData, callback) => {
+  socket.on(socketEvent.room.create, async (roomData, callback) => {
+    if (!socket.player) {
+      return callback({ success: false, error: "Player not found" });
+    }
+
     try {
       const roomId = Date.now().toString();
 
       const room = {
-        id: roomId,
+        _id: roomId,
         name: roomData.name,
         creator: socket.playerId,
-        createdAt: new Date().toISOString(),
-        status: "waiting",
+        createdAt: Date.now(),
+        status: ROOM_STATUS.WAITING,
         members: [socket.player],
       };
 
-      // 存储房间基本信息
-      await redisClient.hset(getRoomKey(roomId), roomToRedis(room));
-
-      // 存储房间成员
-      await redisClient.sadd(getRoomMembersKey(roomId), socket.playerId);
-
-      // 将房间 ID 添加到房间列表
-      await redisClient.sadd(ROOM_LIST_KEY, roomId);
+      await redisClient.hset(REDIS_KEYS.ROOM_KEY(roomId), room);
+      await redisClient.sadd(REDIS_KEYS.ROOM_LIST_KEY, roomId);
 
       socket.join(roomId);
       callback({ success: true, room });
@@ -79,43 +51,33 @@ export function initRoomHandlers(io, socket) {
     }
   });
 
-  // 加入房间
-  socket.on("room:join", async (roomId, callback) => {
+  socket.on(socketEvent.room.join, async (roomId, callback) => {
+    if (!socket.player) {
+      return callback({ success: false, error: "Player not found" });
+    }
+
     try {
-      // 检查房间是否存在
-      const roomExists = await redisClient.exists(getRoomKey(roomId));
+      const roomExists = await redisClient.exists(REDIS_KEYS.ROOM_KEY(roomId));
+
       if (!roomExists) {
-        return callback({ success: false, error: "room_not_found" });
+        return callback({ success: false, error: "Room not found" });
       }
 
-      if (!socket.player) {
-        return callback({ success: false, error: "player_not_found" });
-      }
-
-      // 检查房间是否满员
-      const memberCount = await redisClient.scard(getRoomMembersKey(roomId));
+      const room = await redisClient.hgetall(REDIS_KEYS.ROOM_KEY(roomId));
       const maxPlayers = 10;
+      const memberCount = room.members.length;
 
-      if (memberCount >= maxPlayers) {
-        return callback({ success: false, error: "room_full" });
+      if (memberCount === maxPlayers) {
+        return callback({ success: false, error: "Room is full" });
       }
 
-      // 添加成员
-      await redisClient.sadd(getRoomMembersKey(roomId), socket.playerId);
-
-      // 获取房间信息
-      const roomData = await redisClient.hgetall(getRoomKey(roomId));
-      const members = await redisClient.smembers(getRoomMembersKey(roomId));
-      const room = {
-        ...redisToRoom(roomData),
-        members,
-      };
+      room.members.push(socket.player);
+      await redisClient.hset(REDIS_KEYS.ROOM_KEY(roomId), room);
 
       socket.join(roomId);
 
-      // 通知所有成员
-      io.to(roomId).emit("room:memberJoined", {
-        ...socket.player,
+      io.to(roomId).emit(socketEvent.room.join, {
+        player: socket.player,
         timestamp: Date.now(),
       });
 
@@ -125,120 +87,96 @@ export function initRoomHandlers(io, socket) {
     }
   });
 
-  // 离开房间
-  socket.on("room:leave", async (roomId, callback) => {
+  socket.on(socketEvent.room.leave, async (roomId, callback) => {
+    if (!socket.player) {
+      return callback({ success: false, error: "Player not found" });
+    }
+
     try {
-      // 检查房间是否存在
-      const roomExists = await redisClient.exists(getRoomKey(roomId));
+      const roomExists = await redisClient.exists(REDIS_KEYS.ROOM_KEY(roomId));
+
       if (!roomExists) {
-        return callback({ success: false, error: "room_not_found" });
+        return callback({ success: false, error: "Room not found" });
       }
 
-      // 移除成员
-      await redisClient.srem(getRoomMembersKey(roomId), socket.playerId);
+      const room = await redisClient.hgetall(REDIS_KEYS.ROOM_KEY(roomId));
 
-      // 获取剩余成员数量
-      const memberCount = await redisClient.scard(getRoomMembersKey(roomId));
+      room.members = room.members.filter(
+        (member) => member.id !== socket.playerId
+      );
+      await redisClient.hset(REDIS_KEYS.ROOM_KEY(roomId), room);
 
-      // 如果房间没有成员了，删除房间
+      const memberCount = room.members.length;
+
       if (memberCount === 0) {
-        await redisClient.del(getRoomKey(roomId));
-        await redisClient.del(getRoomMembersKey(roomId));
-        await redisClient.srem(ROOM_LIST_KEY, roomId);
+        await redisClient.del(REDIS_KEYS.ROOM_KEY(roomId));
+        await redisClient.srem(REDIS_KEYS.ROOM_LIST_KEY, roomId);
+      } else {
+        io.to(roomId).emit(socketEvent.room.leave, {
+          player: socket.player,
+          timestamp: Date.now(),
+        });
+
+        if (room.creator === socket.playerId) {
+          room.creator = room.members[0]._id;
+          await redisClient.hset(REDIS_KEYS.ROOM_KEY(roomId), room);
+        }
       }
 
       socket.leave(roomId);
 
-      // 通知所有成员
-      io.to(roomId).emit("room:memberLeft", {
-        ...socket.player,
-        timestamp: Date.now(),
-      });
-
       callback({ success: true });
     } catch (error) {
       callback({ success: false, error: error.message });
     }
   });
 
-  // 发送房间消息
-  socket.on("room:message", async (data, callback) => {
+  socket.on(socketEvent.room.message, async (data, callback) => {
+    if (!socket.player) {
+      return callback({ success: false, error: "Player not found" });
+    }
+
     try {
       const { roomId, content } = data;
-
-      // 检查是否是房间成员
-      const isMember = await redisClient.sismember(
-        getRoomMembersKey(roomId),
-        socket.playerId
-      );
-
-      if (!isMember) {
-        return callback({ success: false, error: "room_not_a_member" });
-      }
 
       const message = {
-        player: socket.player,
+        playerId: socket.playerId,
         content,
-        timestamp: new Date().toISOString(),
+        timestamp: Date.now(),
       };
 
-      io.to(roomId).emit("room:newMessage", {
-        ...message,
-        timestamp: Date.now(),
-      });
+      io.to(roomId).emit(socketEvent.room.message, message);
       callback({ success: true });
     } catch (error) {
       callback({ success: false, error: error.message });
     }
   });
 
-  // 发送房间通知
-  socket.on("room:notification", async (data, callback) => {
+  socket.on(socketEvent.room.notification, async (data, callback) => {
     try {
       const { roomId, content } = data;
-
-      // 检查是否是房间成员
-      const isMember = await redisClient.sismember(
-        getRoomMembersKey(roomId),
-        socket.playerId
-      );
-
-      if (!isMember) {
-        return callback({ success: false, error: "room_not_a_member" });
-      }
 
       const notification = {
         playerId: socket.playerId,
         content,
-        timestamp: new Date().toISOString(),
+        timestamp: Date.now(),
       };
 
-      io.to(roomId).emit("room:newNotification", {
-        ...notification,
-        timestamp: Date.now(),
-      });
-
+      io.to(roomId).emit(socketEvent.room.notification, notification);
       callback({ success: true });
     } catch (error) {
       callback({ success: false, error: error.message });
     }
   });
 
-  // 获取房间列表
-  socket.on("room:list", async (callback) => {
+  socket.on(socketEvent.room.list, async (callback) => {
     try {
-      // 获取所有房间 ID
-      const roomIds = await redisClient.smembers(ROOM_LIST_KEY);
+      const roomIds = await redisClient.smembers(REDIS_KEYS.ROOM_LIST_KEY);
 
-      // 获取每个房间的详细信息
       const rooms = await Promise.all(
         roomIds.map(async (roomId) => {
-          const roomData = await redisClient.hgetall(getRoomKey(roomId));
-          const members = await redisClient.smembers(getRoomMembersKey(roomId));
-          return {
-            ...redisToRoom(roomData),
-            members,
-          };
+          const room = await redisClient.hgetall(REDIS_KEYS.ROOM_KEY(roomId));
+          return room;
         })
       );
 
@@ -248,41 +186,15 @@ export function initRoomHandlers(io, socket) {
     }
   });
 
-  // 获取房间详情
-  socket.on("room:info", async (roomId, callback) => {
+  socket.on(socketEvent.room.detail, async (roomId, callback) => {
     try {
-      // 检查房间是否存在
-      const roomExists = await redisClient.exists(getRoomKey(roomId));
+      const roomExists = await redisClient.exists(REDIS_KEYS.ROOM_KEY(roomId));
+
       if (!roomExists) {
-        return callback({ success: false, error: "room_not_found" });
+        return callback({ success: false, error: "Room not found" });
       }
 
-      // 获取房间信息和成员
-      const roomData = await redisClient.hgetall(getRoomKey(roomId));
-      const members = await redisClient.smembers(getRoomMembersKey(roomId));
-
-      // 检查是否是房间成员
-      const isMember = await redisClient.sismember(
-        getRoomMembersKey(roomId),
-        socket.playerId
-      );
-
-      if (!isMember) {
-        return callback({ success: false, error: "room_not_a_member" });
-      }
-
-      // 获取成员信息
-      const membersInfo = await Promise.all(
-        members.map(async (memberId) => {
-          const player = await Player.findById(memberId);
-          return player;
-        })
-      );
-
-      const room = {
-        ...redisToRoom(roomData),
-        members: membersInfo,
-      };
+      const room = await redisClient.hgetall(REDIS_KEYS.ROOM_KEY(roomId));
 
       callback({ success: true, room });
     } catch (error) {
