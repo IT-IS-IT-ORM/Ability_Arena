@@ -1,4 +1,8 @@
+// Socket
+import { connectionPool } from "#src/socket/connectionPool.js";
+// DB
 import Player from "#src/db/collections/player.js";
+// Serializer
 import { PlayerSerializer } from "#apps/player/serializer.js";
 
 export class AuthApi {
@@ -30,11 +34,16 @@ export class AuthApi {
     }
 
     if (player.isOnline) {
-      ctx.body = {
-        message: "auth.account_already_online",
-      };
-      ctx.status = 400;
-      return;
+      const socket = connectionPool.getConnection(player.id);
+
+      if (socket) {
+        ctx.body = {
+          message: "auth.account_already_online",
+        };
+
+        ctx.status = 400;
+        return;
+      }
     }
 
     // 更新玩家头像
