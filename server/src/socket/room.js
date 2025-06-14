@@ -6,6 +6,20 @@ import Player from "#src/db/collections/player.js";
 import socketEvent from "#src/constants/socketEvent.js";
 import { ROOM_STATUS, REDIS_KEYS } from "#src/constants/room.js";
 
+async function getRooms() {
+  const roomIds = await redisClient.smembers(REDIS_KEYS.ROOM_LIST_KEY);
+
+  const rooms = await Promise.all(
+    roomIds.map(async (roomId) => {
+      const room = await redisClient.hgetall(REDIS_KEYS.ROOM_KEY(roomId));
+      room.members = JSON.parse(room.members);
+      return room;
+    })
+  );
+
+  return rooms;
+}
+
 export function initRoomHandlers(io, socket) {
   socket.on(socketEvent.room.statistics, async (callback) => {
     try {
@@ -38,15 +52,21 @@ export function initRoomHandlers(io, socket) {
         creator: socket.playerId,
         createdAt: Date.now(),
         status: ROOM_STATUS.WAITING,
-        members: [socket.player],
+        members: JSON.stringify([socket.player]),
       };
 
       await redisClient.hset(REDIS_KEYS.ROOM_KEY(roomId), room);
       await redisClient.sadd(REDIS_KEYS.ROOM_LIST_KEY, roomId);
 
+      room.members = JSON.parse(room.members);
+
       socket.join(roomId);
+
+      io.emit(socketEvent.room.list, await getRooms());
+
       callback({ success: true, room });
     } catch (error) {
+      console.log("error", error);
       callback({ success: false, error: error.message });
     }
   });
@@ -64,6 +84,7 @@ export function initRoomHandlers(io, socket) {
       }
 
       const room = await redisClient.hgetall(REDIS_KEYS.ROOM_KEY(roomId));
+      room.members = JSON.parse(room.members);
       const maxPlayers = 10;
       const memberCount = room.members.length;
 
@@ -72,7 +93,9 @@ export function initRoomHandlers(io, socket) {
       }
 
       room.members.push(socket.player);
+      room.members = JSON.stringify(room.members);
       await redisClient.hset(REDIS_KEYS.ROOM_KEY(roomId), room);
+      room.members = JSON.parse(room.members);
 
       socket.join(roomId);
 
@@ -80,6 +103,7 @@ export function initRoomHandlers(io, socket) {
         player: socket.player,
         timestamp: Date.now(),
       });
+      io.emit(socketEvent.room.list, await getRooms());
 
       callback({ success: true, room });
     } catch (error) {
@@ -101,10 +125,10 @@ export function initRoomHandlers(io, socket) {
 
       const room = await redisClient.hgetall(REDIS_KEYS.ROOM_KEY(roomId));
 
+      room.members = JSON.parse(room.members);
       room.members = room.members.filter(
-        (member) => member.id !== socket.playerId
+        (member) => member._id !== socket.playerId
       );
-      await redisClient.hset(REDIS_KEYS.ROOM_KEY(roomId), room);
 
       const memberCount = room.members.length;
 
@@ -119,10 +143,13 @@ export function initRoomHandlers(io, socket) {
 
         if (room.creator === socket.playerId) {
           room.creator = room.members[0]._id;
-          await redisClient.hset(REDIS_KEYS.ROOM_KEY(roomId), room);
         }
       }
 
+      room.members = JSON.stringify(room.members);
+      await redisClient.hset(REDIS_KEYS.ROOM_KEY(roomId), room);
+
+      io.emit(socketEvent.room.list, await getRooms());
       socket.leave(roomId);
 
       callback({ success: true });
@@ -171,15 +198,7 @@ export function initRoomHandlers(io, socket) {
 
   socket.on(socketEvent.room.list, async (callback) => {
     try {
-      const roomIds = await redisClient.smembers(REDIS_KEYS.ROOM_LIST_KEY);
-
-      const rooms = await Promise.all(
-        roomIds.map(async (roomId) => {
-          const room = await redisClient.hgetall(REDIS_KEYS.ROOM_KEY(roomId));
-          return room;
-        })
-      );
-
+      const rooms = await getRooms();
       callback({ success: true, rooms });
     } catch (error) {
       callback({ success: false, error: error.message });
