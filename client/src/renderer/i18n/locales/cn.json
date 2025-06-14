@@ -4,6 +4,7 @@
   "Navigator__settings": "设置",
 
   "Auth__login": "进入游戏",
+  "Auth__logout": "退出游戏",
 
   "PlayerForm__username": "用户名",
   "PlayerForm__usernameCannotBeEmpty": "用户名不能为空",
@@ -13,9 +14,7 @@
 
   "SettingsPage__changeAvatar": "更改头像",
   "SettingsPage__save": "保存",
-
-  "ScreenWarning__title": "检测到屏幕被旋转",
-  "ScreenWarning__description": "请将设备旋转至纵向模式",
+  "SettingsPage__mmr": "MMR",
 
   "PageNotFound__resourceNotFound": "资源不存在",
 

@@ -4,6 +4,7 @@
   "Navigator__settings": "Баптау",
 
   "Auth__login": "Ойынға кіру",
+  "Auth__logout": "Шығу",
 
   "PlayerForm__username": "Ойыншы аты",
   "PlayerForm__usernameCannotBeEmpty": "Ойыншы аты болуы керек",
@@ -11,9 +12,7 @@
 
   "SettingsPage__changeAvatar": "Сурет өзгерту",
   "SettingsPage__save": "Сақтау",
-
-  "ScreenWarning__title": "Экран айналдырылған",
-  "ScreenWarning__description": "Құрылғыңызды тігінен ұстаңыз",
+  "SettingsPage__mmr": "MMR",
 
   "HallPage__createRoom": "Жаңа ойын",
   "HallPage__onlinePlayers": "Ойыншылар саны",

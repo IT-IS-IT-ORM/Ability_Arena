@@ -4,6 +4,7 @@
   "Navigator__settings": "Settings",
 
   "Auth__login": "Enter the game",
+  "Auth__logout": "Logout",
 
   "PlayerForm__username": "Username",
   "PlayerForm__usernameCannotBeEmpty": "Username cannot be empty",
@@ -11,9 +12,7 @@
 
   "SettingsPage__changeAvatar": "Change photo",
   "SettingsPage__save": "Save",
-
-  "ScreenWarning__title": "Screen rotation detected",
-  "ScreenWarning__description": "Please rotate your device to portrait mode",
+  "SettingsPage__mmr": "MMR",
 
   "HallPage__createRoom": "Create room",
   "HallPage__onlinePlayers": "Online players",
