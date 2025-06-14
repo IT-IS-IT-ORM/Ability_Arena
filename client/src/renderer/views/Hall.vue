@@ -41,11 +41,12 @@
 import type { I_Room } from "@/type-def/Room";
 
 // Vue
-import { ref } from "vue";
+import { ref, onMounted, onBeforeUnmount } from "vue";
 // Router
 import { useRouter } from "vue-router";
 // Store
 import { usePlayerStore } from "@/store/player";
+import { useRoomStore } from "@/store/room";
 // i18n
 import { useI18n } from "vue-i18n";
 // Hooks
@@ -63,10 +64,19 @@ import {
 
 const router = useRouter();
 const playerStore = usePlayerStore();
+const roomStore = useRoomStore();
 const { t } = useI18n();
 
 const roomName = ref("");
 const roomNameError = ref("");
+
+onMounted(() => {
+  roomStore.fetchRooms();
+});
+
+onBeforeUnmount(() => {
+  roomStore.stopFetchRooms();
+});
 
 const { rooms, roomStatistics, loadingCreateRoom, createRoom } = useRoom({
   onSuccessCreateRoom: (room: I_Room) => {
