@@ -27,7 +27,9 @@
 
     <div class="bottom" :class="{ 'bottom--hide': isShowAvatarGrid }">
       <div v-if="playerStore.isAuthenticated" class="group">
-        <div class="mmr">{{ $t("MMR") }}: {{ playerStore.me.mmr }}</div>
+        <div class="mmr">
+          {{ $t("SettingsPage__mmr") }}: {{ playerStore.me.mmr }}
+        </div>
       </div>
 
       <div class="group">
@@ -47,6 +49,11 @@
               playerStore.isAuthenticated ? "SettingsPage__save" : "Auth__login"
             )
           }}
+        </ButtonComp>
+      </div>
+      <div v-if="playerStore.isAuthenticated" class="group">
+        <ButtonComp @click="handleLogout">
+          {{ $t("Auth__logout") }}
         </ButtonComp>
       </div>
     </div>
@@ -78,6 +85,11 @@ const handleAvatarChange = (i: number) => {
   playerStore.me.avatarIndex = i;
   isShowAvatarGrid.value = false;
 };
+
+function handleLogout() {
+  playerStore.logout();
+  username.value = "";
+}
 
 const { loadingLogin, loadingUpdate, login, update } = useSettingsService({
   onSuccessLogin(response) {
@@ -208,14 +220,12 @@ const handleSubmit = () => {
     }
 
     .group {
+      width: 100%;
       @include flex($direction: column, $gap: 8px);
-      color: #eee;
 
-      &:last-child {
-        button {
-          width: 220px;
-          max-width: 100%;
-        }
+      button {
+        width: 220px;
+        max-width: 100%;
       }
 
       .label {
