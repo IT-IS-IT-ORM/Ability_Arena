@@ -79,7 +79,7 @@ const shouldShowSider = computed(() => {
         display: none;
       }
     }
-    @media screen and (max-height: 700px) {
+    @media screen and (max-height: 690px) {
       .sider,
       .page-content {
         display: none;

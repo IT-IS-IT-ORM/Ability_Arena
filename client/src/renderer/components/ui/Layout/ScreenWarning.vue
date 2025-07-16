@@ -1,7 +1,8 @@
 <template>
   <div class="screen-warning">
     <div>Screen size not supported</div>
-    <div>Please use a screen with a width of 1024px or more.</div>
+    <div>Please use a screen with a width of 992px or more.</div>
+    <div>Please use a screen with a height of 690px or more.</div>
   </div>
 </template>
 
@@ -25,7 +26,7 @@ defineOptions({ name: "ScreenWarning" });
   @media screen and (max-width: 992px) {
     display: flex;
   }
-  @media screen and (max-height: 700px) {
+  @media screen and (max-height: 690px) {
     display: flex;
   }
 }
