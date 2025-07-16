@@ -52,4 +52,12 @@ export default [
       requiresAuth: false,
     },
   },
+  {
+    path: "/game",
+    name: "game",
+    component: () => import("@/views/Game.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
 ];
