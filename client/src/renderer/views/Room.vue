@@ -229,6 +229,11 @@ async function handleLeaveRoom() {
 }
 
 async function handleStartGame() {
+  // Test
+  playerStore.me.inGame = true;
+  router.push("/game");
+  return;
+
   if (isMyRoom.value) {
     await sendNotification("游戏开始!");
   } else {
