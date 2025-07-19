@@ -1,10 +1,9 @@
-import Lifeform from "#src/core/Lifeform.js";
-import Attribute from "#src/core/Attribute.js";
+import { Lucci, Vergo } from "#core/data/lifeform/index.js";
 
 /**
  * 杀戮兵器·路奇
  */
-const Lucci = new Lifeform({
+const Lucci = new Lucci({
   name: "杀戮兵器·路奇",
   level: 1,
   baseAttack: 22,
@@ -28,7 +27,7 @@ const Lucci = new Lifeform({
 /**
  * 鬼竹·维尔戈
  */
-const Vergo = new Lifeform({
+const Vergo = new Vergo({
   name: "鬼竹·维尔戈",
   level: 1,
   baseAttack: 29,

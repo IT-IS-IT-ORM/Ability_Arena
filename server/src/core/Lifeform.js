@@ -1,4 +1,4 @@
-import Attribute from "#src/core/Attribute.js";
+import Attribute from "#core/Attribute.js";
 
 /**
  * 生命体
