@@ -13,8 +13,10 @@ export default class Lifeform {
     baseMana,
     baseManaRecover,
     baseAttack,
+    baseAttackRange,
     baseArmor,
     baseMagicResistance = 0.25,
+    baseDamageRedution = 0,
     attribut,
     baseStrength,
     strengthGrowth,
@@ -43,10 +45,14 @@ export default class Lifeform {
     this.baseManaRecover = baseManaRecover;
     // 基础攻击力
     this.__baseAttack = baseAttack;
+    // 攻击距离
+    this.baseAttackRange = baseAttackRange;
     // 基础护甲
     this.__baseArmor = baseArmor;
     // 基础魔法抗性
     this.__baseMagicResistance = baseMagicResistance;
+    // 基础伤害减免
+    this.baseDamageRedution = baseDamageRedution;
 
     // 主属性
     this.attribut = attribut;
@@ -74,6 +80,11 @@ export default class Lifeform {
     // 先天技能
     this.innateAbility = innateAbility;
     this.innateAbility?.effect?.(this);
+
+    // 当前血量
+    this.currentHealth = this.health;
+    // 当前魔法值
+    this.currentMana = this.mana;
   }
 
   /**
@@ -159,6 +170,13 @@ export default class Lifeform {
   }
 
   /**
+   * 攻击距离
+   */
+  get attackRange() {
+    return this.baseAttackRange;
+  }
+
+  /**
    * 技能增强
    */
   get skillEnhancement() {
@@ -187,5 +205,12 @@ export default class Lifeform {
       this.__baseMagicResistance +
       this.strength * this.strengthGain.magicResistance
     );
+  }
+
+  /**
+   * 伤害减免
+   */
+  get damageRedution() {
+    return this.baseDamageRedution;
   }
 }
