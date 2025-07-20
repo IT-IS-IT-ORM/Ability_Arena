@@ -8,6 +8,7 @@ export default new Lifeform({
   name: "杀戮兵器·路奇",
   level: 1,
   baseAttack: 22,
+  baseAttackRange: 1,
   baseArmor: 4,
   baseHealth: 260,
   baseHealthRecover: 2.2,

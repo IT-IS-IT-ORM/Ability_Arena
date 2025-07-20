@@ -8,6 +8,7 @@ export default new Lifeform({
   name: "鬼竹·维尔戈",
   level: 1,
   baseAttack: 29,
+  baseAttackRange: 2,
   baseArmor: 10,
   baseHealth: 300,
   baseHealthRecover: 2.3,
@@ -23,7 +24,7 @@ export default new Lifeform({
   innateAbility: {
     name: "内在优势",
     description: "维尔戈从属性中获得的收益增加 25%",
-    effect: (lifeform) => {
+    effect(lifeform) {
       lifeform.strengthGain.health *= 1.25;
       lifeform.strengthGain.healthRecover *= 1.25;
       lifeform.agilityGain.armor *= 1.25;
